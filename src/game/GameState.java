@@ -1,5 +1,7 @@
 package game;
 
+import java.awt.Point;
+
 /*
  * A class for representing the Othello game state and logic. Provides methods for
  * determining 
@@ -78,6 +80,11 @@ public class GameState {
 	}
 	
 	/*
+	 * Increases the turn number. Only used when a counter is placed onto the board.
+	 */
+	private void incTurnNumber() {++this.turnNumber;}
+	
+	/*
 	 * Returns the maximum number of turns the game can last for.
 	 */
 	public int getMaxTurns() {
@@ -110,20 +117,54 @@ public class GameState {
 	/*
 	 * Gets the value located at a specific point of the game board.
 	 */
-	public int getBoardValue(int row, int col) {
+	public int getBoardValue(Point p) {
 		try {
-			return this.board[row][col];
+			return this.board[p.x][p.y];
 		} catch (ArrayIndexOutOfBoundsException e) {
 			throw new ArrayIndexOutOfBoundsException("The game board is of size " + BOARD_SIZE + " by " + BOARD_SIZE + ". The coordinates entered are out of these bounds.");
 		}
 	}
 	
 	/*
-	 * 
+	 * Returns the width and height of the game board as an array.
 	 */
 	public int[] getBoardDims() {
 		int[] dims = {BOARD_SIZE, BOARD_SIZE};
 		return dims;
+	}
+	
+	/*
+	 * Returns the total number of counters a player owns,
+	 * which requires the player's ID.
+	 */
+	public int getScore(int i) {
+		int sum = 0;
+		for (int row = 0; row < BOARD_SIZE; ++row) {
+			for (int col = 0; col < BOARD_SIZE; ++col) {
+				if (this.getBoardValue(new Point(row, col)) == i) {
+					++sum;
+				}
+			}
+		}
+		return sum;
+	}
+	
+	/*
+	 * Shortcut to passing player ID to the function.
+	 */
+	public int getScore(Player p) {return getScore(p.getPlayerID());}
+	
+	/*
+	 * Allows score to be retrieved for the player at the specified
+	 * index of the player array. 
+	 */
+	public int getScoreOfPlayer(int i) {return this.getScore(this.getPlayer(i));}
+	
+	/*
+	 * Determines the number of empty spaces on the game board.
+	 */
+	public int getEmptySpaces() {
+		return (BOARD_SIZE * BOARD_SIZE) - getScoreOfPlayer(0) - getScoreOfPlayer(1);
 	}
 	
 	/*
@@ -135,7 +176,7 @@ public class GameState {
 		
 		for (int row = 0; row < BOARD_SIZE; ++row) {
 			for (int col = 0; col < BOARD_SIZE; ++col) {
-				int boardValue = getBoardValue(row, col);
+				int boardValue = getBoardValue(new Point(row, col));
 				// Checks if board space is already occupied.
 				if (boardValue == 0) {
 					
@@ -144,7 +185,7 @@ public class GameState {
 					for (int localRow = row - 1; localRow <= row + 1; ++localRow) {
 						for (int localCol = col - 1; localCol <= col + 1; ++localCol) {
 							if (localRow >= 0 && localRow < BOARD_SIZE && localCol >= 0 && localCol < BOARD_SIZE) {
-								if (this.board[localRow][localCol] != 0) {
+								if (getBoardValue(new Point(localRow, localCol)) != 0) {
 									canMove = true;
 								}
 							}
@@ -160,19 +201,70 @@ public class GameState {
 		}
 		
 		return legalMoves;
+		
 	}
 	
 	/*
-	 * Rotates the board 90 degrees clockwise for the number of times specified.
-	 * Directly changes the game state.
+	 * Plays a player's counter at the provided point (shortcut function).
 	 */
-	private void rotateAndChange() {
-		int[][] oldBoard = this.getBoard();
+	public GameState playMove(Player p, Point move) {
+		return playMove(p.getPlayerID(), move);
+	}
+	
+	/*
+	 * Plays a player's counter at the provided point.
+	 */
+	public GameState playMove(int id, Point move) {
+		GameState newState = new GameState(this);
+		newState.placeCounter(id, move);
+		newState.incTurnNumber();
+		return newState;
+	}
+	
+	private void placeCounter(int id, Point move) {
+		this.board[move.x][move.y] = id;
+	}
+	
+	/*
+	 * Gets the number of moves available for a player.
+	 */
+	public int getNumberOfMoves(Player p) {
+		int sum = 0;
+		boolean[][] legalMoves = getLegalMoves(p);
 		for (int row = 0; row < BOARD_SIZE; ++row) {
 			for (int col = 0; col < BOARD_SIZE; ++col) {
-				this.board[row][col] = oldBoard[col][BOARD_SIZE - row];
+				if (legalMoves[row][col]) {++sum;}
 			}
 		}
+		return sum;
+	}
+	
+	/*
+	 * Gets the number of moves available for a player.
+	 */
+	public boolean hasLegalMoves(Player p) {
+		boolean[][] legalMoves = getLegalMoves(p);
+		for (int row = 0; row < BOARD_SIZE; ++row) {
+			for (int col = 0; col < BOARD_SIZE; ++col) {
+				if (legalMoves[row][col]) {return true;}
+			}
+		}
+		return false;
+	}
+	
+	/*
+	 * Determines if the game has progressed as far as it possibly can.
+	 */
+	public boolean isOver() {
+		
+		// Determine if board is at capacity.
+		boolean boardFull = getEmptySpaces() == 0;
+		
+		// Determine if any moves are available for each player.
+		boolean noMovesLeft = !(hasLegalMoves(getPlayer(0)) || hasLegalMoves(getPlayer(1)));
+		
+		return (boardFull || noMovesLeft);
+
 	}
 	
 	/*
@@ -187,6 +279,19 @@ public class GameState {
 		return newState;
 	}
 	
+	/*
+	 * Rotates the board 90 degrees clockwise for the number of times specified.
+	 * Directly changes the game state.
+	 */
+	private void rotateAndChange() {
+		int[][] oldBoard = this.getBoard();
+		for (int row = 0; row < BOARD_SIZE; ++row) {
+			for (int col = 0; col < BOARD_SIZE; ++col) {
+				this.board[row][col] = oldBoard[col][BOARD_SIZE - row];
+			}
+		}
+	}
+
 	/*
 	 * Checks to see if the provided game state is identical to this one.
 	 */
@@ -220,10 +325,9 @@ public class GameState {
 	public boolean hasSameBoardAs(GameState that) {
 		int[] thatDims = that.getBoardDims();
 		if (BOARD_SIZE == thatDims[0]) {
-			int[][] thatBoard = that.getBoard();
 			for (int row = 0; row < BOARD_SIZE; ++row) {
 				for (int col = 0; col < BOARD_SIZE; ++col) {
-					if (this.board[row][col] != thatBoard[row][col]) {
+					if (this.getBoardValue(new Point(row, col)) != that.getBoardValue(new Point(row, col))) {
 						return false;
 					}
 				}
@@ -247,7 +351,7 @@ public class GameState {
 		
 		for (int row = 0; row < BOARD_SIZE; ++row) {
 			for (int col = 0; col < BOARD_SIZE; ++col) {
-				theString += this.board[row][col] + "|";
+				theString += this.getBoardValue(new Point(row, col)) + "|";
 			}
 			theString += "\n" + divider + "\n |";
 		}
