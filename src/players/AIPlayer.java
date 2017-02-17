@@ -13,9 +13,13 @@ public class AIPlayer extends Player {
 
 	public AIPlayer(int id, Decider d, Evaluator e) {
 		super(id);
-		this.type = "AI";
 		this.d = d;
 		this.e = e;
+	}
+	
+	@Override
+	public String getPlayerType() {
+		return "AI(" + d.getType() + "," + e.getType() + ")"; 
 	}
 
 	@Override

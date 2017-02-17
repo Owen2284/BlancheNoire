@@ -7,12 +7,10 @@ import game.GameState;
 import players.Player;
 
 public abstract class Decider {
-	
-	private String type = "";
 
 	public Decider() {}
 	
-	public String getType() {return this.type;}
+	public abstract String getType();
 	
 	public abstract Point decide(GameState g, Evaluator e, Player p);
 

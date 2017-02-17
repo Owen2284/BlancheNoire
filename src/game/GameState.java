@@ -10,7 +10,7 @@ import players.Player;
  */
 public class GameState {
 	
-	// Stores 0 (empty), 1 (player 1 counter) or 2 (player 2 counter).
+	// Stores 0 (empty), 1 (dark counter) or 2 (light counter).
 	private int[][] board;				
 	
 	// Stores two player object references.
@@ -21,6 +21,7 @@ public class GameState {
 	
 	private final int BOARD_SIZE = 8;
 	
+	public static final int COUNTER_EMPTY = 0;
 	public static final int COUNTER_DARK = 1;
 	public static final int COUNTER_LIGHT = 2;
 
@@ -31,7 +32,7 @@ public class GameState {
 		this.board = new int[BOARD_SIZE][BOARD_SIZE];
 		for (int row = 0; row < BOARD_SIZE; ++row) {
 			for (int col = 0; col < BOARD_SIZE; ++col) {
-				this.board[row][col] = 0;
+				this.board[row][col] = COUNTER_EMPTY;
 			}
 		}
 		this.board[(BOARD_SIZE / 2) - 1][(BOARD_SIZE / 2) - 1] = COUNTER_LIGHT;
@@ -139,11 +140,11 @@ public class GameState {
 	 * Returns the total number of counters a player owns,
 	 * which requires the player's ID.
 	 */
-	public int getScore(int i) {
+	public int getScore(int id) {
 		int sum = 0;
 		for (int row = 0; row < BOARD_SIZE; ++row) {
 			for (int col = 0; col < BOARD_SIZE; ++col) {
-				if (this.getBoardValue(new Point(row, col)) == i) {
+				if (this.getBoardValue(new Point(row, col)) == id) {
 					++sum;
 				}
 			}
@@ -180,7 +181,7 @@ public class GameState {
 			for (int col = 0; col < BOARD_SIZE; ++col) {
 				int boardValue = getBoardValue(new Point(row, col));
 				// Checks if board space is already occupied.
-				if (boardValue == 0) {
+				if (boardValue == COUNTER_EMPTY) {
 					
 					// Determines if there is another counter within one space of the position.
 					boolean canMove = false;
@@ -228,7 +229,7 @@ public class GameState {
 				// Player's counter found, return number of counters 
 				// between initial counter and this counter.
 				return lineLength;
-			} else if (getBoardValue(new Point(row,col)) != 0) {
+			} else if (getBoardValue(new Point(row,col)) != COUNTER_EMPTY) {
 				// Opponent counter found, increment number of counters on line
 				// that can be flipped.
 				++lineLength;
@@ -448,8 +449,8 @@ public class GameState {
 		theString = theString.substring(0, theString.length() - 1) + "\n";
 		
 		theString += "Players:\n";
-		theString += " 1. " + this.players[0].toString() + "\n";
-		theString += " 2. " + this.players[1].toString() + "\n\n";
+		theString += " 1. " + this.players[0].getPlayerType() + " - " + this.getScore(this.players[0]) + "\n";
+		theString += " 2. " + this.players[1].getPlayerType() + " - " + this.getScore(this.players[1]) + "\n\n";
 		
 		theString += "Turn Number: " + this.turnNumber;
 		
@@ -458,7 +459,7 @@ public class GameState {
 	}
 	
 	/*
-	 * Debug method for determining corectness of Othello logic.
+	 * Debug method for determining correctness of Othello logic.
 	 */
 	public void printLinesFrom(int row, int col, int counterType) {
 		String lines = "";

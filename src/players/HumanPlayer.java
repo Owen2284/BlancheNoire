@@ -9,9 +9,13 @@ public class HumanPlayer extends Player {
 
 	public HumanPlayer(int id) {
 		super(id);
-		this.type = "Human";
 	}
 	
+	@Override
+	public String getPlayerType() {
+		return "Human";
+	}
+		
 	@Override
 	public Point getMove(GameState g) {
 		return getMoveFromCommandPrompt(g);
@@ -25,7 +29,6 @@ public class HumanPlayer extends Player {
 		boolean[][] allowedMoves = g.getLegalMoves(this);
 		boolean goodMove = false;
 		
-		System.out.println(g);
 		while (!goodMove) {
 			System.out.println("Enter the row you wish to place a counter at:");
 			coord[0] = sc.nextInt();
@@ -43,5 +46,7 @@ public class HumanPlayer extends Player {
 		return new Point(coord[0], coord[1]);
 		
 	}
+
+
 
 }

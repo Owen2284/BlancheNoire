@@ -10,8 +10,11 @@ import players.Player;
 
 public class RandomDecider extends Decider {
 
-	public RandomDecider() {
-		// TODO Auto-generated constructor stub
+	public RandomDecider() {}
+	
+	@Override
+	public String getType() {
+		return "Random";
 	}
 
 	@Override
@@ -19,7 +22,7 @@ public class RandomDecider extends Decider {
 		boolean[][] legalMoves = g.getLegalMoves(p);
 		ArrayList<Point> possibleMoves = new ArrayList<Point>();
 		for (int row = 0; row < g.getBoardDims()[0]; ++row) {
-			for (int col = 0; col < g.getBoardDims()[1]; ++row) {
+			for (int col = 0; col < g.getBoardDims()[1]; ++col) {
 				if (legalMoves[row][col]) {
 					possibleMoves.add(new Point(row, col));
 				}

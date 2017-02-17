@@ -7,11 +7,9 @@ import game.GameState;
 public abstract class Player {
 	
 	protected int id;			// Determines what counter the player controls.
-	protected String type;
 
 	public Player(int id) {
 		this.id = id;
-		this.type = "";
 	}
 	
 	/*
@@ -23,7 +21,7 @@ public abstract class Player {
 	/*
 	 * Returns the player's type, which will typically be "Human" or "AI".
 	 */
-	public String getPlayerType() {return this.type;}
+	public abstract String getPlayerType();
 	
 	/*
 	 * Returns the coordinates the player wishes to play a counter at.
