@@ -3,8 +3,8 @@ package main;
 import java.awt.Point;
 
 import game.GameState;
-import game.HumanPlayer;
-import game.Player;
+import players.HumanPlayer;
+import players.Player;
 
 public class Othello {
 	

@@ -1,7 +1,7 @@
 package main;
 
 import game.GameState;
-import game.HumanPlayer;
+import players.HumanPlayer;
 
 public class Test {
 
@@ -19,6 +19,8 @@ public class Test {
 		}
 		System.out.println(game.getScore(game.getPlayer(0)));
 		System.out.println(game.getScoreOfPlayer(1));
+		game.printLinesFrom(2,3,game.getPlayer(0).getPlayerID());
+		game.printLinesFrom(7,7,game.getPlayer(0).getPlayerID());
 	}
 
 }

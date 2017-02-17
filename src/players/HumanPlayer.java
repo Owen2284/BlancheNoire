@@ -1,7 +1,9 @@
-package game;
+package players;
 
 import java.awt.Point;
 import java.util.Scanner;
+
+import game.GameState;
 
 public class HumanPlayer extends Player {
 

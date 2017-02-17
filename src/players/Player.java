@@ -1,6 +1,8 @@
-package game;
+package players;
 
 import java.awt.Point;
+
+import game.GameState;
 
 public abstract class Player {
 	
@@ -16,23 +18,15 @@ public abstract class Player {
 	 * Returns the player's ID, which must match the number of the counter type
 	 * they will control.
 	 */
-	public int getPlayerID() {
-		return this.id;
-	}
+	public int getPlayerID() {return this.id;}
 	
 	/*
 	 * Returns the player's type, which will typically be "Human" or "AI".
 	 */
-	public String getPlayerType() {
-		return this.type;
-	}
+	public String getPlayerType() {return this.type;}
 	
 	/*
 	 * Returns the coordinates the player wishes to play a counter at.
 	 */
-	public Point getMove(GameState g) {
-		Point move = new Point(-1, -1);
-		return move;
-	}
-
+	public abstract Point getMove(GameState g);
 }

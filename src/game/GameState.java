@@ -2,6 +2,8 @@ package game;
 
 import java.awt.Point;
 
+import players.Player;
+
 /*
  * A class for representing the Othello game state and logic. Provides methods for
  * determining 
@@ -184,11 +186,15 @@ public class GameState {
 					boolean canMove = false;
 					for (int localRow = row - 1; localRow <= row + 1; ++localRow) {
 						for (int localCol = col - 1; localCol <= col + 1; ++localCol) {
-							if (localRow >= 0 && localRow < BOARD_SIZE && localCol >= 0 && localCol < BOARD_SIZE) {
-								if (getBoardValue(new Point(localRow, localCol)) != 0) {
-									canMove = true;
+							if (localRow >= 0 && localRow < BOARD_SIZE && localCol >= 0 && localCol < BOARD_SIZE && !(localRow == row && localCol == col)) {
+								canMove = getFlippedCounters(row, col, localRow - row, localCol - col, p.getPlayerID()) > 0;
+								if (canMove) {
+									break;
 								}
 							}
+						}
+						if (canMove) {
+							break;
 						}
 					}
 					
@@ -205,6 +211,62 @@ public class GameState {
 	}
 	
 	/*
+	 * Determines how many counters would be flipped in a certain direction
+	 * if a counter is placed at the provided coordinates.
+	 */
+	private int getFlippedCounters(int initRow, int initCol, int deltaRow, int deltaCol, int counterType) {
+		// Initialising counter and coordinate variables.
+		int lineLength = 0;
+		int row = initRow + deltaRow;
+		int col = initCol + deltaCol;
+		
+		// Loop to travel along the line specified by the delta parameters.
+		while (row >= 0 && row < BOARD_SIZE && col >= 0 && col < BOARD_SIZE) {
+
+			// Determine what counter is at the current locaation in the line.
+			if (getBoardValue(new Point(row,col)) == counterType) {
+				// Player's counter found, return number of counters 
+				// between initial counter and this counter.
+				return lineLength;
+			} else if (getBoardValue(new Point(row,col)) != 0) {
+				// Opponent counter found, increment number of counters on line
+				// that can be flipped.
+				++lineLength;
+			} else {
+				// Empty space found, no bracketing possible.
+				return 0;
+			}
+			
+			// Move to next location.
+			row += deltaRow;
+			col += deltaCol;
+			
+		}
+		
+		// Edge of board reached, no bracketing possible.
+		return 0;
+		
+	}
+	
+	/*
+	 * Gets values of getFlippedCounters() in each direction from a provided
+	 * point for a specified player.
+	 */
+	public int[][] getLinesFrom(int row, int col, int counterType) {
+		int[][] lines = new int[3][3];
+		lines[0][0] = getFlippedCounters(row, col, -1, -1, counterType);
+		lines[0][1] = getFlippedCounters(row, col, -1, 0, counterType);
+		lines[0][2] = getFlippedCounters(row, col, -1, 1, counterType);
+		lines[1][0] = getFlippedCounters(row, col, 0, -1, counterType);
+		lines[1][1] = 0;
+		lines[1][2] = getFlippedCounters(row, col, 0, 1, counterType);
+		lines[2][0] = getFlippedCounters(row, col, 1, -1, counterType);
+		lines[2][1] = getFlippedCounters(row, col, 1, 0, counterType);
+		lines[2][2] = getFlippedCounters(row, col, 1, 1, counterType);
+		return lines;
+	}
+	
+	/*
 	 * Plays a player's counter at the provided point (shortcut function).
 	 */
 	public GameState playMove(Player p, Point move) {
@@ -215,8 +277,35 @@ public class GameState {
 	 * Plays a player's counter at the provided point.
 	 */
 	public GameState playMove(int id, Point move) {
+		
+		// Creates a copy of the current GameState to return.
 		GameState newState = new GameState(this);
+		
+		// Gets the row and column number, plus the lengths of the lines of
+		// counters that can be flipped from this point.
+		int row = move.x;
+		int col = move.y;
+		int[][] lines = getLinesFrom(row, col, id);
+		
+		// Places the counter the player want to play.
 		newState.placeCounter(id, move);
+		
+		// Processes the flipping of counters from this point.
+		for (int linesRow = 0; linesRow < 3; ++linesRow) {
+			for (int linesCol = 0; linesCol < 3; ++linesCol) {
+				int lineLength = lines[linesRow][linesCol];
+				int localRow = row;
+				int localCol = col;
+				while (lineLength > 0) {
+					localRow += (linesRow - 1);
+					localCol += (linesCol - 1);
+					newState.placeCounter(id, new Point(localRow, localCol));
+					--lineLength;
+				}
+			}
+		}
+		
+		// Increment state turn number and return the GameState
 		newState.incTurnNumber();
 		return newState;
 	}
@@ -366,6 +455,25 @@ public class GameState {
 		
 		return theString;
 		
+	}
+	
+	/*
+	 * Debug method for determining corectness of Othello logic.
+	 */
+	public void printLinesFrom(int row, int col, int counterType) {
+		String lines = "";
+		lines += getFlippedCounters(row, col, -1, -1, counterType) + ",";
+		lines += getFlippedCounters(row, col, -1, 0, counterType) + ",";
+		lines += getFlippedCounters(row, col, -1, 1, counterType);
+		lines += "\n";
+		lines += getFlippedCounters(row, col, 0, -1, counterType) + ",";
+		lines += "-,";
+		lines += getFlippedCounters(row, col, 0, 1, counterType);
+		lines += "\n";
+		lines += getFlippedCounters(row, col, 1, -1, counterType) + ",";
+		lines += getFlippedCounters(row, col, 1, 0, counterType) + ",";
+		lines += getFlippedCounters(row, col, 1, 1, counterType);
+		System.out.println(lines);
 	}
 	
 }
