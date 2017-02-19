@@ -32,6 +32,7 @@ public class Othello {
 			
 			// Display the current game state.
 			System.out.println(game);
+			ui.updateUI(game);
 			
 			// Retrieve the player that is next to play.
 			Player playerToPlay = game.getPlayer(nextPlayerNumber);

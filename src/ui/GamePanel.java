@@ -8,6 +8,8 @@ import java.awt.event.MouseListener;
 
 import javax.swing.JPanel;
 
+import game.GameState;
+
 /*
  * A UI panel for displaying the current game state.
  */
@@ -26,6 +28,10 @@ public class GamePanel extends JPanel implements MouseListener {
 		
 		// Adds a mouse listener to the panel.
 		this.addMouseListener(this);
+		
+	}
+	
+	public void updateUI(GameState game) {
 		
 	}
 	
