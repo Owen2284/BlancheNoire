@@ -171,9 +171,16 @@ public class GameState {
 	}
 	
 	/*
-	 * Returns a boolean array of where the provided player can play their counters.
+	 * Returns a boolean array of where the provided player can play their counters. (Shortcut)
 	 */
 	public boolean[][] getLegalMoves(Player p) {
+		return getLegalMoves(p.getPlayerID());
+	}
+	
+	/*
+	 * Returns a boolean array of where the provided player can play their counters.
+	 */
+	public boolean[][] getLegalMoves(int p) {
 		
 		boolean[][] legalMoves = new boolean[BOARD_SIZE][BOARD_SIZE];
 		
@@ -188,7 +195,7 @@ public class GameState {
 					for (int localRow = row - 1; localRow <= row + 1; ++localRow) {
 						for (int localCol = col - 1; localCol <= col + 1; ++localCol) {
 							if (localRow >= 0 && localRow < BOARD_SIZE && localCol >= 0 && localCol < BOARD_SIZE && !(localRow == row && localCol == col)) {
-								canMove = getFlippedCounters(row, col, localRow - row, localCol - col, p.getPlayerID()) > 0;
+								canMove = getFlippedCounters(row, col, localRow - row, localCol - col, p) > 0;
 								if (canMove) {
 									break;
 								}

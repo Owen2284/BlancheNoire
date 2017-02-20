@@ -2,13 +2,10 @@ package main;
 
 import java.awt.Point;
 
-import javax.swing.JFrame;
-
 import game.GameState;
 import players.Player;
 import players.PlayerFactory;
 import ui.OthelloFrame;
-import ui.ScorePanel;
 
 public class Othello {
 	
@@ -30,12 +27,19 @@ public class Othello {
 		
 		while (!game.isOver()) {
 			
-			// Display the current game state.
-			System.out.println(game);
-			ui.updateUI(game);
-			
 			// Retrieve the player that is next to play.
 			Player playerToPlay = game.getPlayer(nextPlayerNumber);
+			
+			// Display the current game state.
+			System.out.println(game);
+			ui.updateUI(game, playerToPlay);
+			
+			// Temporary pause to show game state.
+			try {
+				Thread.sleep(500);
+			} catch (Exception e) {
+				// Continue execution.
+			}
 			
 			// Determine if the player can make a move or not.
 			if (game.hasLegalMoves(playerToPlay)) {
@@ -55,6 +59,7 @@ public class Othello {
 		
 		// Display the final game state.
 		System.out.println(game);
+		ui.updateUI(game, game.getPlayer(nextPlayerNumber));
 		
 	}
 

@@ -10,6 +10,7 @@ import java.awt.event.ActionListener;
 import javax.swing.JFrame;
 
 import game.GameState;
+import players.Player;
 
 /*
  * A Swing-based class that aggregates the three Panels that make up the Othello
@@ -34,7 +35,6 @@ public class OthelloFrame extends JFrame implements ActionListener {
 		this.setBackground(Color.BLACK);
 		this.setPreferredSize(new Dimension(FRAME_WIDTH, FRAME_HEIGHT));
 		this.setResizable(false);
-		this.setLocationRelativeTo(null);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		// Adding panels.
@@ -47,16 +47,18 @@ public class OthelloFrame extends JFrame implements ActionListener {
         this.pack();
 		
 		// Reveal the frame.
+        this.setLocationRelativeTo(null);
 		this.setVisible(true);
+		
 	}
 	
 	/*
 	 * Method that changes the interface to reflect the game state.
 	 */
-	public void updateUI(GameState game) {
+	public void updateUI(GameState game, Player playerToPlay) {
 		this.top.updateUI(game);
-		this.middle.updateUI(game);
-		this.bottom.updateUI(game);
+		this.middle.updateUI(game, playerToPlay);
+		this.bottom.updateUI(game, playerToPlay);
 		this.top.repaint();
 		this.middle.repaint();
 		this.bottom.repaint();
@@ -73,6 +75,7 @@ public class OthelloFrame extends JFrame implements ActionListener {
 		this.middle.repaint();
 		this.bottom.repaint();
 		this.repaint();
+		System.out.println("X");
 	}
 	
 
