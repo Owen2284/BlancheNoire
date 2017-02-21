@@ -3,6 +3,10 @@ package evaluators;
 import game.GameState;
 import players.Player;
 
+/**
+ * Abstract class representing the interface that classes that are used
+ * as evaluators must use.
+ */
 public abstract class Evaluator {
 
 	public Evaluator() {}

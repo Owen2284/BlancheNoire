@@ -4,23 +4,21 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.HeadlessException;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 import javax.swing.JFrame;
 
 import game.GameState;
 import players.Player;
 
-/*
+/**
  * A Swing-based class that aggregates the three Panels that make up the Othello
  * interface into one Frame.
  */
-public class OthelloFrame extends JFrame implements ActionListener {
+public class OthelloFrame extends JFrame {
 	
-	private ScorePanel top;
-	private GamePanel middle;
-	private InfoPanel bottom;
+	public ScorePanel top;
+	public GamePanel middle;
+	public InfoPanel bottom;
 	
 	public static final int FRAME_WIDTH = 800;
 	public static final int FRAME_HEIGHT = 600;
@@ -52,8 +50,10 @@ public class OthelloFrame extends JFrame implements ActionListener {
 		
 	}
 	
-	/*
+	/**
 	 * Method that changes the interface to reflect the game state.
+	 * @param game - the current GameState of the Othello game.
+	 * @param playerToPlay - The player who is currently taking their turn.
 	 */
 	public void updateUI(GameState game, Player playerToPlay) {
 		this.top.updateUI(game);
@@ -64,21 +64,5 @@ public class OthelloFrame extends JFrame implements ActionListener {
 		this.bottom.repaint();
 		this.repaint();
 	}
-	
-	/*
-	 * Method called when an action is detected which repaints the
-	 * components using their cached information.
-	 */
-	@Override
-	public void actionPerformed(ActionEvent e) {
-		this.top.repaint();
-		this.middle.repaint();
-		this.bottom.repaint();
-		this.repaint();
-		System.out.println("X");
-	}
-	
-
-	
 
 }

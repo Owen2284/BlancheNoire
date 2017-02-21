@@ -1,14 +1,27 @@
 package players;
 
 import java.awt.Point;
+import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 import game.GameState;
+import ui.GamePanel;
 
+/**
+ * A Player subclass that represents a human-controlled player. Moves that a
+ * HumanPlayer makes are determined by the human's input.
+ */
 public class HumanPlayer extends Player {
 
-	public HumanPlayer(int id) {
+	private boolean usingGUI;
+	private Scanner scanner;
+	
+	public HumanPlayer(int id, boolean useGUI) {
 		super(id);
+		this.usingGUI = useGUI;
+		if (!usingGUI) {
+			this.scanner = new Scanner(System.in);
+		}
 	}
 	
 	@Override
@@ -17,13 +30,27 @@ public class HumanPlayer extends Player {
 	}
 		
 	@Override
-	public Point getMove(GameState g) {
-		return getMoveFromCommandPrompt(g);
+	public Point getMove(GameState game, GamePanel panel) {
+		if (!usingGUI) {
+			try {
+				return getMoveFromCommandPrompt(game);
+			} catch (NoSuchElementException e) {
+				System.out.println("Error occured, NoSuchElementException caught.");
+				return null;
+			}
+		} else {
+			return panel.getPlayerMoveViaUI(game, this);
+		}
 	}
 	
-	public Point getMoveFromCommandPrompt(GameState g) {
+	/**
+	 * Method that obtains the player's move via the command prompt.
+	 * (UNUSED - Doesn't work.)
+	 * @param g - the current GameState.
+	 * @return a Point on the board of the GameState to play a counter on.
+	 */
+	private Point getMoveFromCommandPrompt(GameState g) {
 		
-		Scanner sc = new Scanner(System.in);
 		int[] coord = new int[2];
 		coord[0] = -1; coord[1] = -1;
 		boolean[][] allowedMoves = g.getLegalMoves(this);
@@ -31,17 +58,15 @@ public class HumanPlayer extends Player {
 		
 		while (!goodMove) {
 			System.out.println("Enter the row you wish to place a counter at:");
-			coord[0] = sc.nextInt();
+			coord[0] = scanner.nextInt();
 			System.out.println("Enter the column you wish to place a counter at:");
-			coord[1] = sc.nextInt();
+			coord[1] = scanner.nextInt();
 			if (coord[0] >= 0 && coord[0] < g.getBoardDims()[0] && coord[1] >= 0 && coord[1] < g.getBoardDims()[1] && allowedMoves[coord[0]][coord[1]]) {
 				goodMove = true;
 			} else {
 				System.out.println("Invalid move.");
 			}
 		}
-		
-		sc.close();
 		
 		return new Point(coord[0], coord[1]);
 		

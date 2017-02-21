@@ -3,18 +3,16 @@ package ui;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 import javax.swing.JPanel;
 
 import game.GameState;
 import players.Player;
 
-/*
+/**
  * A UI panel for displaying additional information about the game.
  */
-public class InfoPanel extends JPanel implements ActionListener {
+public class InfoPanel extends JPanel {
 	
 	private String info;
 	
@@ -23,12 +21,20 @@ public class InfoPanel extends JPanel implements ActionListener {
 
 	private static final long serialVersionUID = 1895792502596588154L;
 
+	/**
+	 * Constructor.
+	 */
 	public InfoPanel() {
 		this.setPreferredSize(new Dimension(PANEL_WIDTH, PANEL_HEIGHT));
 		this.setBackground(Color.WHITE);
 		this.info = "";
 	}
 	
+	/**
+	 * Method that caches information about the game.
+	 * @param game - the current GameState of the Othello game.
+	 * @param playerToPlay - The player who is currently taking their turn.
+	 */
 	public void updateUI(GameState game, Player playerToPlay) {
 		if (game.isOver()) {
 			int[] scores = {game.getScore(1), game.getScore(2)};
@@ -56,9 +62,4 @@ public class InfoPanel extends JPanel implements ActionListener {
 		g.drawString(this.info, PANEL_WIDTH/2-(this.info.length() * 2), PANEL_HEIGHT/2);
 	}
 	
-	@Override
-	public void actionPerformed(ActionEvent e) {
-		System.out.print("I");
-	}
-
 }
