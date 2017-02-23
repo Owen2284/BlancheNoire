@@ -102,6 +102,8 @@ public class Othello {
 			} else {
 				p2 = PlayerFactory.createPlayer(GameState.COUNTER_LIGHT, "AI", "Random", "Score", useGUI, maxSearchTime, false);
 			}
+			
+			
 				
 			// Creates basic game.
 			GameState game = new GameState(p1, p2, boardSize);

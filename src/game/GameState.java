@@ -94,8 +94,19 @@ public class GameState {
 		try {
 			return this.players[playerNumber];
 		} catch (Error e) {
-			throw new ArrayIndexOutOfBoundsException("Player array index accessed incorrectly, array is zero-indexed.");
+			throw new ArrayIndexOutOfBoundsException("Player array index accessed incorrectly, array is zero-indexed and contains two Players.");
 		}
+	}
+	
+	/**
+	 * Returns the player in the game state that isn't the provided player.
+	 * @param p - the player that is already known.
+	 * @return the Player object representing the opposing player.
+	 */
+	public Player getOpposingPlayer(Player p) {
+		if (p.equals(this.players[0])) {return this.players[1];}
+		else if (p.equals(this.players[1])) {return this.players[0];}
+		else {throw new IllegalArgumentException("Provided Player object is not participating in this game.");}
 	}
 	
 	/**
@@ -204,7 +215,7 @@ public class GameState {
 	/**
 	 * Returns a boolean array of where the provided player can play their counters.
 	 */
-	public boolean[][] getLegalMoves(int p) {
+	public boolean[][] getLegalMoves(int id) {
 		
 		boolean[][] legalMoves = new boolean[boardSize][boardSize];
 		
@@ -219,7 +230,7 @@ public class GameState {
 					for (int localRow = row - 1; localRow <= row + 1; ++localRow) {
 						for (int localCol = col - 1; localCol <= col + 1; ++localCol) {
 							if (localRow >= 0 && localRow < boardSize && localCol >= 0 && localCol < boardSize && !(localRow == row && localCol == col)) {
-								canMove = getFlippedCounters(row, col, localRow - row, localCol - col, p) > 0;
+								canMove = getFlippedCounters(row, col, localRow - row, localCol - col, id) > 0;
 								if (canMove) {
 									break;
 								}
@@ -310,6 +321,11 @@ public class GameState {
 	 */
 	public GameState playMove(int id, Point move) {
 		
+		// Check that a valid move has been passed to the function.
+		if (move == null) {
+			throw new IllegalArgumentException("Null object passed to playMove function, requires Point object.");
+		}
+		
 		// Creates a copy of the current GameState to return.
 		GameState newState = new GameState(this);
 		
@@ -319,27 +335,35 @@ public class GameState {
 		int col = move.y;
 		int[][] lines = getLinesFrom(row, col, id);
 		
-		// Places the counter the player want to play.
-		newState.placeCounter(id, move);
+		// Checks that the move passed to the function is legal.
+		if (this.getLegalMoves(id)[row][col]) {
 		
-		// Processes the flipping of counters from this point.
-		for (int linesRow = 0; linesRow < 3; ++linesRow) {
-			for (int linesCol = 0; linesCol < 3; ++linesCol) {
-				int lineLength = lines[linesRow][linesCol];
-				int localRow = row;
-				int localCol = col;
-				while (lineLength > 0) {
-					localRow += (linesRow - 1);
-					localCol += (linesCol - 1);
-					newState.placeCounter(id, new Point(localRow, localCol));
-					--lineLength;
+			// Places the counter the player want to play.
+			newState.placeCounter(id, move);
+			
+			// Processes the flipping of counters from this point.
+			for (int linesRow = 0; linesRow < 3; ++linesRow) {
+				for (int linesCol = 0; linesCol < 3; ++linesCol) {
+					int lineLength = lines[linesRow][linesCol];
+					int localRow = row;
+					int localCol = col;
+					while (lineLength > 0) {
+						localRow += (linesRow - 1);
+						localCol += (linesCol - 1);
+						newState.placeCounter(id, new Point(localRow, localCol));
+						--lineLength;
+					}
 				}
 			}
+			
+			// Increment state turn number and return the GameState
+			newState.incTurnNumber();
+			return newState;
+		
+		} else {
+			throw new IllegalArgumentException("No legal move at (" + row + "," + col + ").");
 		}
 		
-		// Increment state turn number and return the GameState
-		newState.incTurnNumber();
-		return newState;
 	}
 	
 	private void placeCounter(int id, Point move) {

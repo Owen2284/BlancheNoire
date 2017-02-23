@@ -13,9 +13,8 @@ public class ScoreEvaluator extends Evaluator {
 	}
 	
 	@Override
-	public int evaluate(GameState g, Player p) {
-		int id = p.getPlayerID();
-		return g.getScore(id) - g.getScore(1+(1-id));
+	public float evaluate(GameState game, Player p) {
+		return game.getScore(p) - game.getScore(game.getOpposingPlayer(p));
 	}
 
 

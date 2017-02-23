@@ -13,6 +13,6 @@ public abstract class Evaluator {
 	
 	public abstract String getType();
 	
-	public abstract int evaluate(GameState g, Player p);
+	public abstract float evaluate(GameState game, Player p);
 
 }

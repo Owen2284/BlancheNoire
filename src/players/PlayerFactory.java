@@ -4,6 +4,7 @@ import deciders.Decider;
 import deciders.MinimaxDecider;
 import deciders.RandomDecider;
 import evaluators.Evaluator;
+import evaluators.PositionalEvaluator;
 import evaluators.ScoreEvaluator;
 
 public final class PlayerFactory {
@@ -43,6 +44,8 @@ public final class PlayerFactory {
 			// Determine the Evaluator to be created.
 			if (evaluator.equals("Score")) {
 				e = new ScoreEvaluator();
+			} else if (evaluator.equals("Positional")) {
+				e = new PositionalEvaluator();
 			} else {
 				if (!defaultToNull) {e = new ScoreEvaluator();}				
 				throw new IllegalArgumentException("Invalid Decider type.");
