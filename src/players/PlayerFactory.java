@@ -3,6 +3,7 @@ package players;
 import deciders.Decider;
 import deciders.FixedMinimaxDecider;
 import deciders.IterativeMinimaxDecider;
+import deciders.MonteCarloTreeSearchDecider;
 import deciders.RandomDecider;
 import evaluators.Evaluator;
 import evaluators.PositionalEvaluator;
@@ -39,6 +40,8 @@ public final class PlayerFactory {
 				d = new FixedMinimaxDecider(searchDepth);
 			} else if (decider.equals("IterativeMinimax")) {
 				d = new IterativeMinimaxDecider(searchDepth);
+			} else if (decider.equals("MCTS")) {
+				d = new MonteCarloTreeSearchDecider();
 			} else {
 				if (!defaultToNull) {d = new RandomDecider();}				
 				throw new IllegalArgumentException("Invalid Decider type.");
