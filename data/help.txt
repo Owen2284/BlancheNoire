@@ -1,5 +1,6 @@
 OTHELLO
 
+
 Available arguments:
 
 Argument Label	Type		Default	
@@ -7,7 +8,17 @@ Argument Label	Type		Default
 -player1		String		Human				Defines the type of player to represent player 1.
 -player2		String		AI(Random,Score)	Defines the type of player to represent player 2.
 -useGUI			boolean		true				Toggles the graphical interface on or off.
+-useCache		boolean		true				Enables or disables the ability for evaluators to cache GameState evaluations to speed up processing times.
 -moveDelay		int			100					Number of milliseconds to wait before allowing the next player to move. Allows game state to be viewed before it is changed again.
 -AIRunTime		int			5000				Number of milliseconds that an AI player is allowed to use to determine the move it wants to play.
 -runCount		int			1					Number of times to repeat the execution of the Othello game.
 -boardSize		int 		8					The width and height of the Othello board in board spaces.
+-searchDepth	int			6					The max depth that a Minimax AI will search to. Does not affect games where Minimax deciders are unused.
+
+
+Player argument formatting:
+
+Human Players:			Human
+AI Players:				AI(Random,Score)
+						AI(FixedMinimax,Positional)
+						AI(MCTS,DeepLearning)

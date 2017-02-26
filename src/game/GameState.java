@@ -402,13 +402,8 @@ public class GameState {
 	 */
 	public boolean isOver() {
 		
-		// Determine if board is at capacity.
-		boolean boardFull = getEmptySpaces() == 0;
-		
 		// Determine if any moves are available for each player.
-		boolean noMovesLeft = !(hasLegalMoves(getPlayer(0)) || hasLegalMoves(getPlayer(1)));
-		
-		return (boardFull || noMovesLeft);
+		return (!(hasLegalMoves(getPlayer(0)) || hasLegalMoves(getPlayer(1))));
 
 	}
 	
@@ -432,7 +427,7 @@ public class GameState {
 		int[][] oldBoard = this.getBoard();
 		for (int row = 0; row < boardSize; ++row) {
 			for (int col = 0; col < boardSize; ++col) {
-				this.board[row][col] = oldBoard[col][boardSize - row];
+				this.board[row][col] = oldBoard[col][boardSize - row - 1];
 			}
 		}
 	}

@@ -1,7 +1,8 @@
 package players;
 
 import deciders.Decider;
-import deciders.MinimaxDecider;
+import deciders.FixedMinimaxDecider;
+import deciders.IterativeMinimaxDecider;
 import deciders.RandomDecider;
 import evaluators.Evaluator;
 import evaluators.PositionalEvaluator;
@@ -17,7 +18,7 @@ public final class PlayerFactory {
 	 * @param evaluator - The name of the evaluator class that the player will use (e.g. Score, DeepLearning, etc.)
 	 * @return a Player object.
 	 */
-	public static Player createPlayer(int counter, String type, String decider, String evaluator, boolean usingGUI, int maxSearchTime, boolean defaultToNull) {
+	public static Player createPlayer(int counter, String type, String decider, String evaluator, boolean usingGUI, boolean usingCache, int searchDepth, int maxSearchTime, boolean defaultToNull) {
 		
 		// Determine the Player object to create first.
 		if (type.equals("Human")) {
@@ -34,8 +35,10 @@ public final class PlayerFactory {
 			// Determine the Decider to be created.
 			if (decider.equals("Random")) {
 				d = new RandomDecider();
-			} else if (decider.equals("Minimax")) {
-				d = new MinimaxDecider();
+			} else if (decider.equals("FixedMinimax")) {
+				d = new FixedMinimaxDecider(searchDepth);
+			} else if (decider.equals("IterativeMinimax")) {
+				d = new IterativeMinimaxDecider(searchDepth);
 			} else {
 				if (!defaultToNull) {d = new RandomDecider();}				
 				throw new IllegalArgumentException("Invalid Decider type.");
@@ -45,7 +48,7 @@ public final class PlayerFactory {
 			if (evaluator.equals("Score")) {
 				e = new ScoreEvaluator();
 			} else if (evaluator.equals("Positional")) {
-				e = new PositionalEvaluator();
+				e = new PositionalEvaluator(usingCache);
 			} else {
 				if (!defaultToNull) {e = new ScoreEvaluator();}				
 				throw new IllegalArgumentException("Invalid Decider type.");
