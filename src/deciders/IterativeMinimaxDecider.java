@@ -61,7 +61,6 @@ public class IterativeMinimaxDecider extends FixedMinimaxDecider {
 		// Returns the move found with the highest score.
 		Point highScoringMove = null;
 		for (Point key : moveScores.keySet()) {
-			System.out.println(moveScores.get(key));
 			if (highScoringMove == null || moveScores.get(key) > moveScores.get(highScoringMove)) {
 				highScoringMove = key;
 			}

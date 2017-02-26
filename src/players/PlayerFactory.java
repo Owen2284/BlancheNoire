@@ -18,7 +18,7 @@ public final class PlayerFactory {
 	 * @param evaluator - The name of the evaluator class that the player will use (e.g. Score, DeepLearning, etc.)
 	 * @return a Player object.
 	 */
-	public static Player createPlayer(int counter, String type, String decider, String evaluator, boolean usingGUI, boolean usingCache, int searchDepth, int maxSearchTime, boolean defaultToNull) {
+	public static Player createPlayer(int counter, String type, String decider, String evaluator, boolean usingGUI, int searchDepth, int maxSearchTime, boolean defaultToNull) {
 		
 		// Determine the Player object to create first.
 		if (type.equals("Human")) {
@@ -48,7 +48,7 @@ public final class PlayerFactory {
 			if (evaluator.equals("Score")) {
 				e = new ScoreEvaluator();
 			} else if (evaluator.equals("Positional")) {
-				e = new PositionalEvaluator(usingCache);
+				e = new PositionalEvaluator();
 			} else {
 				if (!defaultToNull) {e = new ScoreEvaluator();}				
 				throw new IllegalArgumentException("Invalid Decider type.");

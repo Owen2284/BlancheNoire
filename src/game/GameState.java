@@ -22,6 +22,10 @@ public class GameState {
 	// Stores the size of the game board.
 	private int boardSize;
 	
+	// Caches for holding data that takes a while to calculate.
+	private boolean[][][] legalMovesCache;
+	private int[] scoreCache;
+	
 	public static final int COUNTER_EMPTY = 0;
 	public static final int COUNTER_DARK = 1;
 	public static final int COUNTER_LIGHT = 2;
@@ -53,6 +57,11 @@ public class GameState {
 			this.players[0] = p1;
 			this.players[1] = p2;
 			this.turnNumber = 1;
+			this.legalMovesCache = new boolean[2][this.boardSize][this.boardSize];
+			this.legalMovesCache[0] = null;
+			this.legalMovesCache[1] = null;
+			this.scoreCache = new int[2];
+			computeScores();
 		} else {
 			throw new IllegalArgumentException("Board size must be greater than or equal to 2.");
 		}
@@ -77,7 +86,11 @@ public class GameState {
 		this.players[0] = that.getPlayer(0);
 		this.players[1] = that.getPlayer(1);
 		this.turnNumber = that.getTurnNumber();
-
+		this.legalMovesCache = new boolean[2][this.boardSize][this.boardSize];
+		this.legalMovesCache[0] = null;
+		this.legalMovesCache[1] = null;
+		this.scoreCache = new int[2];
+		computeScores();
 	}
 	
 	/**
@@ -176,15 +189,11 @@ public class GameState {
 	 * which requires the player's ID.
 	 */
 	public int getScore(int id) {
-		int sum = 0;
-		for (int row = 0; row < boardSize; ++row) {
-			for (int col = 0; col < boardSize; ++col) {
-				if (this.getBoardValue(new Point(row, col)) == id) {
-					++sum;
-				}
-			}
+		try {
+			return this.scoreCache[id-1];
+		} catch (ArrayIndexOutOfBoundsException e) {
+			throw new IllegalArgumentException("Invalid ID passed to getScore function.");
 		}
-		return sum;
 	}
 	
 	/**
@@ -197,6 +206,25 @@ public class GameState {
 	 * index of the player array. 
 	 */
 	public int getScoreOfPlayer(int i) {return this.getScore(this.getPlayer(i));}
+	
+	/**
+	 * Counts the scores of both players and stores them in a cache.
+	 */
+	private void computeScores() {
+		this.scoreCache[0] = computeScore(COUNTER_DARK);
+		this.scoreCache[1] = computeScore(COUNTER_LIGHT);
+	}
+	private int computeScore(int id) {
+		int sum = 0;
+		for (int row = 0; row < boardSize; ++row) {
+			for (int col = 0; col < boardSize; ++col) {
+				if (this.getBoardValue(new Point(row, col)) == id) {
+					++sum;
+				}
+			}
+		}
+		return sum;
+	}
 	
 	/**
 	 * Determines the number of empty spaces on the game board.
@@ -217,39 +245,71 @@ public class GameState {
 	 */
 	public boolean[][] getLegalMoves(int id) {
 		
-		boolean[][] legalMoves = new boolean[boardSize][boardSize];
-		
-		for (int row = 0; row < boardSize; ++row) {
-			for (int col = 0; col < boardSize; ++col) {
-				int boardValue = getBoardValue(new Point(row, col));
-				// Checks if board space is already occupied.
-				if (boardValue == COUNTER_EMPTY) {
-					
-					// Determines if there is another counter within one space of the position.
-					boolean canMove = false;
-					for (int localRow = row - 1; localRow <= row + 1; ++localRow) {
-						for (int localCol = col - 1; localCol <= col + 1; ++localCol) {
-							if (localRow >= 0 && localRow < boardSize && localCol >= 0 && localCol < boardSize && !(localRow == row && localCol == col)) {
-								canMove = getFlippedCounters(row, col, localRow - row, localCol - col, id) > 0;
-								if (canMove) {
-									break;
-								}
-							}
-						}
-						if (canMove) {
-							break;
-						}
-					}
-					
-					legalMoves[row][col] = canMove;
-					
-				} else {
-					legalMoves[row][col] = false;
-				}
+		// Checks if an allowed counter type has been passed to the function.
+		if (id == COUNTER_DARK || id == COUNTER_LIGHT) {
+			
+			// Checks the cache to see if the legal moves have already been calculated.
+			if (this.legalMovesCache[id-1] != null) {
+				return this.legalMovesCache[id-1];
 			}
+		
+			this.legalMovesCache[id-1] = getLegalMovesNoCache(id);
+			return this.legalMovesCache[id-1];
+			
+		} else {
+			throw new IllegalArgumentException("Invalid player ID, no counter type that macthes the ID " + id + ".");
 		}
 		
-		return legalMoves;
+	}
+	
+	/**
+	 * Returns a boolean array of where the provided player can play their counters, without using the
+	 * cache that the GameState uses to store legal move arrays.
+	 * @param id - the ID of the counter that the player controls.
+	 */
+	public boolean[][] getLegalMovesNoCache(int id) {
+		
+		// Checks if an allowed counter type has been passed to the function.
+		if (id == COUNTER_DARK || id == COUNTER_LIGHT) {
+			
+			boolean[][] legalMoves = new boolean[boardSize][boardSize];
+
+			for (int row = 0; row < boardSize; ++row) {
+				for (int col = 0; col < boardSize; ++col) {
+					int boardValue = getBoardValue(new Point(row, col));
+					// Checks if board space is already occupied.
+					if (boardValue == COUNTER_EMPTY) {
+						
+						// Determines if there is another counter within one space of the position.
+						boolean canMove = false;
+						for (int localRow = row - 1; localRow <= row + 1; ++localRow) {
+							for (int localCol = col - 1; localCol <= col + 1; ++localCol) {
+								if (localRow >= 0 && localRow < boardSize && localCol >= 0 && localCol < boardSize && !(localRow == row && localCol == col)) {
+									canMove = getFlippedCounters(row, col, localRow - row, localCol - col, id) > 0;
+									if (canMove) {
+										break;
+									}
+								}
+							}
+							if (canMove) {
+								break;
+							}
+						}
+						
+						legalMoves[row][col] = canMove;
+						
+					} else {
+						legalMoves[row][col] = false;
+					}
+				}
+			}
+			
+			return legalMoves;		
+			
+			
+		} else {
+			throw new IllegalArgumentException("Invalid player ID, no counter type that macthes the ID " + id + ".");
+		}
 		
 	}
 	
@@ -336,7 +396,7 @@ public class GameState {
 		int[][] lines = getLinesFrom(row, col, id);
 		
 		// Checks that the move passed to the function is legal.
-		if (this.getLegalMoves(id)[row][col]) {
+		if (this.getLegalMovesNoCache(id)[row][col]) {
 		
 			// Places the counter the player want to play.
 			newState.placeCounter(id, move);
@@ -358,6 +418,7 @@ public class GameState {
 			
 			// Increment state turn number and return the GameState
 			newState.incTurnNumber();
+			newState.computeScores();
 			return newState;
 		
 		} else {

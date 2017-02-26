@@ -9,7 +9,6 @@ import players.Player;
 public class FixedMinimaxDecider extends Decider {
 	
 	protected int depthToSearchTo;
-	
 	protected int debugNodesChecked;
 
 	public FixedMinimaxDecider(int depthToSearchTo) {this.depthToSearchTo = depthToSearchTo;}
@@ -30,7 +29,7 @@ public class FixedMinimaxDecider extends Decider {
 		Point bestMove = getMaxMove(game, depthToSearchTo, startTimestamp, maxSearchTime, e, playerNumber);
 		
 		// Prints out debug data.
-		System.out.println("Time taken:- " + (System.currentTimeMillis() - startTimestamp) + ", Nodes examined:- " + this.debugNodesChecked + ".");
+		System.out.println("Turn " + game.getTurnNumber() + ". Time taken:- " + (System.currentTimeMillis() - startTimestamp) + ", Nodes examined:- " + this.debugNodesChecked + ". N/ms:- " + (this.debugNodesChecked / (System.currentTimeMillis() - startTimestamp + 1)));
 		
 		// Returns the move with the best score found by the decider.
 		return bestMove;

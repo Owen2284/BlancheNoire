@@ -34,7 +34,6 @@ public class Othello {
 		
 		// Setting default values for game variables and applies command line arguments if they are found.
 		boolean useGUI = true;	
-		boolean useCache = true;
 		int delayBetweenMoves = 100;
 		int maxSearchTime = 5000;
 		int timesToRun = 1;
@@ -58,9 +57,6 @@ public class Othello {
 		try {
 			if (argMap.keySet().contains("-searchDepth".toUpperCase())) {searchDepth = Integer.parseInt(argMap.get("-searchDepth".toUpperCase()));}
 		} catch (Exception e) {System.out.println("Error parsing -searchDepth argument.");}
-		try {
-			if (argMap.keySet().contains("-useCache".toUpperCase())) {useCache = Boolean.parseBoolean(argMap.get("-useCache".toUpperCase()));}
-		} catch (Exception e) {System.out.println("Error parsing -useCache argument.");}
 			
 		// Runs the game multiple times if required.
 		for (int numRuns = 0; numRuns < timesToRun; ++numRuns) {
@@ -73,32 +69,32 @@ public class Othello {
 					String argString = argMap.get("-player1".toUpperCase());
 					if (argString.startsWith("AI")) {
 						String[] aiArgs = argString.substring(3, argString.length() - 1).split(",");
-						p1 = PlayerFactory.createPlayer(GameState.COUNTER_DARK, "AI", aiArgs[0], aiArgs[1], useGUI, useCache, searchDepth, maxSearchTime, false);
+						p1 = PlayerFactory.createPlayer(GameState.COUNTER_DARK, "AI", aiArgs[0], aiArgs[1], useGUI, searchDepth, maxSearchTime, false);
 					} else if (argString.startsWith("Human")) {
-						p1 = PlayerFactory.createPlayer(GameState.COUNTER_DARK, "Human", "", "", useGUI, useCache, searchDepth, maxSearchTime, false);
+						p1 = PlayerFactory.createPlayer(GameState.COUNTER_DARK, "Human", "", "", useGUI, searchDepth, maxSearchTime, false);
 					}
 				} catch (Exception e) {
 					System.out.println("Error parsing -player1 argument.");
-					p1 = PlayerFactory.createPlayer(GameState.COUNTER_DARK, "Human", "", "", useGUI, useCache, searchDepth, maxSearchTime, false);
+					p1 = PlayerFactory.createPlayer(GameState.COUNTER_DARK, "Human", "", "", useGUI, searchDepth, maxSearchTime, false);
 				}
 			} else {
-				p1 = PlayerFactory.createPlayer(GameState.COUNTER_DARK, "Human", "", "", useGUI, useCache, searchDepth, maxSearchTime, false);
+				p1 = PlayerFactory.createPlayer(GameState.COUNTER_DARK, "Human", "", "", useGUI, searchDepth, maxSearchTime, false);
 			}
 			if (argMap.keySet().contains("-player2".toUpperCase())) {
 				try {
 					String argString = argMap.get("-player2".toUpperCase());
 					if (argString.startsWith("AI")) {
 						String[] aiArgs = argString.substring(3, argString.length() - 1).split(",");
-						p2 = PlayerFactory.createPlayer(GameState.COUNTER_LIGHT, "AI", aiArgs[0], aiArgs[1], useGUI, useCache, searchDepth, maxSearchTime, false);
+						p2 = PlayerFactory.createPlayer(GameState.COUNTER_LIGHT, "AI", aiArgs[0], aiArgs[1], useGUI, searchDepth, maxSearchTime, false);
 					} else if (argString.startsWith("Human")) {
-						p2 = PlayerFactory.createPlayer(GameState.COUNTER_LIGHT, "Human", "", "", useGUI, useCache, searchDepth, maxSearchTime, false);
+						p2 = PlayerFactory.createPlayer(GameState.COUNTER_LIGHT, "Human", "", "", useGUI, searchDepth, maxSearchTime, false);
 					}
 				} catch (Exception e) {
 					System.out.println("Error parsing -player2 argument.");
-					p2 = PlayerFactory.createPlayer(GameState.COUNTER_LIGHT, "AI", "Random", "Score", useGUI, useCache, searchDepth, maxSearchTime, false);
+					p2 = PlayerFactory.createPlayer(GameState.COUNTER_LIGHT, "AI", "Random", "Score", useGUI, searchDepth, maxSearchTime, false);
 				}
 			} else {
-				p2 = PlayerFactory.createPlayer(GameState.COUNTER_LIGHT, "AI", "Random", "Score", useGUI, useCache, searchDepth, maxSearchTime, false);
+				p2 = PlayerFactory.createPlayer(GameState.COUNTER_LIGHT, "AI", "Random", "Score", useGUI, searchDepth, maxSearchTime, false);
 			}
 			
 			
