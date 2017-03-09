@@ -19,7 +19,8 @@ public final class PlayerFactory {
 	 * @param evaluator - The name of the evaluator class that the player will use (e.g. Score, DeepLearning, etc.)
 	 * @return a Player object.
 	 */
-	public static Player createPlayer(int counter, String type, String decider, String evaluator, boolean usingGUI, int searchDepth, int maxSearchTime, boolean defaultToNull) {
+	public static Player createPlayer(int counter, String type, String decider, String evaluator, boolean usingGUI, int searchDepth, int maxSearchTime, boolean defaultToNull,
+			boolean useMaxSims, int maxSims) {
 		
 		// Determine the Player object to create first.
 		if (type.equals("Human")) {
@@ -40,8 +41,18 @@ public final class PlayerFactory {
 				d = new FixedMinimaxDecider(searchDepth);
 			} else if (decider.equals("IterativeMinimax")) {
 				d = new IterativeMinimaxDecider(searchDepth);
-			} else if (decider.equals("MCTS")) {
-				d = new MonteCarloTreeSearchDecider();
+			} else if (decider.equals("MCTS-R")) {
+				d = new MonteCarloTreeSearchDecider(useMaxSims, maxSims, new RandomDecider());
+			} else if (decider.equals("MCTS-M4")) {
+				d = new MonteCarloTreeSearchDecider(useMaxSims, maxSims, new FixedMinimaxDecider(4));
+			} else if (decider.equals("MCTS-M5")) {
+				d = new MonteCarloTreeSearchDecider(useMaxSims, maxSims, new FixedMinimaxDecider(5));
+			} else if (decider.equals("MCTS-M6")) {
+				d = new MonteCarloTreeSearchDecider(useMaxSims, maxSims, new FixedMinimaxDecider(6));
+			} else if (decider.equals("MCTS-M7")) {
+				d = new MonteCarloTreeSearchDecider(useMaxSims, maxSims, new FixedMinimaxDecider(7));
+			} else if (decider.equals("MCTS-M8")) {
+				d = new MonteCarloTreeSearchDecider(useMaxSims, maxSims, new FixedMinimaxDecider(8));
 			} else {
 				if (!defaultToNull) {d = new RandomDecider();}				
 				throw new IllegalArgumentException("Invalid Decider type.");
@@ -54,7 +65,7 @@ public final class PlayerFactory {
 				e = new PositionalEvaluator();
 			} else {
 				if (!defaultToNull) {e = new ScoreEvaluator();}				
-				throw new IllegalArgumentException("Invalid Decider type.");
+				throw new IllegalArgumentException("Invalid Evaluator type.");
 			}
 			
 			// Return the AIPlayer object.

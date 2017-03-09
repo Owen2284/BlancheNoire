@@ -33,15 +33,20 @@ public class Othello {
 		}
 		
 		// Setting default values for game variables and applies command line arguments if they are found.
-		boolean useGUI = true;	
+		boolean useGUI = true;
+		boolean useMaxSims = false;
 		int delayBetweenMoves = 100;
 		int maxSearchTime = 5000;
 		int timesToRun = 1;
 		int boardSize = 8;
 		int searchDepth = 6;
+		int maxSims = 10000;
 		try {
 			if (argMap.keySet().contains("-useGUI".toUpperCase())) {useGUI = Boolean.parseBoolean(argMap.get("-useGUI".toUpperCase()));}
 		} catch (Exception e) {System.out.println("Error parsing -useGUI argument.");}
+		try {
+			if (argMap.keySet().contains("-useMaxSims".toUpperCase())) {useMaxSims = Boolean.parseBoolean(argMap.get("-useMaxSims".toUpperCase()));}
+		} catch (Exception e) {System.out.println("Error parsing -useMaxSims argument.");}		
 		try {
 			if (argMap.keySet().contains("-moveDelay".toUpperCase())) {delayBetweenMoves = Integer.parseInt(argMap.get("-moveDelay".toUpperCase()));}
 		} catch (Exception e) {System.out.println("Error parsing -moveDelay argument.");}
@@ -57,6 +62,9 @@ public class Othello {
 		try {
 			if (argMap.keySet().contains("-searchDepth".toUpperCase())) {searchDepth = Integer.parseInt(argMap.get("-searchDepth".toUpperCase()));}
 		} catch (Exception e) {System.out.println("Error parsing -searchDepth argument.");}
+		try {
+			if (argMap.keySet().contains("-maxSims".toUpperCase())) {maxSims = Integer.parseInt(argMap.get("-maxSims".toUpperCase()));}
+		} catch (Exception e) {System.out.println("Error parsing -maxSims argument.");}
 			
 		// Runs the game multiple times if required.
 		for (int numRuns = 0; numRuns < timesToRun; ++numRuns) {
@@ -69,32 +77,32 @@ public class Othello {
 					String argString = argMap.get("-player1".toUpperCase());
 					if (argString.startsWith("AI")) {
 						String[] aiArgs = argString.substring(3, argString.length() - 1).split(",");
-						p1 = PlayerFactory.createPlayer(GameState.COUNTER_DARK, "AI", aiArgs[0], aiArgs[1], useGUI, searchDepth, maxSearchTime, false);
+						p1 = PlayerFactory.createPlayer(GameState.COUNTER_DARK, "AI", aiArgs[0], aiArgs[1], useGUI, searchDepth, maxSearchTime, false, useMaxSims, maxSims);
 					} else if (argString.startsWith("Human")) {
-						p1 = PlayerFactory.createPlayer(GameState.COUNTER_DARK, "Human", "", "", useGUI, searchDepth, maxSearchTime, false);
+						p1 = PlayerFactory.createPlayer(GameState.COUNTER_DARK, "Human", "", "", useGUI, searchDepth, maxSearchTime, false, useMaxSims, maxSims);
 					}
 				} catch (Exception e) {
 					System.out.println("Error parsing -player1 argument.");
-					p1 = PlayerFactory.createPlayer(GameState.COUNTER_DARK, "Human", "", "", useGUI, searchDepth, maxSearchTime, false);
+					p1 = PlayerFactory.createPlayer(GameState.COUNTER_DARK, "Human", "", "", useGUI, searchDepth, maxSearchTime, false, useMaxSims, maxSims);
 				}
 			} else {
-				p1 = PlayerFactory.createPlayer(GameState.COUNTER_DARK, "Human", "", "", useGUI, searchDepth, maxSearchTime, false);
+				p1 = PlayerFactory.createPlayer(GameState.COUNTER_DARK, "Human", "", "", useGUI, searchDepth, maxSearchTime, false, useMaxSims, maxSims);
 			}
 			if (argMap.keySet().contains("-player2".toUpperCase())) {
 				try {
 					String argString = argMap.get("-player2".toUpperCase());
 					if (argString.startsWith("AI")) {
 						String[] aiArgs = argString.substring(3, argString.length() - 1).split(",");
-						p2 = PlayerFactory.createPlayer(GameState.COUNTER_LIGHT, "AI", aiArgs[0], aiArgs[1], useGUI, searchDepth, maxSearchTime, false);
+						p2 = PlayerFactory.createPlayer(GameState.COUNTER_LIGHT, "AI", aiArgs[0], aiArgs[1], useGUI, searchDepth, maxSearchTime, false, useMaxSims, maxSims);
 					} else if (argString.startsWith("Human")) {
-						p2 = PlayerFactory.createPlayer(GameState.COUNTER_LIGHT, "Human", "", "", useGUI, searchDepth, maxSearchTime, false);
+						p2 = PlayerFactory.createPlayer(GameState.COUNTER_LIGHT, "Human", "", "", useGUI, searchDepth, maxSearchTime, false, useMaxSims, maxSims);
 					}
 				} catch (Exception e) {
 					System.out.println("Error parsing -player2 argument.");
-					p2 = PlayerFactory.createPlayer(GameState.COUNTER_LIGHT, "AI", "Random", "Score", useGUI, searchDepth, maxSearchTime, false);
+					p2 = PlayerFactory.createPlayer(GameState.COUNTER_LIGHT, "AI", "Random", "Score", useGUI, searchDepth, maxSearchTime, false, useMaxSims, maxSims);
 				}
 			} else {
-				p2 = PlayerFactory.createPlayer(GameState.COUNTER_LIGHT, "AI", "Random", "Score", useGUI, searchDepth, maxSearchTime, false);
+				p2 = PlayerFactory.createPlayer(GameState.COUNTER_LIGHT, "AI", "Random", "Score", useGUI, searchDepth, maxSearchTime, false, useMaxSims, maxSims);
 			}
 			
 			
