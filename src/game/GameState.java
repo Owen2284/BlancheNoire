@@ -570,6 +570,29 @@ public class GameState {
 	}
 	
 	/**
+	 * Method for getting a string that can be used to construct a GameState.
+	 */
+	public String toFileString() {
+		
+		String theString = this.boardSize + "," + this.boardSize + "\n";
+		
+		for (int row = 0; row < boardSize; ++row) {
+			for (int col = 0; col < boardSize; ++col) {
+				theString += this.getBoardValue(new Point(row, col));
+			}
+			theString += "\n";
+		}
+		
+		theString += this.players[0].toFileString() + "\n";
+		theString += this.players[1].toFileString() + "\n";
+		
+		theString += this.turnNumber + "\n";
+		
+		return theString;
+		
+	}
+	
+	/**
 	 * Debug method for determining correctness of Othello logic.
 	 */
 	public void printLinesFrom(int row, int col, int counterType) {

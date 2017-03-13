@@ -1,6 +1,7 @@
 package main;
 
 import java.awt.Point;
+import java.io.PrintWriter;
 import java.util.HashMap;
 
 import game.GameState;
@@ -34,37 +35,25 @@ public class Othello {
 		
 		// Setting default values for game variables and applies command line arguments if they are found.
 		boolean useGUI = true;
-		boolean useMaxSims = false;
 		int delayBetweenMoves = 100;
 		int maxSearchTime = 5000;
 		int timesToRun = 1;
 		int boardSize = 8;
-		int searchDepth = 6;
-		int maxSims = 10000;
 		try {
 			if (argMap.keySet().contains("-useGUI".toUpperCase())) {useGUI = Boolean.parseBoolean(argMap.get("-useGUI".toUpperCase()));}
-		} catch (Exception e) {System.out.println("Error parsing -useGUI argument.");}
-		try {
-			if (argMap.keySet().contains("-useMaxSims".toUpperCase())) {useMaxSims = Boolean.parseBoolean(argMap.get("-useMaxSims".toUpperCase()));}
-		} catch (Exception e) {System.out.println("Error parsing -useMaxSims argument.");}		
+		} catch (Exception e) {System.out.println("Error parsing -useGUI argument. (" + e.getMessage() + ")");}	
 		try {
 			if (argMap.keySet().contains("-moveDelay".toUpperCase())) {delayBetweenMoves = Integer.parseInt(argMap.get("-moveDelay".toUpperCase()));}
-		} catch (Exception e) {System.out.println("Error parsing -moveDelay argument.");}
+		} catch (Exception e) {System.out.println("Error parsing -moveDelay argument. (" + e.getMessage() + ")");}
 		try {
 			if (argMap.keySet().contains("-AIRunTime".toUpperCase())) {maxSearchTime = Integer.parseInt(argMap.get("-AIRunTime".toUpperCase()));}
-		} catch (Exception e) {System.out.println("Error parsing -AIRunTime argument.");}
+		} catch (Exception e) {System.out.println("Error parsing -AIRunTime argument. (" + e.getMessage() + ")");}
 		try {	
 			if (argMap.keySet().contains("-runCount".toUpperCase())) {timesToRun = Integer.parseInt(argMap.get("-runCount".toUpperCase()));}
-		} catch (Exception e) {System.out.println("Error parsing -runCount argument.");}
+		} catch (Exception e) {System.out.println("Error parsing -runCount argument. (" + e.getMessage() + ")");}
 		try {
 			if (argMap.keySet().contains("-boardSize".toUpperCase())) {boardSize = Integer.parseInt(argMap.get("-boardSize".toUpperCase()));}
-		} catch (Exception e) {System.out.println("Error parsing -boardSize argument.");}
-		try {
-			if (argMap.keySet().contains("-searchDepth".toUpperCase())) {searchDepth = Integer.parseInt(argMap.get("-searchDepth".toUpperCase()));}
-		} catch (Exception e) {System.out.println("Error parsing -searchDepth argument.");}
-		try {
-			if (argMap.keySet().contains("-maxSims".toUpperCase())) {maxSims = Integer.parseInt(argMap.get("-maxSims".toUpperCase()));}
-		} catch (Exception e) {System.out.println("Error parsing -maxSims argument.");}
+		} catch (Exception e) {System.out.println("Error parsing -boardSize argument. (" + e.getMessage() + ")");}
 			
 		// Runs the game multiple times if required.
 		for (int numRuns = 0; numRuns < timesToRun; ++numRuns) {
@@ -77,118 +66,112 @@ public class Othello {
 					String argString = argMap.get("-player1".toUpperCase());
 					if (argString.startsWith("AI")) {
 						String[] aiArgs = argString.substring(3, argString.length() - 1).split(",");
-						p1 = PlayerFactory.createPlayer(GameState.COUNTER_DARK, "AI", aiArgs[0], aiArgs[1], useGUI, searchDepth, maxSearchTime, false, useMaxSims, maxSims);
+						p1 = PlayerFactory.createPlayer(GameState.COUNTER_DARK, "AI", aiArgs[0], aiArgs[1], useGUI, maxSearchTime, false);
 					} else if (argString.startsWith("Human")) {
-						p1 = PlayerFactory.createPlayer(GameState.COUNTER_DARK, "Human", "", "", useGUI, searchDepth, maxSearchTime, false, useMaxSims, maxSims);
+						p1 = PlayerFactory.createPlayer(GameState.COUNTER_DARK, "Human", "", "", useGUI, maxSearchTime, false);
 					}
 				} catch (Exception e) {
-					System.out.println("Error parsing -player1 argument.");
-					p1 = PlayerFactory.createPlayer(GameState.COUNTER_DARK, "Human", "", "", useGUI, searchDepth, maxSearchTime, false, useMaxSims, maxSims);
+					System.out.println("Error parsing -player1 argument. (" + e.getMessage() + ")");
+					p1 = PlayerFactory.createPlayer(GameState.COUNTER_DARK, "Human", "", "", useGUI, maxSearchTime, false);
 				}
 			} else {
-				p1 = PlayerFactory.createPlayer(GameState.COUNTER_DARK, "Human", "", "", useGUI, searchDepth, maxSearchTime, false, useMaxSims, maxSims);
+				p1 = PlayerFactory.createPlayer(GameState.COUNTER_DARK, "Human", "", "", useGUI, maxSearchTime, false);
 			}
 			if (argMap.keySet().contains("-player2".toUpperCase())) {
 				try {
 					String argString = argMap.get("-player2".toUpperCase());
 					if (argString.startsWith("AI")) {
 						String[] aiArgs = argString.substring(3, argString.length() - 1).split(",");
-						p2 = PlayerFactory.createPlayer(GameState.COUNTER_LIGHT, "AI", aiArgs[0], aiArgs[1], useGUI, searchDepth, maxSearchTime, false, useMaxSims, maxSims);
+						p2 = PlayerFactory.createPlayer(GameState.COUNTER_LIGHT, "AI", aiArgs[0], aiArgs[1], useGUI, maxSearchTime, false);
 					} else if (argString.startsWith("Human")) {
-						p2 = PlayerFactory.createPlayer(GameState.COUNTER_LIGHT, "Human", "", "", useGUI, searchDepth, maxSearchTime, false, useMaxSims, maxSims);
+						p2 = PlayerFactory.createPlayer(GameState.COUNTER_LIGHT, "Human", "", "", useGUI, maxSearchTime, false);
 					}
 				} catch (Exception e) {
-					System.out.println("Error parsing -player2 argument.");
-					p2 = PlayerFactory.createPlayer(GameState.COUNTER_LIGHT, "AI", "Random", "Score", useGUI, searchDepth, maxSearchTime, false, useMaxSims, maxSims);
+					System.out.println("Error parsing -player2 argument. (" + e.getMessage() + ")");
+					p2 = PlayerFactory.createPlayer(GameState.COUNTER_LIGHT, "AI", "Random", "Score", useGUI, maxSearchTime, false);
 				}
 			} else {
-				p2 = PlayerFactory.createPlayer(GameState.COUNTER_LIGHT, "AI", "Random", "Score", useGUI, searchDepth, maxSearchTime, false, useMaxSims, maxSims);
+				p2 = PlayerFactory.createPlayer(GameState.COUNTER_LIGHT, "AI", "Random", "Score", useGUI, maxSearchTime, false);
 			}
-			
 			
 				
 			// Creates basic game.
 			GameState game = new GameState(p1, p2, boardSize);
 			
+			// Storing initial game state in file string storage.
+			String fileString = game.toFileString();
+					
 			// Initialises other variables shared by the two game loops.
 			int nextPlayerNumber = 0;
-			Player playerToPlay;
-			
-			// Determines the UI and game loop to use.
-			// Graphical UI code.
+			Player playerToPlay = null;
+				
+			// Creates game UI.
+			OthelloFrame ui = null;
 			if (useGUI) {
+				ui = new OthelloFrame();
+			}
+			
+			while (!game.isOver()) {
 				
-				// Creates game UI.
-				OthelloFrame ui = new OthelloFrame();
+				// Retrieve the player that is next to play.
+				playerToPlay = game.getPlayer(nextPlayerNumber);
 				
-				while (!game.isOver()) {
-					
-					// Retrieve the player that is next to play.
-					playerToPlay = game.getPlayer(nextPlayerNumber);
-					
-					// Display the current game state.
+				// Display the current game state.
+				if (useGUI) {
 					ui.updateUI(game, playerToPlay);
-					
-					// Temporary pause to show game state.
-					try {Thread.sleep(delayBetweenMoves);} catch (Exception e) {/* Continue execution. */}
-					
-					// Determine if the player can make a move or not.
-					if (game.hasLegalMoves(playerToPlay)) {
-					
-						// Ask the player to determine their move.
-						Point moveToPlay = playerToPlay.getMove(game, ui.middle);
-						
-						// Plays the move onto the game board, and stores the new GameState.
-						game = game.playMove(playerToPlay, moveToPlay);
-					
-					}
-					
-					// Changes the player to play next and loops back to the start of the game loop.
-					nextPlayerNumber = (nextPlayerNumber + 1) % 2;
-					
-				}
-				
-				// Display the final game state.
-				ui.updateUI(game, game.getPlayer(nextPlayerNumber));
-			
-			}
-			
-			// Text UI code. 
-			else {
-				
-				while (!game.isOver()) {
-					
-					// Retrieve the player that is next to play.
-					playerToPlay = game.getPlayer(nextPlayerNumber);
-					
-					// Display the current game state.
+				} else {
 					System.out.println(game);
+				}
+				
+				// Temporary pause to show game state.
+				try {Thread.sleep(delayBetweenMoves);} catch (Exception e) {/* Continue execution. */}
+				
+				// Determine if the player can make a move or not.
+				if (game.hasLegalMoves(playerToPlay)) {
+				
+					// Ask the player to determine their move.
+					Point moveToPlay = playerToPlay.getMove(game, ui.middle);
 					
-					// Temporary pause to show game state.
-					try {Thread.sleep(500);} catch (Exception e) {/* Continue execution. */}
+					// Plays the move onto the game board, and stores the new GameState.
+					game = game.playMove(playerToPlay, moveToPlay);
 					
-					// Determine if the player can make a move or not.
-					if (game.hasLegalMoves(playerToPlay)) {
+					// Add move to file.
+					fileString += "P[" + nextPlayerNumber + "]:(" + moveToPlay.x + "," + moveToPlay.y + ")\n";
+				
+				} else {
 					
-						// Ask the player to determine their move.
-						Point moveToPlay = playerToPlay.getMove(game, null);
-						
-						// Plays the move onto the game board, and stores the new GameState.
-						game = game.playMove(playerToPlay, moveToPlay);
-					
-					}
-					
-					// Changes the player to play next and loops back to the start of the game loop.
-					nextPlayerNumber = (nextPlayerNumber + 1) % 2;
+					// Add non-move to file.
+					fileString += "P[" + nextPlayerNumber + "]:NOMOVE\n";
 					
 				}
 				
-				// Display the final game state.
-				System.out.println(game);
+				// Changes the player to play next and loops back to the start of the game loop.
+				nextPlayerNumber = (nextPlayerNumber + 1) % 2;
 				
 			}
 			
+			// Display the final game state.
+			if (useGUI) {
+				ui.updateUI(game, playerToPlay);
+			} else {
+				System.out.println(game);
+			}
+			
+			// Writes game archive to a file.
+			fileString += "END";
+			try {
+				String fileName = "data/games/archive/Game" + System.currentTimeMillis() + ".txt";
+				PrintWriter writer = new PrintWriter(fileName, "UTF-8");
+				for (String s : fileString.split("\n")) {
+					writer.println(s);
+				}
+				writer.close();
+				System.out.println("Game file written to \"" + fileName + "\"");
+			} catch(Exception e) {
+				System.out.println("Error while writing game file: " + e.getMessage());
+			}
 		}
+			
 		
 	}
 

@@ -13,6 +13,8 @@ public abstract class Evaluator {
 	
 	public abstract String getType();
 	
+	public abstract String toFileString();
+	
 	public abstract float evaluate(GameState game, Player p);
 
 }

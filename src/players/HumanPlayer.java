@@ -28,6 +28,11 @@ public class HumanPlayer extends Player {
 	public String getPlayerType() {
 		return "Human";
 	}
+	
+	@Override
+	public String toFileString() {
+		return "Human(" + this.id + "," + this.usingGUI + ")";
+	}
 		
 	@Override
 	public Point getMove(GameState game, GamePanel panel) {

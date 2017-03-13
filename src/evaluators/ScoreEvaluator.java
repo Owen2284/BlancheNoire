@@ -13,6 +13,11 @@ public class ScoreEvaluator extends Evaluator {
 	}
 	
 	@Override
+	public String toFileString() {
+		return "Score(" + ")";
+	}
+	
+	@Override
 	public float evaluate(GameState game, Player p) {
 		return game.getScore(p) - game.getScore(game.getOpposingPlayer(p));
 	}

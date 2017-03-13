@@ -14,6 +14,11 @@ public class PositionalEvaluator extends Evaluator {
 	public String getType() {
 		return "Positional";
 	}
+	
+	@Override
+	public String toFileString() {
+		return "Positional(" + ")";
+	}
 
 	@Override
 	public float evaluate(GameState game, Player p) {

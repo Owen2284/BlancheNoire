@@ -24,9 +24,29 @@ public class MonteCarloTreeSearchDecider extends Decider {
 
 	@Override
 	public String getType() {return "MCTS";}
+	
+	@Override
+	public String toFileString() {
+		return "MCTS(" + this.useMaxSims + "," + this.maxSims + "," + this.internalDecider.toFileString() + ")";
+	}
 
 	@Override
 	public Point decide(GameState game, Evaluator e, Player p, int maxSearchTime) {
+		
+		// Checks if a decision needs to be made, or if the only move can be returned.
+		int moveCount = 0;
+		for (int row = 0; row < game.getBoardDims()[0]; row++) {
+			for (int col = 0; col < game.getBoardDims()[1]; col++) {
+				if (game.getLegalMoves(p)[row][col]) {++moveCount;}
+			}
+		}
+		if (moveCount == 1) {
+			for (int row = 0; row < game.getBoardDims()[0]; row++) {
+				for (int col = 0; col < game.getBoardDims()[1]; col++) {
+					if (game.getLegalMoves(p)[row][col]) {return new Point(row, col);}
+				}
+			}
+		}
 		
 		simulationsRun = 0;
 		
@@ -160,27 +180,32 @@ public class MonteCarloTreeSearchDecider extends Decider {
 		}
 		
 		// Storing end time.
-		long endTime = System.currentTimeMillis();
-		
+		//long endTime = System.currentTimeMillis();
 		
 		// Returns the best move found.
-		System.out.println("---");
-		System.out.println("Moves:");
+		//System.out.println("---");
+		//System.out.println("Moves:");
 		TreeNode bestChild = null;
 		double bestScore = Double.NEGATIVE_INFINITY;
+		float bestChildEval = Float.NEGATIVE_INFINITY;
 		for (TreeNode rootChild : root.children) {
-			double rootChildWinPercent = rootChild.getWinPercent();
 			float rootChildEvaluation = e.evaluate(game.playMove(playerIAm, rootChild.moveMade), playerIAm);
-			double rootChildScore = rootChildWinPercent * rootChildEvaluation;
-			System.out.println(" Move (" + rootChild.moveMade.x + "," + rootChild.moveMade.y + ") has win percentage of " + rootChildWinPercent + "% (" + rootChild.wins + "/" + rootChild.total + ") and evaluator score of " + rootChildEvaluation + " points. Score = " + rootChildScore);
+			double rootChildScore = getMinChance(rootChild, 20, e, Double.NEGATIVE_INFINITY, Double.POSITIVE_INFINITY);
+			//System.out.println(" Move (" + rootChild.moveMade.x + "," + rootChild.moveMade.y + ") has win percentage of " + rootChildWinPercent + "% (" + rootChild.wins + "/" + rootChild.total + ") and evaluator score of " + rootChildEvaluation + " points. Score = " + rootChildScore);
+			//System.out.println(" Move (" + rootChild.moveMade.x + "," + rootChild.moveMade.y + ") has minimum win percentage of " + rootChildScore + "%. (" + rootChildEvaluation + ")");
 			if (rootChildScore > bestScore) {
 				bestScore = rootChildScore;
 				bestChild = rootChild;
+				bestChildEval = rootChildEvaluation;
+			} else if (rootChildScore == bestScore && rootChildEvaluation > bestChildEval) {
+				bestScore = rootChildScore;
+				bestChild = rootChild;
+				bestChildEval = rootChildEvaluation;
 			}
 		}
 		
-		System.out.println("The best move is: (" + bestChild.moveMade.x + "," + bestChild.moveMade.y + ") with a score of " + bestScore + ".");
-		System.out.println(simulationsRun + " sims run over " + (endTime - startTime) + " milliseconds; " + ((double) simulationsRun / (endTime - startTime)) + " S/ms.");
+		System.out.println("The best move is: (" + bestChild.moveMade.x + "," + bestChild.moveMade.y + ") with a minimum win percentage of " + bestScore + "%. (" + bestChildEval + ")");
+		//System.out.println(simulationsRun + " sims run over " + (endTime - startTime) + " milliseconds; " + ((double) simulationsRun / (endTime - startTime)) + " S/ms.");
 		
 		return bestChild.moveMade;
 		
@@ -242,6 +267,68 @@ public class MonteCarloTreeSearchDecider extends Decider {
 		return ((double)w/(double)n) + (C * Math.sqrt(Math.log(t) / (double)n));
 	}
 	
+	/**
+	 * Method used to return the highest win chance from a tree of MCTS nodes.
+	 */
+	protected double getMaxChance(TreeNode current, int minRuns, Evaluator e, double alpha, double beta) {
+		
+		// Variable for storing the best score found.
+		double best = Float.NEGATIVE_INFINITY;		
+		
+		// Checks if the node has the appropriate number of evaluations to it.
+		if (current.total < minRuns) {
+			return current.getWinPercent();
+		}
+		
+		// Check if the current node is a leaf node.
+		if (current.children.size() <= 0) {
+			return current.getWinPercent();
+		}
+		
+		// Else, explores the possible moves.
+		for (TreeNode child : current.children) {
+			double childScore = getMinChance(child, minRuns, e, alpha, beta);
+			best = Math.max(best, childScore);
+			alpha = Math.max(alpha, childScore);
+			if (beta <= alpha) {
+				return best;
+			}
+		}
+		return best;
+		
+	}
+
+	/**
+	 * Method used to return the lowest win chance from a tree of MCTS nodes.
+	 */
+	protected double getMinChance(TreeNode current, int minRuns, Evaluator e, double alpha, double beta) {
+		
+		// Variable for storing the best score found.
+		double worst = Float.POSITIVE_INFINITY;
+		
+		// Checks if the node has the appropriate number of evaluations to it.
+		if (current.total < minRuns) {
+			return current.getWinPercent();
+		}
+		
+		// Check if the current node is a leaf node.
+		if (current.children.size() <= 0) {
+			return current.getWinPercent();
+		}
+		
+		// Else, explores the tree deeper.
+		for (TreeNode child : current.children) {
+			double childScore = getMaxChance(child, minRuns, e, alpha, beta);
+			worst = Math.min(worst, childScore);
+			beta = Math.min(beta, childScore);
+			if (beta <= alpha) {
+				return worst;
+			}
+		}
+		return worst;
+		
+	}
+	
 	// Internal class for storing statistics on simulations.
 	private class TreeNode {
 		
@@ -254,10 +341,6 @@ public class MonteCarloTreeSearchDecider extends Decider {
 		
 		public double getWinPercent() {
 			return (wins * 100) / ( (double) total);
-		}
-		
-		public double getWinDecimal() {
-			return (wins) / ( (double) total);
 		}
 		
 	}

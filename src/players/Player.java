@@ -32,6 +32,8 @@ public abstract class Player {
 	 */
 	public abstract String getPlayerType();
 	
+	public abstract String toFileString();
+	
 	/**
 	 * Returns the coordinates the player wishes to play a counter at.
 	 */

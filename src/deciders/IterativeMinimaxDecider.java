@@ -6,13 +6,18 @@ import java.util.HashMap;
 import evaluators.Evaluator;
 import game.GameState;
 
-public class IterativeMinimaxDecider extends FixedMinimaxDecider {
+public class IterativeMinimaxDecider extends MinimaxDecider {
 
 	public IterativeMinimaxDecider(int depthToSearchTo) {super(depthToSearchTo);}
 
 	@Override
 	public String getType() {
 		return "IterativeMinimax";
+	}
+	
+	@Override
+	public String toFileString() {
+		return "IterativeMinimax(" + this.depthToSearchTo + ")";
 	}
 	
 	/**
@@ -65,7 +70,7 @@ public class IterativeMinimaxDecider extends FixedMinimaxDecider {
 				highScoringMove = key;
 			}
 		}
-		System.out.println("THE MOVE: " + moveScores.get(highScoringMove) + ", THE DEPTH REACHED: " + (currentDepth - 1));
+		//System.out.println("THE MOVE: " + moveScores.get(highScoringMove) + ", THE DEPTH REACHED: " + (currentDepth - 1));
 		return highScoringMove;
 		
 	}

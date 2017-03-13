@@ -19,6 +19,8 @@ public abstract class Decider {
 	 */
 	public abstract String getType();
 	
+	public abstract String toFileString();
+	
 	/**
 	 * Has the decider produce a move that the AI player can play.
 	 * @param g - the GameState to evaluate.

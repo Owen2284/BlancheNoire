@@ -23,6 +23,11 @@ public class RandomDecider extends Decider {
 	public String getType() {
 		return "Random";
 	}
+	
+	@Override
+	public String toFileString() {
+		return "Random(" + ")";
+	}
 
 	@Override
 	public Point decide(GameState game, Evaluator e, Player p, int maxSearchTime) {

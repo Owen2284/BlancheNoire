@@ -35,6 +35,11 @@ public class AIPlayer extends Player {
 	public String getPlayerType() {
 		return "AI(" + d.getType() + "," + e.getType() + ")"; 
 	}
+	
+	@Override
+	public String toFileString() {
+		return "AI(" + d.toFileString() + "," + e.toFileString() + ")";
+	}
 
 	@Override
 	public Point getMove(GameState game, GamePanel panel) {
