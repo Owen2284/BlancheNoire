@@ -160,7 +160,7 @@ public class Othello {
 			// Writes game archive to a file.
 			fileString += "END";
 			try {
-				String fileName = "data/games/archive/Game" + System.currentTimeMillis() + ".txt";
+				String fileName = "games/archive/Game" + System.currentTimeMillis() + ".txt";
 				PrintWriter writer = new PrintWriter(fileName, "UTF-8");
 				for (String s : fileString.split("\n")) {
 					writer.println(s);
