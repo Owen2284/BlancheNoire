@@ -14,7 +14,7 @@ public abstract class Player {
 	protected int id;			// Determines what counter the player controls.
 
 	/**
-	 * Constructor.
+	 * Basic constructor.
 	 * @param id - The id number of the counter that the player will control. 
 	 */
 	public Player(int id) {
