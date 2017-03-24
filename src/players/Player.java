@@ -12,7 +12,8 @@ import ui.GamePanel;
 public abstract class Player {
 	
 	protected int id;			// Determines what counter the player controls.
-
+	private String output;
+	
 	/**
 	 * Basic constructor.
 	 * @param id - The id number of the counter that the player will control. 
@@ -32,6 +33,23 @@ public abstract class Player {
 	 */
 	public abstract String getPlayerType();
 	
+	/**
+	 * Function that returns the player's most recent output.
+	 */
+	public String getOutput() {
+		return this.output;
+	}
+	
+	/**
+	 * Function that sets the output text to a standard format.
+	 */
+	public void setOutput(String message) {
+		this.output = this.getPlayerType() + ": " + message;
+	}
+	
+	/**
+	 * Function that creates a file string that accurately represents the player object.
+	 */
 	public abstract String toFileString();
 	
 	/**

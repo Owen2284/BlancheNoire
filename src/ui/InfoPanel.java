@@ -46,10 +46,13 @@ public class InfoPanel extends JPanel {
 				this.info = "The game is over. The two players have drawn.";
 			}
 		} else {
-			this.info = "It is Player " + playerToPlay.getPlayerID() + "'s turn.";
+			if (playerToPlay.getPlayerType().equals("Human")) {
+				this.info = "Player " + playerToPlay.getPlayerID() + ", it is your turn.";
+			} else {
+				this.info = "Player " + playerToPlay.getPlayerID() + " is considering what move to play...";
+			}
 			if (!game.hasLegalMoves(playerToPlay)) {
-				this.info = this.info.substring(0, this.info.length() - 1);
-				this.info += ", but has no moves to play.";
+				this.info = "It is Player " + playerToPlay.getPlayerID() + "'s turn, but they have no moves they can play. Their turn will be skipped.";
 			}
 		}
 	}

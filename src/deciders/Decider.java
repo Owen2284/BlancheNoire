@@ -11,6 +11,8 @@ import players.Player;
  * as deciders must use.
  */
 public abstract class Decider {
+	
+	protected String output = "";
 
 	public Decider() {}
 	

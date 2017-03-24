@@ -25,7 +25,7 @@ public abstract class MinimaxDecider extends Decider {
 		// Runs the function to analyse the game tree.
 		Point bestMove = getMaxMove(game, depthToSearchTo, startTimestamp, maxSearchTime, e, playerNumber);
 		
-		// Prints out debug data.
+		// Handles debug data.
 		//System.out.println("Turn " + game.getTurnNumber() + ". Time taken:- " + (System.currentTimeMillis() - startTimestamp) + ", Nodes examined:- " + this.debugNodesChecked + ". N/ms:- " + (this.debugNodesChecked / (System.currentTimeMillis() - startTimestamp + 1)));
 		
 		// Returns the move with the best score found by the decider.

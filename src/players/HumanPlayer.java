@@ -36,16 +36,20 @@ public class HumanPlayer extends Player {
 		
 	@Override
 	public Point getMove(GameState game, GamePanel panel) {
+		Point theMove;
 		if (!usingGUI) {
 			try {
-				return getMoveFromCommandPrompt(game);
+				theMove = getMoveFromCommandPrompt(game);
 			} catch (NoSuchElementException e) {
 				System.out.println("Error occured, NoSuchElementException caught.");
 				return null;
 			}
 		} else {
-			return panel.getPlayerMoveViaUI(game, this);
+			theMove = panel.getPlayerMoveViaUI(game, this);
 		}
+		this.setOutput("Move played at (" + theMove.x + "," + theMove.y + ").");
+		return theMove;
+		
 	}
 	
 	/**
@@ -73,7 +77,8 @@ public class HumanPlayer extends Player {
 			}
 		}
 		
-		return new Point(coord[0], coord[1]);
+		Point theMove = new Point(coord[0], coord[1]);
+		return theMove;
 		
 	}
 

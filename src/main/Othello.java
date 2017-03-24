@@ -35,13 +35,17 @@ public class Othello {
 		
 		// Setting default values for game variables and applies command line arguments if they are found.
 		boolean useGUI = true;
+		boolean showOutput = false;
 		int delayBetweenMoves = 100;
 		int maxSearchTime = 5000;
 		int timesToRun = 1;
 		int boardSize = 8;
 		try {
 			if (argMap.keySet().contains("-useGUI".toUpperCase())) {useGUI = Boolean.parseBoolean(argMap.get("-useGUI".toUpperCase()));}
-		} catch (Exception e) {System.out.println("Error parsing -useGUI argument. (" + e.getMessage() + ")");}	
+		} catch (Exception e) {System.out.println("Error parsing -useGUI argument. (" + e.getMessage() + ")");}
+		try {
+			if (argMap.keySet().contains("-showOutput".toUpperCase())) {showOutput = Boolean.parseBoolean(argMap.get("-showOutput".toUpperCase()));}
+		} catch (Exception e) {System.out.println("Error parsing -showOutput argument. (" + e.getMessage() + ")");}	
 		try {
 			if (argMap.keySet().contains("-moveDelay".toUpperCase())) {delayBetweenMoves = Integer.parseInt(argMap.get("-moveDelay".toUpperCase()));}
 		} catch (Exception e) {System.out.println("Error parsing -moveDelay argument. (" + e.getMessage() + ")");}
@@ -135,6 +139,11 @@ public class Othello {
 					// Plays the move onto the game board, and stores the new GameState.
 					game = game.playMove(playerToPlay, moveToPlay);
 					
+					// Display any info about the player's move if necessary.
+					if (showOutput) {
+						System.out.println(playerToPlay.getOutput());
+					}
+					
 					// Add move to file.
 					fileString += "P[" + nextPlayerNumber + "]:(" + moveToPlay.x + "," + moveToPlay.y + ")\n";
 				
@@ -166,7 +175,9 @@ public class Othello {
 					writer.println(s);
 				}
 				writer.close();
-				System.out.println("Game file written to \"" + fileName + "\"");
+				if (showOutput) {
+					System.out.println("Game file written to \"" + fileName + "\"");
+				}
 			} catch(Exception e) {
 				System.out.println("Error while writing game file: " + e.getMessage());
 			}

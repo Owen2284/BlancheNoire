@@ -70,7 +70,7 @@ public class IterativeMinimaxDecider extends MinimaxDecider {
 				highScoringMove = key;
 			}
 		}
-		//System.out.println("THE MOVE: " + moveScores.get(highScoringMove) + ", THE DEPTH REACHED: " + (currentDepth - 1));
+		current.getPlayer(playerNumber).setOutput("Move chosen: (" + highScoringMove.x + "," + highScoringMove.y + "). Score: " + moveScores.get(highScoringMove) + ". Depth reached: " + (currentDepth - 1) + ".");
 		return highScoringMove;
 		
 	}

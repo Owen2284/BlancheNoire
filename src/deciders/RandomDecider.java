@@ -40,7 +40,9 @@ public class RandomDecider extends Decider {
 				}
 			}
 		}
-		return possibleMoves.get(new Random().nextInt(possibleMoves.size()));
+		Point theMove = possibleMoves.get(new Random().nextInt(possibleMoves.size()));
+		p.setOutput("Move chosen: (" + theMove.x + "," + theMove.y + ").");
+		return theMove;
 	}
 
 }

@@ -54,7 +54,10 @@ public class FixedMinimaxDecider extends MinimaxDecider {
 				}
 				
 			}
-		}	
+		}
+		
+		// Stores output.
+		current.getPlayer(playerNumber).setOutput("Move chosen: (" + bestMove.x + "," + bestMove.y + "). Score: " + bestScore + ".");
 		
 		// Returns the move found with the highest score.
 		return bestMove;
