@@ -191,9 +191,10 @@ public class MonteCarloTreeSearchDecider extends Decider {
 		int depth = 6;
 		
 		for (TreeNode rootChild : root.children) {
-			float rootChildEvaluation = e.evaluate(game.playMove(playerIAm, rootChild.moveMade), playerIAm);
-			double rootChildScore = getMinChance(game, playerIAm, game.getOpposingPlayer(playerIAm), depth, rootChild, 20, e, Double.NEGATIVE_INFINITY, Double.POSITIVE_INFINITY);
-			//double rootChildScore = getMinChance(game, depth, e, playerIAm, game.getOpposingPlayer(playerIAm), rootChild, 20, Double.NEGATIVE_INFINITY, Double.POSITIVE_INFINITY);
+			GameState rootChildGameState = game.playMove(playerIAm, rootChild.moveMade);
+			float rootChildEvaluation = e.evaluate(rootChildGameState, playerIAm);
+			PercentScoreData rootChildPercentScore = getMinChance(rootChildGameState, playerIAm, game.getOpposingPlayer(playerIAm), depth, rootChild, 20, e, new PercentScoreData(0.0, Float.NEGATIVE_INFINITY), new PercentScoreData(0.0, Float.POSITIVE_INFINITY));
+			double rootChildScore = rootChildPercentScore.percent;
 			//System.out.println(" Move (" + rootChild.moveMade.x + "," + rootChild.moveMade.y + ") has minimum win percentage of " + rootChildScore + "%. (" + rootChildEvaluation + ")");
 			if (rootChildScore > bestScore) {
 				bestScore = rootChildScore;
@@ -206,7 +207,7 @@ public class MonteCarloTreeSearchDecider extends Decider {
 			}
 		}
 		
-		System.out.println("The best move is: (" + bestChild.moveMade.x + "," + bestChild.moveMade.y + ") with a minimum win percentage of " + bestScore + "%. (" + bestChildEval + ")");
+		p.setOutput("Move chosen: (" + bestChild.moveMade.x + "," + bestChild.moveMade.y + "). Score: " + bestChildEval + ". Minimum win percentage: " + bestScore + "%.");
 		//System.out.println(simulationsRun + " sims run over " + (endTime - startTime) + " milliseconds; " + ((double) simulationsRun / (endTime - startTime)) + " S/ms.");
 		
 		return bestChild.moveMade;
@@ -259,6 +260,7 @@ public class MonteCarloTreeSearchDecider extends Decider {
 		} else {
 			return 0;
 		}
+		
 	}
 	
 	/**
@@ -269,69 +271,33 @@ public class MonteCarloTreeSearchDecider extends Decider {
 		return ((double)w/(double)n) + (C * Math.sqrt(Math.log(t) / (double)n));
 	}
 	
-	/**
-	 * Method used to return the highest win chance from a tree of MCTS nodes.
-	 */
-	/*
-	protected double getMaxChance(GameState currentState, int depth, Evaluator e, Player playerToEvaluate, Player playerToPlay, 
-			TreeNode currentNode, int minRuns, double alpha, double beta) {
+	protected PercentScoreData getMaxChance(GameState currentState, Player playerToEvaluate, Player playerToPlay, int depth, TreeNode currentNode, int minRuns, Evaluator e, PercentScoreData alpha, PercentScoreData beta) {
 		
 		// Variable for storing the best score found.
-		double best = Float.NEGATIVE_INFINITY;		
-		
-		// Check if the value of the state should be returned immediately.
-		if (currentNode.children.size() <= 0 || depth == 0 || currentNode.total < minRuns) {
-			//return e.evaluate(currentState, playerToEvaluate);
-			return currentNode.getWinPercent();
-		}
-
-		// Checks if the player has any moves to play.
-		if (!currentState.hasLegalMoves(playerToPlay)) {
-			GameState childState = new GameState(currentState);
-			double childScore = getMinChance(childState, depth-1, e, playerToEvaluate, childState.getOpposingPlayer(playerToPlay), 
-					currentNode.children.get(0), minRuns, alpha, beta);
-			best = Math.max(best, childScore);
-			return best;
-		}
-		
-		// Else, explores the possible moves.
-		for (TreeNode childNode : currentNode.children) {
-			GameState childState = currentState.playMove(playerToPlay, childNode.moveMade);
-			double childScore = getMinChance(childState, depth-1, e, playerToEvaluate, childState.getOpposingPlayer(playerToPlay), 
-					childNode, minRuns, alpha, beta);
-			best = Math.max(best, childScore);
-			alpha = Math.max(alpha, childScore);
-			if (beta <= alpha) {
-				return best;
-			}
-		}
-		return best;
-		
-	}
-	*/
-	
-	protected double getMaxChance(GameState currentState, Player playerToEvaluate, Player playerToPlay, int depth, TreeNode currentNode, int minRuns, Evaluator e, double alpha, double beta) {
-		
-		// Variable for storing the best score found.
-		double best = Float.NEGATIVE_INFINITY;		
+		PercentScoreData best = new PercentScoreData(0.0, Float.NEGATIVE_INFINITY);		
 		
 		// Checks if the node has the appropriate number of evaluations to it.
 		if (currentNode.total < minRuns) {
-			return currentNode.getWinPercent();
+			return new PercentScoreData(currentNode.getWinPercent(), e.evaluate(currentState, playerToEvaluate));
 		}
 		
 		// Check if the current node is a leaf node.
 		if (currentNode.children.size() <= 0 || depth == 0) {
-			return currentNode.getWinPercent();
+			return new PercentScoreData(currentNode.getWinPercent(), e.evaluate(currentState, playerToEvaluate));
 		}
 		
 		// Else, explores the possible moves.
 		for (TreeNode childNode : currentNode.children) {
-			GameState childState = currentState.playMove(playerToPlay, childNode.moveMade);
-			double childChance = getMinChance(childState, playerToEvaluate, currentState.getOpposingPlayer(playerToPlay), depth-1, childNode, minRuns, e, alpha, beta);
-			best = Math.max(best, childChance);
-			alpha = Math.max(alpha, childChance);
-			if (beta <= alpha) {
+			GameState childState;
+			if (childNode.moveMade.x == -1 && childNode.moveMade.y == -1) {
+				childState = currentState;
+			} else {
+				childState = currentState.playMove(playerToPlay, childNode.moveMade);
+			}
+			PercentScoreData childPercentScore = getMinChance(childState, playerToEvaluate, currentState.getOpposingPlayer(playerToPlay), depth-1, childNode, minRuns, e, alpha, beta);
+			if (childPercentScore.score >= best.score) {best = childPercentScore;}
+			if (childPercentScore.score >= alpha.score) {alpha = childPercentScore;}
+			if (beta.score <= alpha.score) {
 				return best;
 			}
 		}
@@ -339,68 +305,33 @@ public class MonteCarloTreeSearchDecider extends Decider {
 		
 	}
 
-	/**
-	 * Method used to return the lowest win chance from a tree of MCTS nodes.
-	 */
-	/*
-	protected double getMinChance(GameState currentState, int depth, Evaluator e, Player playerToEvaluate, Player playerToPlay, 
-			TreeNode currentNode, int minRuns, double alpha, double beta) {
+	protected PercentScoreData getMinChance(GameState currentState, Player playerToEvaluate, Player playerToPlay, int depth, TreeNode currentNode, int minRuns, Evaluator e, PercentScoreData alpha, PercentScoreData beta) {
 		
 		// Variable for storing the best score found.
-		double worst = Float.POSITIVE_INFINITY;		
-		
-		// Check if the value of the state should be returned immediately.
-		if (currentNode.children.size() <= 0 || depth == 0 || currentNode.total < minRuns) {
-			//return e.evaluate(currentState, playerToEvaluate);
-			return currentNode.getWinPercent();
-		}
-		
-		// Checks if the player has any moves to play.
-		if (!currentState.hasLegalMoves(playerToPlay)) {
-			GameState childState = new GameState(currentState);
-			double childScore = getMaxChance(childState, depth-1, e, playerToEvaluate, childState.getOpposingPlayer(playerToPlay), 
-					currentNode.children.get(0), minRuns, alpha, beta);
-			worst = Math.min(worst, childScore);
-			return worst;
-		}
-		
-		// Else, explores the tree deeper.
-		for (TreeNode childNode : currentNode.children) {
-			GameState childState = currentState.playMove(playerToPlay, childNode.moveMade);
-			double childScore = getMaxChance(childState, depth-1, e, playerToEvaluate, childState.getOpposingPlayer(playerToPlay), 
-					childNode, minRuns, alpha, beta);
-			worst = Math.min(worst, childScore);
-			beta = Math.min(beta, childScore);
-			if (beta <= alpha) {
-				return worst;
-			}
-		}
-		return worst;
-		
-	}
-	*/
-	protected double getMinChance(GameState currentState, Player playerToEvaluate, Player playerToPlay, int depth, TreeNode currentNode, int minRuns, Evaluator e, double alpha, double beta) {
-		
-		// Variable for storing the best score found.
-		double worst = Float.POSITIVE_INFINITY;
+		PercentScoreData worst = new PercentScoreData(0.0, Float.POSITIVE_INFINITY);
 		
 		// Checks if the node has the appropriate number of evaluations to it.
 		if (currentNode.total < minRuns) {
-			return currentNode.getWinPercent();
+			return new PercentScoreData(currentNode.getWinPercent(), e.evaluate(currentState, playerToEvaluate));
 		}
 		
 		// Check if the current node is a leaf node.
 		if (currentNode.children.size() <= 0 || depth == 0) {
-			return currentNode.getWinPercent();
+			return new PercentScoreData(currentNode.getWinPercent(), e.evaluate(currentState, playerToEvaluate));
 		}
 		
 		// Else, explores the tree deeper.
 		for (TreeNode childNode : currentNode.children) {
-			GameState childState = currentState.playMove(playerToPlay, childNode.moveMade);
-			double childChance = getMaxChance(childState, playerToEvaluate, currentState.getOpposingPlayer(playerToPlay), depth-1, childNode, minRuns, e, alpha, beta);
-			worst = Math.min(worst, childChance);
-			beta = Math.min(beta, childChance);
-			if (beta <= alpha) {
+			GameState childState;
+			if (childNode.moveMade.x == -1 && childNode.moveMade.y == -1) {
+				childState = currentState;
+			} else {
+				childState = currentState.playMove(playerToPlay, childNode.moveMade);
+			}
+			PercentScoreData childPercentScore = getMaxChance(childState, playerToEvaluate, currentState.getOpposingPlayer(playerToPlay), depth-1, childNode, minRuns, e, alpha, beta);
+			if (childPercentScore.score <= worst.score) {worst = childPercentScore;}
+			if (childPercentScore.score <= beta.score) {beta = childPercentScore;}
+			if (beta.score <= alpha.score) {
 				return worst;
 			}
 		}
@@ -420,6 +351,19 @@ public class MonteCarloTreeSearchDecider extends Decider {
 		
 		public double getWinPercent() {
 			return (wins * 100) / ( (double) total);
+		}
+		
+	}
+	
+	// Internal class to store win percentage and evaluator score data.
+	private class PercentScoreData {
+		
+		public double percent;
+		public float score;
+		
+		public PercentScoreData(double percent, float score) {
+			this.percent = percent;
+			this.score = score;
 		}
 		
 	}
