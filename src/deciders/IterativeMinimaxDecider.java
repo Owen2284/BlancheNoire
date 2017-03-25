@@ -40,10 +40,10 @@ public class IterativeMinimaxDecider extends MinimaxDecider {
 				for (int col = 0; col < current.getBoardDims()[1]; ++col) {
 					
 					// Checks if a legal move is available at this space.
-					if (current.getLegalMoves(current.getPlayer(playerNumber))[row][col]) {
+					if (current.getLegalMoves(current.getPlayerByIndex(playerNumber))[row][col]) {
 						
 						// Analyses the game tree that sprouts from playing a move at the current space.
-						GameState child = current.playMove(current.getPlayer(playerNumber), new Point(row, col));
+						GameState child = current.playMove(current.getPlayerByIndex(playerNumber), new Point(row, col));
 						float childScore = getMinScore(child, currentDepth-1, startTimestamp, timeLimit, e, playerNumber, 1-playerNumber, Float.NEGATIVE_INFINITY, Float.POSITIVE_INFINITY);
 						
 						// Stores the score in the score HashMap, if the time limit has not been exceeded.
@@ -70,7 +70,7 @@ public class IterativeMinimaxDecider extends MinimaxDecider {
 				highScoringMove = key;
 			}
 		}
-		current.getPlayer(playerNumber).setOutput("Move chosen: (" + highScoringMove.x + "," + highScoringMove.y + "). Score: " + moveScores.get(highScoringMove) + ". Depth reached: " + (currentDepth - 1) + ".");
+		current.getPlayerByIndex(playerNumber).setOutput("Move chosen: (" + highScoringMove.x + "," + highScoringMove.y + "). Score: " + moveScores.get(highScoringMove) + ". Depth reached: " + (currentDepth - 1) + ".");
 		return highScoringMove;
 		
 	}

@@ -79,8 +79,8 @@ public class GamePanel extends JPanel implements MouseListener {
 		// Caching data.
 		this.board = game.getBoard();
 		this.legalMoves = game.getLegalMoves(playerToPlay);
-		this.players[0] = game.getPlayer(0);
-		this.players[1] = game.getPlayer(1);
+		this.players[0] = game.getPlayerByIndex(0);
+		this.players[1] = game.getPlayerByIndex(1);
 		this.dimensions = game.getBoardDims();
 		this.playerPlaying = playerToPlay.getPlayerID();
 		

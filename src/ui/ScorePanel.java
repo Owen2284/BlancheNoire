@@ -38,8 +38,8 @@ public class ScorePanel extends JPanel {
 	 * @param game - the current GameState of the Othello game.
 	 */
 	public void updateUI(GameState game) {
-		this.scores[0] = game.getScoreOfPlayer(0);
-		this.scores[1] = game.getScoreOfPlayer(1);
+		this.scores[0] = game.getScoreOfPlayerIndex(0);
+		this.scores[1] = game.getScoreOfPlayerIndex(1);
 		this.phase = game.getGamePhase() + " Phase";
 	}
 	

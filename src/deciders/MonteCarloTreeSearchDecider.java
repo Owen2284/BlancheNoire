@@ -255,7 +255,7 @@ public class MonteCarloTreeSearchDecider extends Decider {
 		++simulationsRun;
 		
 		// Determine the int to return based on if the player's score was higher then the opponent's or not.
-		if (currentState.getScore(playerIAm) > currentState.getScore(currentState.getOpposingPlayer(playerIAm))) {
+		if (currentState.getScoreOfPlayer(playerIAm) > currentState.getScoreOfPlayer(currentState.getOpposingPlayer(playerIAm))) {
 			return 1;
 		} else {
 			return 0;

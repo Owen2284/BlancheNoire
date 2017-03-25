@@ -83,8 +83,8 @@ public class GameState {
 		}
 		
 		this.players = new Player[2];
-		this.players[0] = that.getPlayer(0);
-		this.players[1] = that.getPlayer(1);
+		this.players[0] = that.getPlayerByIndex(0);
+		this.players[1] = that.getPlayerByIndex(1);
 		this.turnNumber = that.getTurnNumber();
 		this.legalMovesCache = new boolean[2][this.boardSize][this.boardSize];
 		this.legalMovesCache[0] = null;
@@ -103,12 +103,24 @@ public class GameState {
 	/**
 	 * Returns the player object with the specified index.
 	 */
-	public Player getPlayer(int playerNumber) {
+	public Player getPlayerByIndex(int playerNumber) {
 		try {
 			return this.players[playerNumber];
 		} catch (Error e) {
 			throw new ArrayIndexOutOfBoundsException("Player array index accessed incorrectly, array is zero-indexed and contains two Players.");
 		}
+	}
+	
+	/**
+	 * Returns the player object with the specified counter ID.
+	 */
+	public Player getPlayerByID(int id) {
+		for (Player p : this.players) {
+			if (p.getPlayerID() == id) {
+				return p;
+			}
+		}
+		return null;
 	}
 	
 	/**
@@ -188,7 +200,7 @@ public class GameState {
 	 * Returns the total number of counters a player owns,
 	 * which requires the player's ID.
 	 */
-	public int getScore(int id) {
+	public int getScoreOfID(int id) {
 		try {
 			return this.scoreCache[id-1];
 		} catch (ArrayIndexOutOfBoundsException e) {
@@ -199,13 +211,24 @@ public class GameState {
 	/**
 	 * Shortcut to passing player ID to the function.
 	 */
-	public int getScore(Player p) {return getScore(p.getPlayerID());}
+	public int getScoreOfPlayer(Player p) {return getScoreOfID(p.getPlayerID());}
 	
 	/**
 	 * Allows score to be retrieved for the player at the specified
 	 * index of the player array. 
 	 */
-	public int getScoreOfPlayer(int i) {return this.getScore(this.getPlayer(i));}
+	public int getScoreOfPlayerIndex(int i) {return this.getScoreOfPlayer(this.getPlayerByIndex(i));}
+	
+	/**
+	 * Determines if the provided player has won.
+	 */
+	public boolean isWinning(Player p) {return getScoreOfPlayer(p) > getScoreOfPlayer(getOpposingPlayer(p));}
+	public boolean isWinning(int id) {return getScoreOfID(id) > getScoreOfID(getOpposingPlayer(getPlayerByID(id)).getPlayerID());}
+	
+	/**
+	 * Determines if the current game is at a draw.
+	 */
+	public boolean isDraw() {return this.scoreCache[0] == this.scoreCache[1];}
 	
 	/**
 	 * Counts the scores of both players and stores them in a cache.
@@ -223,6 +246,9 @@ public class GameState {
 				}
 			}
 		}
+		if (isOver() && isWinning(id)) {
+			sum += getEmptySpaces();
+		}
 		return sum;
 	}
 	
@@ -230,7 +256,7 @@ public class GameState {
 	 * Determines the number of empty spaces on the game board.
 	 */
 	public int getEmptySpaces() {
-		return (boardSize * boardSize) - getScoreOfPlayer(0) - getScoreOfPlayer(1);
+		return (boardSize * boardSize) - getScoreOfPlayerIndex(0) - getScoreOfPlayerIndex(1);
 	}
 	
 	/**
@@ -464,7 +490,7 @@ public class GameState {
 	public boolean isOver() {
 		
 		// Determine if any moves are available for each player.
-		return (!(hasLegalMoves(getPlayer(0)) || hasLegalMoves(getPlayer(1))));
+		return (!(hasLegalMoves(getPlayerByIndex(0)) || hasLegalMoves(getPlayerByIndex(1))));
 
 	}
 	
@@ -496,11 +522,11 @@ public class GameState {
 	/**
 	 * Checks to see if the provided game state is identical to this one.
 	 */
-	public boolean isEqual(GameState that) {
+	public boolean equals(GameState that) {
 		boolean result = true;
 		result = result && (this.hasSameBoardAs(that));
-		result = result && (this.getPlayer(0).equals(that.getPlayer(0)));
-		result = result && (this.getPlayer(1).equals(that.getPlayer(1)));
+		result = result && (this.getPlayerByIndex(0).equals(that.getPlayerByIndex(0)));
+		result = result && (this.getPlayerByIndex(1).equals(that.getPlayerByIndex(1)));
 		result = result && (this.turnNumber == that.getTurnNumber());
 		return result;
 		
@@ -560,8 +586,8 @@ public class GameState {
 		theString = theString.substring(0, theString.length() - 1) + "\n";
 		
 		theString += "Players:\n";
-		theString += " 1. " + this.players[0].getPlayerType() + " - " + this.getScore(this.players[0]) + "\n";
-		theString += " 2. " + this.players[1].getPlayerType() + " - " + this.getScore(this.players[1]) + "\n\n";
+		theString += " 1. " + this.players[0].getPlayerType() + " - " + this.getScoreOfPlayer(this.players[0]) + "\n";
+		theString += " 2. " + this.players[1].getPlayerType() + " - " + this.getScoreOfPlayer(this.players[1]) + "\n\n";
 		
 		theString += "Turn Number: " + this.turnNumber;
 		

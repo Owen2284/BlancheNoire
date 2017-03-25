@@ -118,7 +118,7 @@ public class Othello {
 			while (!game.isOver()) {
 				
 				// Retrieve the player that is next to play.
-				playerToPlay = game.getPlayer(nextPlayerNumber);
+				playerToPlay = game.getPlayerByIndex(nextPlayerNumber);
 				
 				// Display the current game state.
 				if (useGUI) {

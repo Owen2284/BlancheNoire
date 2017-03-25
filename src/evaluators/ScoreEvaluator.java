@@ -19,7 +19,7 @@ public class ScoreEvaluator extends Evaluator {
 	
 	@Override
 	public float evaluate(GameState game, Player p) {
-		return game.getScore(p) - game.getScore(game.getOpposingPlayer(p));
+		return game.getScoreOfPlayer(p) - game.getScoreOfPlayer(game.getOpposingPlayer(p));
 	}
 
 

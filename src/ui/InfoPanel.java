@@ -37,7 +37,7 @@ public class InfoPanel extends JPanel {
 	 */
 	public void updateUI(GameState game, Player playerToPlay) {
 		if (game.isOver()) {
-			int[] scores = {game.getScore(1), game.getScore(2)};
+			int[] scores = {game.getScoreOfID(1), game.getScoreOfID(2)};
 			if (scores[0] > scores[1]) {
 				this.info = "The game is over. The winning player is Player 1.";
 			} else if (scores[0] < scores[1]) {

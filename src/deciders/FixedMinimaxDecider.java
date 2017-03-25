@@ -36,10 +36,10 @@ public class FixedMinimaxDecider extends MinimaxDecider {
 			for (int col = 0; col < current.getBoardDims()[1]; ++col) {
 				
 				// Checks if a legal move is available at this space.
-				if (current.getLegalMoves(current.getPlayer(playerNumber))[row][col]) {
+				if (current.getLegalMoves(current.getPlayerByIndex(playerNumber))[row][col]) {
 					
 					// Analyses the game tree that sprouts from playing a move at the current space.
-					GameState child = current.playMove(current.getPlayer(playerNumber), new Point(row, col));
+					GameState child = current.playMove(current.getPlayerByIndex(playerNumber), new Point(row, col));
 					float childScore = getMinScore(child, depth-1, startTimestamp, timeLimit, e, playerNumber, 1-playerNumber, Float.NEGATIVE_INFINITY, Float.POSITIVE_INFINITY);
 					
 					// Determines if the child move is the best move found so far.
@@ -57,7 +57,7 @@ public class FixedMinimaxDecider extends MinimaxDecider {
 		}
 		
 		// Stores output.
-		current.getPlayer(playerNumber).setOutput("Move chosen: (" + bestMove.x + "," + bestMove.y + "). Score: " + bestScore + ".");
+		current.getPlayerByIndex(playerNumber).setOutput("Move chosen: (" + bestMove.x + "," + bestMove.y + "). Score: " + bestScore + ".");
 		
 		// Returns the move found with the highest score.
 		return bestMove;
