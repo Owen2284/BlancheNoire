@@ -5,6 +5,7 @@ import java.util.HashMap;
 
 import evaluators.Evaluator;
 import game.GameState;
+import players.Player;
 
 public class IterativeMinimaxDecider extends MinimaxDecider {
 
@@ -23,7 +24,7 @@ public class IterativeMinimaxDecider extends MinimaxDecider {
 	/**
 	 * Evaluates all children of the current game state and returns the most promising one.
 	 */
-	public Point getMaxMove(GameState current, int maxDepth, long startTimestamp, int timeLimit, Evaluator e, int playerNumber) {
+	public Point getMaxMove(GameState current, int maxDepth, long startTimestamp, int timeLimit, Evaluator e, Player p) {
 		
 		// Resetting debug field for analysing the number of nodes checked.
 		this.debugNodesChecked = 0;
@@ -40,11 +41,11 @@ public class IterativeMinimaxDecider extends MinimaxDecider {
 				for (int col = 0; col < current.getBoardDims()[1]; ++col) {
 					
 					// Checks if a legal move is available at this space.
-					if (current.getLegalMoves(current.getPlayerByIndex(playerNumber))[row][col]) {
+					if (current.getLegalMoves(p)[row][col]) {
 						
 						// Analyses the game tree that sprouts from playing a move at the current space.
-						GameState child = current.playMove(current.getPlayerByIndex(playerNumber), new Point(row, col));
-						float childScore = getMinScore(child, currentDepth-1, startTimestamp, timeLimit, e, playerNumber, 1-playerNumber, Float.NEGATIVE_INFINITY, Float.POSITIVE_INFINITY);
+						GameState child = current.playMove(p, new Point(row, col));
+						float childScore = getMinScore(child, currentDepth-1, startTimestamp, timeLimit, e, p, child.getOpposingPlayer(p), Float.NEGATIVE_INFINITY, Float.POSITIVE_INFINITY);
 						
 						// Stores the score in the score HashMap, if the time limit has not been exceeded.
 						// This is so that any move placed in the HashMap has been fully evaluated.
@@ -70,7 +71,7 @@ public class IterativeMinimaxDecider extends MinimaxDecider {
 				highScoringMove = key;
 			}
 		}
-		current.getPlayerByIndex(playerNumber).setOutput("Move chosen: (" + highScoringMove.x + "," + highScoringMove.y + "). Score: " + moveScores.get(highScoringMove) + ". Depth reached: " + (currentDepth - 1) + ".");
+		p.setOutput("Move chosen: (" + highScoringMove.x + "," + highScoringMove.y + "). Score: " + moveScores.get(highScoringMove) + ". Depth reached: " + (currentDepth - 1) + ".");
 		return highScoringMove;
 		
 	}
