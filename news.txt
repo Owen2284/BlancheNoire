@@ -1,0 +1,7 @@
+Games Archive
+- Downloaded from http://www.ffothello.org/informatique/la-base-wthor/
+- Files in .wtr format, only openable by Win-Test program
+- Files no longer supported by any version of the program.
+- Found a website that uses the same data to display games: http://www.soongsky.com/en/database/index.php
+- Was able to extract the move list and scores from the JavaScript and store them in text files.
+- These files can be read into the game and converted into a series of moves, which can be resimulated by the program.
