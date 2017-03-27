@@ -1,4 +1,4 @@
-package learning;
+package util;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -6,8 +6,6 @@ import java.io.InputStreamReader;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
-
-import util.FileTools;
 
 /**
  * Script to extract all available games from http://www.soongsky.com/. Created due to the unavailability of
