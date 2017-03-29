@@ -191,12 +191,17 @@ public class GamePanel extends JPanel implements MouseListener {
 		g.drawOval(PANEL_WIDTH - DIST_FROM_EDGE - (2 * BIG_OVAL_RADIUS), BIG_OVAL_HEIGHT, 2 * BIG_OVAL_RADIUS, 2 * BIG_OVAL_RADIUS);
 		g.setColor(Color.BLACK);
 		if (this.playerPlaying == 1) {
-			g.drawRect(DIST_FROM_EDGE - 10, BIG_OVAL_HEIGHT - 50, BIG_OVAL_RADIUS * 2 + 20, 4 * BIG_OVAL_RADIUS);
-			g.drawRect(DIST_FROM_EDGE - 9, BIG_OVAL_HEIGHT - 49, BIG_OVAL_RADIUS * 2 + 18, 4 * BIG_OVAL_RADIUS - 2);
+			int[] triX = {DIST_FROM_EDGE + BIG_OVAL_RADIUS - 10, DIST_FROM_EDGE + BIG_OVAL_RADIUS, DIST_FROM_EDGE + BIG_OVAL_RADIUS + 10};
+			int[] triY = {BIG_OVAL_HEIGHT - 70, BIG_OVAL_HEIGHT - 50, BIG_OVAL_HEIGHT - 70};
+			g.drawPolygon(triX, triY, 3);
+			g.fillPolygon(triX, triY, 3);
 		} else if (this.playerPlaying == 2) {
-			g.drawRect(PANEL_WIDTH - DIST_FROM_EDGE - (2 * BIG_OVAL_RADIUS) - 10, BIG_OVAL_HEIGHT - 50, BIG_OVAL_RADIUS * 2 + 20, 4 * BIG_OVAL_RADIUS);
-			g.drawRect(PANEL_WIDTH - DIST_FROM_EDGE - (2 * BIG_OVAL_RADIUS) - 9, BIG_OVAL_HEIGHT - 49, BIG_OVAL_RADIUS * 2 + 18, 4 * BIG_OVAL_RADIUS - 2);
+			int[] triX = {PANEL_WIDTH - DIST_FROM_EDGE - BIG_OVAL_RADIUS - 10, PANEL_WIDTH - DIST_FROM_EDGE - BIG_OVAL_RADIUS, PANEL_WIDTH - DIST_FROM_EDGE - BIG_OVAL_RADIUS + 10};
+			int[] triY = {BIG_OVAL_HEIGHT - 70, BIG_OVAL_HEIGHT - 50, BIG_OVAL_HEIGHT - 70};
+			g.drawPolygon(triX, triY, 3);
+			g.fillPolygon(triX, triY, 3);
 		}
+		g.setColor(Color.BLACK);
 		g.drawString("Player 1", DIST_FROM_EDGE + (BIG_OVAL_RADIUS / 2) + 4, BIG_OVAL_HEIGHT - 20);
 		g.drawString(players[0].getPlayerType(), DIST_FROM_EDGE + (BIG_OVAL_RADIUS / 2) - (int) (players[0].getPlayerType().length() * 1.5), BIG_OVAL_HEIGHT + (2 * BIG_OVAL_RADIUS) + 20);
 		g.drawString("Player 2", PANEL_WIDTH - DIST_FROM_EDGE - (3 * BIG_OVAL_RADIUS / 2) + 4, BIG_OVAL_HEIGHT - 20);

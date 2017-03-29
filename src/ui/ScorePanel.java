@@ -16,6 +16,7 @@ public class ScorePanel extends JPanel {
 	
 	private int[] scores;
 	private String phase;
+	private int turn;
 	
 	public static final int PANEL_WIDTH = OthelloFrame.FRAME_WIDTH;
 	public static final int PANEL_HEIGHT = 80;
@@ -31,6 +32,7 @@ public class ScorePanel extends JPanel {
 		this.scores = new int[2];
 		this.scores[0] = 0;
 		this.scores[1] = 0;
+		this.turn = 0;
 	}
 	
 	/**
@@ -41,6 +43,7 @@ public class ScorePanel extends JPanel {
 		this.scores[0] = game.getScoreOfPlayer(0);
 		this.scores[1] = game.getScoreOfPlayer(1);
 		this.phase = game.getGamePhase() + " Phase";
+		this.turn = game.getTurnNumber();
 	}
 	
 	@Override
@@ -55,7 +58,8 @@ public class ScorePanel extends JPanel {
 		g.drawString("VS", PANEL_WIDTH/2 - 8, PANEL_HEIGHT/2 + 5);
 		String fontName = g.getFont().getFontName();
 		g.setFont(new Font(fontName, 0, 10));
-		g.drawString(this.phase, PANEL_WIDTH/2 - (int)(this.phase.length() * 2.7), PANEL_HEIGHT/2 + 35);
+		g.drawString("(Turns passed: " + (this.turn-1) + ")", PANEL_WIDTH/2 - (int)(this.phase.length() * 3.1), PANEL_HEIGHT/2 + 35);
+		g.drawString(this.phase, PANEL_WIDTH/2 - (int)(this.phase.length() * 2.7), PANEL_HEIGHT/2 + 22);
 		g.setFont(new Font(fontName, 0, 32));
 		if (this.scores[0] >= 10) {g.drawString(Integer.toString(this.scores[0]), PANEL_WIDTH/2-95, PANEL_HEIGHT/2 + 5);}
 		else {g.drawString(Integer.toString(this.scores[0]), PANEL_WIDTH/2-85, PANEL_HEIGHT/2 + 5);}

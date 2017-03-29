@@ -134,7 +134,12 @@ public class Othello {
 				if (game.hasLegalMoves(playerToPlay)) {
 				
 					// Ask the player to determine their move.
-					Point moveToPlay = playerToPlay.getMove(game, ui.middle);
+					Point moveToPlay;
+					if (useGUI) {
+						moveToPlay = playerToPlay.getMove(game, ui.middle);
+					} else {
+						moveToPlay = playerToPlay.getMove(game, null);
+					}
 					
 					// Plays the move onto the game board, and stores the new GameState.
 					game = game.playMove(playerToPlay, moveToPlay);
