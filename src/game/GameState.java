@@ -6,7 +6,7 @@ import players.Player;
 
 /**
  * A class for representing the Othello game state and logic. Provides methods for
- * determining 
+ * determining legal moves, future states and game outcomes.
  */
 public class GameState {
 	

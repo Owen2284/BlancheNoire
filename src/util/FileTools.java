@@ -1,6 +1,7 @@
 package util;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileReader;
 import java.io.PrintWriter;
 import java.util.ArrayList;
@@ -34,6 +35,24 @@ public class FileTools {
 		} catch(Exception e) {
 			System.out.println(e.getClass().getCanonicalName() + " on " + filePath + " : " + e.getMessage());
 		}
+	}
+	
+	public static String[] getAllFilePathsInDir(String dir) {
+		File d = new File(dir);
+		File[] allFiles = d.listFiles();
+		String[] allPaths = new String[allFiles.length];
+		int ptr = 0;
+		for (File f : allFiles) {
+			allPaths[ptr] = f.getPath();
+			++ptr;
+		}
+		return allPaths;
+	}
+	
+	public static File[] getAllFilesInDir(String dir) {
+		File d = new File(dir);
+		File[] allFiles = d.listFiles();
+		return allFiles;
 	}
 
 }
