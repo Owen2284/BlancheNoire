@@ -55,10 +55,10 @@ public abstract class MinimaxDecider extends Decider {
 		}
 		
 		// Else, explores the possible moves.
-		boolean[][] legalMoves = current.getLegalMoves(playerToPlay);
+		boolean[][] lm = current.getLegalMoves(playerToPlay);
 		for (int row = 0; row < current.getBoardDims()[0]; ++row) {
 			for (int col = 0; col < current.getBoardDims()[1]; ++col) {
-				if (legalMoves[row][col]) {	
+				if (lm[row][col]) {	
 					GameState child = current.playMove(playerToPlay, new Point(row, col));
 					float childScore = getMinScore(child, depth-1, startTimestamp, timeLimit, e, playerToEvaluate, child.getOpposingPlayer(playerToPlay), alpha, beta);
 					best = Math.max(best, childScore);
@@ -97,10 +97,10 @@ public abstract class MinimaxDecider extends Decider {
 		}
 		
 		// Else, explores the tree deeper.
-		boolean[][] legalMoves = current.getLegalMoves(playerToPlay);
+		boolean[][] lm = current.getLegalMoves(playerToPlay);
 		for (int row = 0; row < current.getBoardDims()[0]; ++row) {
 			for (int col = 0; col < current.getBoardDims()[1]; ++col) {
-				if (legalMoves[row][col]) {
+				if (lm[row][col]) {
 					GameState child = current.playMove(playerToPlay, new Point(row, col));
 					float childScore = getMaxScore(child, depth-1, startTimestamp, timeLimit, e, playerToEvaluate, child.getOpposingPlayer(playerToPlay), alpha, beta);
 					worst = Math.min(worst, childScore);

@@ -99,48 +99,8 @@ public class Othello {
 			}
 			
 				
-			// Creates basic game.
-			
+			// Creates initial game state.
 			GameState game = new GameState(p1, p2, boardSize);
-			boolean[][] lm1 = game.getLegalMoves(p1);
-			boolean[][] lm2 = game.getLegalMoves(p2);
-			boolean[][] lm3 = game.getLegalMoves(p1);
-			boolean[][] lm4 = game.getLegalMovesNoCache(p1.getPlayerID());
-			System.out.println(lm1.equals(lm2));
-			System.out.println(lm1.equals(lm3));
-			System.out.println(lm1.equals(lm4));
-			for (int row = 0; row < game.getBoardDims()[0]; ++row) {
-				for (int col = 0; col < game.getBoardDims()[1]; ++col) {
-					if (lm1[row][col]) {
-						System.out.print("T");
-					} else {
-						System.out.print("F");
-					}
-				}
-				System.out.println();
-			}
-			System.out.println();
-			for (int row = 0; row < game.getBoardDims()[0]; ++row) {
-				for (int col = 0; col < game.getBoardDims()[1]; ++col) {
-					if (lm3[row][col]) {
-						System.out.print("T");
-					} else {
-						System.out.print("F");
-					}
-				}
-				System.out.println();
-			}
-			System.out.println();
-			for (int row = 0; row < game.getBoardDims()[0]; ++row) {
-				for (int col = 0; col < game.getBoardDims()[1]; ++col) {
-					if (lm1[row][col] == lm3[row][col]) {
-						System.out.print("O");
-					} else {
-						System.out.print(" ");
-					}
-				}
-				System.out.println();
-			}
 			
 			// Storing initial game state in file string storage.
 			String fileString = game.toFileString();
@@ -168,7 +128,7 @@ public class Othello {
 				}
 				
 				// Temporary pause to show game state.
-				try {Thread.sleep(delayBetweenMoves);} catch (Exception e) {/* Continue execution. */}
+				try {Thread.sleep(delayBetweenMoves);} catch (Exception e) {}
 				
 				// Determine if the player can make a move or not.
 				if (game.hasLegalMoves(playerToPlay)) {
@@ -226,6 +186,7 @@ public class Othello {
 			} catch(Exception e) {
 				System.out.println("Error while writing game file: " + e.getMessage());
 			}
+			
 		}
 			
 		

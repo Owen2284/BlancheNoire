@@ -81,7 +81,6 @@ public class GameLoader {
 								++testGames;
 							}
 						} else {
-							//System.out.println(g.getScoreOfID(GameState.COUNTER_DARK) + ":" + g.getScoreOfID(GameState.COUNTER_LIGHT) + " =/= " + gs.scores[0] + ":" + gs.scores[1]);
 							++failedGames;
 							++badScoreGames;
 						}
