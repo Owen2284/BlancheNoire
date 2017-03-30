@@ -31,11 +31,11 @@ public class PositionalEvaluator extends Evaluator {
 		
 		// Checks if the game is won or lost.
 		if (game.isOver()) {
-			if (game.getScore(myID) > game.getScore(opponentID)) {
-				score = (game.getBoardDims()[0] * game.getBoardDims()[1] * (float) EDGE_WEIGHT * (float) CORNER_WEIGHT) + (game.getScore(myID) - game.getScore(opponentID));
+			if (game.getScoreOfID(myID) > game.getScoreOfID(opponentID)) {
+				score = (game.getBoardDims()[0] * game.getBoardDims()[1] * (float) EDGE_WEIGHT * (float) CORNER_WEIGHT) + (game.getScoreOfID(myID) - game.getScoreOfID(opponentID));
 				return score;
-			} else if (game.getScore(myID) < game.getScore(opponentID)) {
-				score = ((-1 * game.getBoardDims()[0] * game.getBoardDims()[1]) * (float) EDGE_WEIGHT * (float) CORNER_WEIGHT) + (game.getScore(myID) - game.getScore(opponentID));
+			} else if (game.getScoreOfID(myID) < game.getScoreOfID(opponentID)) {
+				score = ((-1 * game.getBoardDims()[0] * game.getBoardDims()[1]) * (float) EDGE_WEIGHT * (float) CORNER_WEIGHT) + (game.getScoreOfID(myID) - game.getScoreOfID(opponentID));
 				return score;
 			}
 		}
