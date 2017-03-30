@@ -29,6 +29,8 @@ public class GameState {
 	public static final int COUNTER_EMPTY = 0;
 	public static final int COUNTER_DARK = 1;
 	public static final int COUNTER_LIGHT = 2;
+	
+	private final boolean ENABLE_LEGAL_MOVE_CACHING = false;
 
 	/**
 	 * Basic constructor.
@@ -83,8 +85,8 @@ public class GameState {
 		}
 		
 		this.players = new Player[2];
-		this.players[0] = that.getPlayer(0);
-		this.players[1] = that.getPlayer(1);
+		this.players[0] = that.getPlayerByIndex(0);
+		this.players[1] = that.getPlayerByIndex(1);
 		this.turnNumber = that.getTurnNumber();
 		this.legalMovesCache = new boolean[2][this.boardSize][this.boardSize];
 		this.legalMovesCache[0] = null;
@@ -103,12 +105,24 @@ public class GameState {
 	/**
 	 * Returns the player object with the specified index in the player array.
 	 */
-	public Player getPlayer(int playerNumber) {
+	public Player getPlayerByIndex(int playerNumber) {
 		try {
 			return this.players[playerNumber];
 		} catch (Error e) {
 			throw new ArrayIndexOutOfBoundsException("Player array index accessed incorrectly, array is zero-indexed and contains two Players.");
 		}
+	}
+	
+	/**
+	 * Returns the player using the provided counter ID.
+	 */
+	public Player getPlayerByID(int id) {
+		for (Player p : this.players) {
+			if (id == p.getPlayerID()) {
+				return p;
+			}
+		}
+		throw new IllegalArgumentException("No player using ID=" + id + ".");
 	}
 	
 	/**
@@ -188,7 +202,7 @@ public class GameState {
 	 * Returns the total number of counters a player owns,
 	 * which requires the player's ID.
 	 */
-	public int getScore(int id) {
+	public int getScoreOfID(int id) {
 		try {
 			return this.scoreCache[id-1];
 		} catch (ArrayIndexOutOfBoundsException e) {
@@ -199,26 +213,49 @@ public class GameState {
 	/**
 	 * Shortcut to passing player ID to the function.
 	 */
-	public int getScoreOfPlayer(Player p) {return getScore(p.getPlayerID());}
+	public int getScoreOfPlayer(Player p) {return getScoreOfID(p.getPlayerID());}
 	
 	/**
 	 * Allows score to be retrieved for the player at the specified
 	 * index of the player array. 
 	 */
-	public int getScoreOfPlayer(int i) {return this.getScore(this.getPlayer(i).getPlayerID());}
+	public int getScoreOfPlayer(int i) {return this.getScoreOfID(this.getPlayerByIndex(i).getPlayerID());}
+	
+	/**
+	 * Determines if the provided player has won.
+	 */
+	public boolean isWinning(Player p) {return getScoreOfPlayer(p) > getScoreOfPlayer(getOpposingPlayer(p));}
+	public boolean isWinning(int id) {return getScoreOfID(id) > getScoreOfID(getOpposingPlayer(getPlayerByID(id)).getPlayerID());}
+	
+	/**
+	 * Determines if the current game is at a draw.
+	 */
+	public boolean isDraw() {return this.scoreCache[0] == this.scoreCache[1];}
 	
 	/**
 	 * Counts the scores of both players and stores them in a cache.
 	 */
 	private void computeScores() {
-		this.scoreCache[0] = computeScore(COUNTER_DARK);
-		this.scoreCache[1] = computeScore(COUNTER_LIGHT);
+		boolean gameOver = isOver();	
+		this.scoreCache[0] = scoreNoCache(COUNTER_DARK);
+		this.scoreCache[1] = scoreNoCache(COUNTER_LIGHT);
+		if (gameOver) {
+			if (this.scoreCache[0] > this.scoreCache[1]) {
+				this.scoreCache[0] += getEmptySpaces();
+			} else if (this.scoreCache[0] < this.scoreCache[1]) {
+				this.scoreCache[1] += getEmptySpaces();
+			} else {
+				this.scoreCache[0] = (boardSize * boardSize) / 2;
+				this.scoreCache[1] = (boardSize * boardSize) / 2;
+			}
+		}		
 	}
-	private int computeScore(int id) {
+	
+	private int scoreNoCache(int id) {
 		int sum = 0;
 		for (int row = 0; row < boardSize; ++row) {
 			for (int col = 0; col < boardSize; ++col) {
-				if (this.getBoardValue(new Point(row, col)) == id) {
+				if (this.board[row][col] == id) {
 					++sum;
 				}
 			}
@@ -230,7 +267,7 @@ public class GameState {
 	 * Determines the number of empty spaces on the game board.
 	 */
 	public int getEmptySpaces() {
-		return (boardSize * boardSize) - getScoreOfPlayer(0) - getScoreOfPlayer(1);
+		return scoreNoCache(0);
 	}
 	
 	/**
@@ -248,13 +285,21 @@ public class GameState {
 		// Checks if an allowed counter type has been passed to the function.
 		if (id == COUNTER_DARK || id == COUNTER_LIGHT) {
 			
-			// Checks the cache to see if the legal moves have already been calculated.
-			if (this.legalMovesCache[id-1] != null) {
+			if (ENABLE_LEGAL_MOVE_CACHING) {
+			
+				// Checks the cache to see if the legal moves have already been calculated.
+				if (this.legalMovesCache[id-1] != null) {
+					return this.legalMovesCache[id-1];
+				}
+			
+				this.legalMovesCache[id-1] = getLegalMovesNoCache(id);
 				return this.legalMovesCache[id-1];
+				
+			} else {
+				
+				return this.getLegalMovesNoCache(id);
+				
 			}
-		
-			this.legalMovesCache[id-1] = getLegalMovesNoCache(id);
-			return this.legalMovesCache[id-1];
 			
 		} else {
 			throw new IllegalArgumentException("Invalid player ID, no counter type that macthes the ID " + id + ".");
@@ -464,7 +509,7 @@ public class GameState {
 	public boolean isOver() {
 		
 		// Determine if any moves are available for each player.
-		return (!(hasLegalMoves(getPlayer(0)) || hasLegalMoves(getPlayer(1))));
+		return (!(hasLegalMoves(getPlayerByIndex(0)) || hasLegalMoves(getPlayerByIndex(1))));
 
 	}
 	
@@ -499,8 +544,8 @@ public class GameState {
 	public boolean isEqual(GameState that) {
 		boolean result = true;
 		result = result && (this.hasSameBoardAs(that));
-		result = result && (this.getPlayer(0).equals(that.getPlayer(0)));
-		result = result && (this.getPlayer(1).equals(that.getPlayer(1)));
+		result = result && (this.getPlayerByIndex(0).equals(that.getPlayerByIndex(0)));
+		result = result && (this.getPlayerByIndex(1).equals(that.getPlayerByIndex(1)));
 		result = result && (this.turnNumber == that.getTurnNumber());
 		return result;
 		
