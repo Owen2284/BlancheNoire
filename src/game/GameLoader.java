@@ -63,7 +63,7 @@ public class GameLoader {
 				// Check the game correctly simulates all the way through.
 				GameScript gs = new GameScript(game);
 				GameState g = gs.generateStartState();
-				Player p = g.getPlayer(0);
+				Player p = g.getPlayerByIndex(0);
 				try {
 					while (!g.isOver()) {
 						if (g.hasLegalMoves(p)) {
@@ -72,7 +72,7 @@ public class GameLoader {
 						p = g.getOpposingPlayer(p);
 					}
 					if (g.getTurnNumber()-1 == gs.moves.length) {
-						if (g.getScore(GameState.COUNTER_DARK) == gs.scores[0] && g.getScore(GameState.COUNTER_LIGHT) == gs.scores[1]) {
+						if (g.getScoreOfID(GameState.COUNTER_DARK) == gs.scores[0] && g.getScoreOfID(GameState.COUNTER_LIGHT) == gs.scores[1]) {
 							if (r.nextBoolean()) {
 								trainingData.add(game);
 								++trainingGames;
@@ -81,6 +81,7 @@ public class GameLoader {
 								++testGames;
 							}
 						} else {
+							//System.out.println(g.getScoreOfID(GameState.COUNTER_DARK) + ":" + g.getScoreOfID(GameState.COUNTER_LIGHT) + " =/= " + gs.scores[0] + ":" + gs.scores[1]);
 							++failedGames;
 							++badScoreGames;
 						}
@@ -91,10 +92,6 @@ public class GameLoader {
 				} catch (ArrayIndexOutOfBoundsException e) {
 					++failedGames;
 					++ranOutOfMovesGames;
-					//System.out.println(g);
-					//System.out.println(path + ", " + (file.indexOf(game)+1));
-					//System.out.println(game);
-					//long t = System.currentTimeMillis();while (t + 1000 > System.currentTimeMillis()) {}
 				} catch (IllegalArgumentException e) {
 					++failedGames;
 					++illegalMoveGames;
