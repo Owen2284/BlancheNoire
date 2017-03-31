@@ -5,6 +5,7 @@ import deciders.FixedMinimaxDecider;
 import deciders.IterativeMinimaxDecider;
 import deciders.MonteCarloTreeSearchDecider;
 import deciders.RandomDecider;
+import evaluators.DeepLearningEvaluator;
 import evaluators.Evaluator;
 import evaluators.PositionalEvaluator;
 import evaluators.ScoreEvaluator;
@@ -84,18 +85,11 @@ public final class PlayerFactory {
 						if (!miniArg.equals("")) {
 							if (miniArg.startsWith("R")) {
 								internalDecider = new RandomDecider();
-							} else if (miniArg.startsWith("FM")) {
+							} else if (miniArg.startsWith("M")) {
 								try {
 									internalDecider = new FixedMinimaxDecider(Integer.parseInt(miniArg.substring(2)));
 								} catch(Exception e2) {
 									System.out.println("Invalid FM argument for MCTS decider.");
-								}
-							} else if (miniArg.startsWith("IM")) {
-								// TODO: Remove internal IM, or fix timing issue.
-								try {
-									internalDecider = new IterativeMinimaxDecider(Integer.parseInt(miniArg.substring(2)));
-								} catch(Exception e2) {
-									System.out.println("Invalid IM argument for MCTS decider.");
 								}
 							} else if (miniArg.startsWith("S")) {
 								try {
@@ -121,6 +115,20 @@ public final class PlayerFactory {
 				e = new ScoreEvaluator();
 			} else if (evaluator.startsWith("Positional")) {
 				e = new PositionalEvaluator();
+			} else if (evaluator.startsWith("DeepLearning")) {
+				String path = "nn/net.txt";
+				if (evaluator.length() > "DeepLearning".length()) {
+					String end = decider.substring("DeepLearning".length());
+					String[] miniArgs = end.split("-");
+					for (String miniArg : miniArgs) {
+						if (!miniArg.equals("")) {
+							if (miniArg.startsWith("F")) {
+								path = miniArg.substring(2, miniArg.length()-1);
+							}
+						}
+					}
+				}
+				e = new DeepLearningEvaluator(path);
 			} else {
 				if (!defaultToNull) {e = new ScoreEvaluator();}				
 				throw new IllegalArgumentException("Invalid Evaluator type.");
