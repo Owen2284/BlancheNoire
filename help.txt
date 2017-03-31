@@ -18,18 +18,17 @@ Argument Label      Type        Default
 
 Additional Decider Arguments:   
 
-Argument Label  Name                                Used By                         Default     Example             Description     
+Argument Label  Name                                Used By                         Default     Example                     Description     
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------
--D#             Depth                               MinimaxDeciders                 6           FixedMinimax-D9     The max depth that a Minimax AI will search to. Does not affect games where Minimax deciders are unused.
--R              Random Internal Decider             MonteCarloTreeSearchDecider     -           MCTS-R              Applies a RandomDecider for a MCTS AI to use for simulating moves during it's decision process.
--FM#            Fixed Minimax Internal Decider      MonteCarloTreeSearchDecider     -           MCTS-FM7            Applies a FixedMinimaxDecider for a MCTS AI to use for simulating moves during it's decision process. Takes a number to specify the Minimax decider's depth.
--IM#            Iterative Minimax Internal Decider  MonteCarloTreeSearchDecider     -           MCTS-IM10           Applies a IterativeMinimaxDecider for a MCTS AI to use for simulating moves during it's decision process. Takes a number to specify the Minimax decider's depth.
--S#             Simulation Maximum                  MonteCarloTreeSearchDecider     Infinite    MCTS-S25000         Sets the max number of simulations a MCTS AI will carry out before halting. If not specified, no limit will be placed.      
-
+-D#             Depth                               MinimaxDeciders                 6           FixedMinimax-D9             The max depth that a Minimax AI will search to. Does not affect games where Minimax deciders are unused.
+-R              Random Internal Decider             MonteCarloTreeSearchDecider     -           MCTS-R                      Applies a RandomDecider for a MCTS AI to use for simulating moves during it's decision process.
+-M#             Fixed Minimax Internal Decider      MonteCarloTreeSearchDecider     -           MCTS-M7                     Applies a FixedMinimaxDecider for a MCTS AI to use for simulating moves during it's decision process. Takes a number to specify the Minimax decider's depth (Recommended range for this value is between 4 and 8 inclusively, depending the power of the computer's CPU).
+-S#             Simulation Maximum                  MonteCarloTreeSearchDecider     Infinite    MCTS-S25000                 Sets the max number of simulations a MCTS AI will carry out before halting. If not specified, no limit will be placed.      
+-F("")			DeepLearning Network Filename		DeepLearningEvaluator			-			DeepLearning-F(nn/net.txt)  Used to specify the file to load the pretrained NN from for the DeepLearningEvaluator. Program will use default path if no path is provided.
 
 Player argument formatting:
 
 Human Players:          Human
 AI Players:             AI(Random,Score)
                         AI(FixedMinimax-D4,Positional)
-                        AI(MCTS-FM4-S100000,DeepLearning)
+                        AI(MCTS-M4-S100000,DeepLearning)
