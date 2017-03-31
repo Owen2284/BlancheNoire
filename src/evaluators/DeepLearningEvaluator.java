@@ -11,6 +11,7 @@ public class DeepLearningEvaluator extends Evaluator {
 
 	public DeepLearningEvaluator(String netPath) {
 		// TODO: Read in the fitted neural network.
+		net = null;
 	}
 
 	@Override
@@ -26,7 +27,7 @@ public class DeepLearningEvaluator extends Evaluator {
 	@Override
 	public float evaluate(GameState game, Player p) {
 		// TODO: Convert GameState to appropriate data format.
-		net.output(null, false);
+		//net.output(null, false);
 		return 0;
 	}
 
