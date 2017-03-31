@@ -121,7 +121,7 @@ public class Othello {
 			Player playerToPlay = null;
 			
 			if (timesToRun > 1) {
-				System.out.println("Running game " + numRuns + "...");
+				System.out.println("Running game " + (numRuns+1) + "...");
 			}
 				
 			// Creates game UI.
