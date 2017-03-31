@@ -16,13 +16,13 @@ public class GameLoader {
 	
 	public static void main(String[] args) {
 		//convertExtractedToScripts("games/extracted/", "games/scripts/");
-		splitScripts("games/scripts/", "games/training/", "games/test/");
+		splitScripts("games/scripts/", "games/training/", "games/test/", System.currentTimeMillis());
 	}
 	
-	public static void splitScripts(String initDir, String trainingDir, String testDir) {
+	public static void splitScripts(String initDir, String trainingDir, String testDir, long seed) {
 		
 		// Initialisation.
-		Random r = new Random();
+		Random r = new Random(seed);
 		ArrayList<String> trainingData = new ArrayList<String>();
 		ArrayList<String> testData = new ArrayList<String>();
 		int trainingFilesMade = 0;

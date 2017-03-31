@@ -91,6 +91,7 @@ public final class PlayerFactory {
 									System.out.println("Invalid FM argument for MCTS decider.");
 								}
 							} else if (miniArg.startsWith("IM")) {
+								// TODO: Remove internal IM, or fix timing issue.
 								try {
 									internalDecider = new IterativeMinimaxDecider(Integer.parseInt(miniArg.substring(2)));
 								} catch(Exception e2) {
@@ -110,19 +111,6 @@ public final class PlayerFactory {
 					}
 				}
 				d = new MonteCarloTreeSearchDecider(useMaxSims, maxSims, internalDecider);
-				/*
-				d = new MonteCarloTreeSearchDecider(useMaxSims, maxSims, new RandomDecider());
-			} else if (decider.equals("MCTS-M4")) {
-				d = new MonteCarloTreeSearchDecider(useMaxSims, maxSims, new FixedMinimaxDecider(4));
-			} else if (decider.equals("MCTS-M5")) {
-				d = new MonteCarloTreeSearchDecider(useMaxSims, maxSims, new FixedMinimaxDecider(5));
-			} else if (decider.equals("MCTS-M6")) {
-				d = new MonteCarloTreeSearchDecider(useMaxSims, maxSims, new FixedMinimaxDecider(6));
-			} else if (decider.equals("MCTS-M7")) {
-				d = new MonteCarloTreeSearchDecider(useMaxSims, maxSims, new FixedMinimaxDecider(7));
-			} else if (decider.equals("MCTS-M8")) {
-				d = new MonteCarloTreeSearchDecider(useMaxSims, maxSims, new FixedMinimaxDecider(8));
-				*/
 			} else {
 				if (!defaultToNull) {d = new RandomDecider();}				
 				throw new IllegalArgumentException("Invalid Decider type.");

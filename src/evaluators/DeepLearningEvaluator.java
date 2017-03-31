@@ -1,14 +1,16 @@
 package evaluators;
 
+import org.deeplearning4j.nn.multilayer.MultiLayerNetwork;
+
 import game.GameState;
 import players.Player;
 
 public class DeepLearningEvaluator extends Evaluator {
 	
-	// Neural network field.
+	private MultiLayerNetwork net;
 
-	public DeepLearningEvaluator() {
-		// Create the neural network / load the neural network.
+	public DeepLearningEvaluator(String netPath) {
+		// TODO: Read in the fitted neural network.
 	}
 
 	@Override
@@ -23,9 +25,8 @@ public class DeepLearningEvaluator extends Evaluator {
 
 	@Override
 	public float evaluate(GameState game, Player p) {
-		// Get the neural network.
-		// Pass the current game state through it.
-		// Return output.
+		// TODO: Convert GameState to appropriate data format.
+		net.output(null, false);
 		return 0;
 	}
 

@@ -36,6 +36,7 @@ public class Othello {
 		// Setting default values for game variables and applies command line arguments if they are found.
 		boolean useGUI = true;
 		boolean showOutput = false;
+		boolean archiveGames = true;
 		int delayBetweenMoves = 100;
 		int maxSearchTime = 5000;
 		int timesToRun = 1;
@@ -46,6 +47,9 @@ public class Othello {
 		try {
 			if (argMap.keySet().contains("-showOutput".toUpperCase())) {showOutput = Boolean.parseBoolean(argMap.get("-showOutput".toUpperCase()));}
 		} catch (Exception e) {System.out.println("Error parsing -showOutput argument. (" + e.getMessage() + ")");}	
+		try {
+			if (argMap.keySet().contains("-archiveGame".toUpperCase())) {archiveGames = Boolean.parseBoolean(argMap.get("-archiveGame".toUpperCase()));}
+		} catch (Exception e) {System.out.println("Error parsing -archiveGame argument. (" + e.getMessage() + ")");}	
 		try {
 			if (argMap.keySet().contains("-moveDelay".toUpperCase())) {delayBetweenMoves = Integer.parseInt(argMap.get("-moveDelay".toUpperCase()));}
 		} catch (Exception e) {System.out.println("Error parsing -moveDelay argument. (" + e.getMessage() + ")");}
@@ -59,12 +63,20 @@ public class Othello {
 			if (argMap.keySet().contains("-boardSize".toUpperCase())) {boardSize = Integer.parseInt(argMap.get("-boardSize".toUpperCase()));}
 		} catch (Exception e) {System.out.println("Error parsing -boardSize argument. (" + e.getMessage() + ")");}
 			
+		// Defines main game variables.
+		GameState game = null;
+		Player p1 = null;
+		Player p2 = null;
+		int[] wins = {0,0};
+		OthelloFrame ui = null;
+		if (useGUI) {
+			ui = new OthelloFrame();
+		}
+		
 		// Runs the game multiple times if required.
 		for (int numRuns = 0; numRuns < timesToRun; ++numRuns) {
 		
 			// Creates the player objects.
-			Player p1 = null;
-			Player p2 = null;
 			if (argMap.keySet().contains("-player1".toUpperCase())) {
 				try {
 					String argString = argMap.get("-player1".toUpperCase());
@@ -98,23 +110,21 @@ public class Othello {
 				p2 = PlayerFactory.createPlayer(GameState.COUNTER_LIGHT, "AI", "Random", "Score", useGUI, maxSearchTime, false);
 			}
 			
-				
 			// Creates initial game state.
-			GameState game = new GameState(p1, p2, boardSize);
+			game = new GameState(p1, p2, boardSize);
 			
 			// Storing initial game state in file string storage.
 			String fileString = game.toFileString();
 					
-			// Initialises other variables shared by the two game loops.
+			// Initialises other variables.
 			int nextPlayerNumber = 0;
 			Player playerToPlay = null;
+			
+			if (timesToRun > 1) {
+				System.out.println("Running game " + numRuns + "...");
+			}
 				
 			// Creates game UI.
-			OthelloFrame ui = null;
-			if (useGUI) {
-				ui = new OthelloFrame();
-			}
-			
 			while (!game.isOver()) {
 				
 				// Retrieve the player that is next to play.
@@ -171,24 +181,39 @@ public class Othello {
 				System.out.println(game);
 			}
 			
+			// Update wins array based on outcome.
+			if (game.isWinning(p1)) {
+				wins[0] += 1;
+			} else if (game.isWinning(p2)) {
+				wins[1] += 1;
+			}
+			
 			// Writes game archive to a file.
-			fileString += "END";
-			try {
-				String fileName = "games/archive/Game" + System.currentTimeMillis() + ".txt";
-				PrintWriter writer = new PrintWriter(fileName, "UTF-8");
-				for (String s : fileString.split("\n")) {
-					writer.println(s);
+			if (archiveGames) {
+				fileString += "END";
+				try {
+					String fileName = "games/archive/Game" + System.currentTimeMillis() + ".txt";
+					PrintWriter writer = new PrintWriter(fileName, "UTF-8");
+					for (String s : fileString.split("\n")) {
+						writer.println(s);
+					}
+					writer.close();
+					if (showOutput) {
+						System.out.println("Game file written to \"" + fileName + "\"");
+					}
+				} catch(Exception e) {
+					System.out.println("Error while writing game file: " + e.getMessage());
 				}
-				writer.close();
-				if (showOutput) {
-					System.out.println("Game file written to \"" + fileName + "\"");
-				}
-			} catch(Exception e) {
-				System.out.println("Error while writing game file: " + e.getMessage());
 			}
 			
 		}
-			
+		
+		if (timesToRun > 1) {
+			System.out.println("FINAL RESULTS");
+			System.out.println("Player 1 won " + wins[0] + " game(s).");
+			System.out.println("Player 2 won " + wins[1] + " game(s).");
+			System.out.println("The players drew " + (timesToRun - wins[0] - wins[1]) + " time(s).");
+		}
 		
 	}
 

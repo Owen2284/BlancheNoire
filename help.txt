@@ -3,32 +3,33 @@ OTHELLO
 
 Available arguments:
 
-Argument Label	Type		Default	
+Argument Label      Type        Default 
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------
--player1		String		Human				Defines the type of player to represent player 1.
--player2		String		AI(Random,Score)	Defines the type of player to represent player 2.
--useGUI			boolean		true				Toggles the graphical interface on or off.
--showOutput		boolean		false				Tells the program whether or not to display, in the console, the output the AI players produce.
--moveDelay		int			100					Number of milliseconds to wait before allowing the next player to move. Allows game state to be viewed before it is changed again.
--AIRunTime		int			5000				Number of milliseconds that an AI player is allowed to use to determine the move it wants to play.
--runCount		int			1					Number of times to repeat the execution of the Othello game.
--boardSize		int 		8					The width and height of the Othello board in board spaces.
+-player1            String      Human               Defines the type of player to represent player 1.
+-player2            String      AI(Random,Score)    Defines the type of player to represent player 2.
+-useGUI             boolean     true                Toggles the graphical interface on or off.
+-showOutput         boolean     false               Tells the program whether or not to display, in the console, the output the AI players produce.
+-archiveGame        boolean     true                Determines whether or not the played game is written to an archive file upon completion.
+-moveDelay          int         100                 Number of milliseconds to wait before allowing the next player to move. Allows game state to be viewed before it is changed again.
+-AIRunTime          int         5000                Number of milliseconds that an AI player is allowed to use to determine the move it wants to play.
+-runCount           int         1                   Number of times to repeat the execution of the Othello game.
+-boardSize          int         8                   The width and height of the Othello board in board spaces.
 
 
-Additional Decider Arguments:	
+Additional Decider Arguments:   
 
-Argument Label	Name								Used By							Default		Example				Description		
+Argument Label  Name                                Used By                         Default     Example             Description     
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------
--D#				Depth								MinimaxDeciders					6			FixedMinimax-D9		The max depth that a Minimax AI will search to. Does not affect games where Minimax deciders are unused.
--R				Random Internal Decider				MonteCarloTreeSearchDecider		-			MCTS-R				Applies a RandomDecider for a MCTS AI to use for simulating moves during it's decision process.
--FM#			Fixed Minimax Internal Decider		MonteCarloTreeSearchDecider		-			MCTS-FM7			Applies a FixedMinimaxDecider for a MCTS AI to use for simulating moves during it's decision process. Takes a number to specify the Minimax decider's depth.
--IM#			Iterative Minimax Internal Decider	MonteCarloTreeSearchDecider		-			MCTS-IM10			Applies a IterativeMinimaxDecider for a MCTS AI to use for simulating moves during it's decision process. Takes a number to specify the Minimax decider's depth.
--S#				Simulation Maximum					MonteCarloTreeSearchDecider		Infinite	MCTS-S25000			Sets the max number of simulations a MCTS AI will carry out before halting. If not specified, no limit will be placed.		
+-D#             Depth                               MinimaxDeciders                 6           FixedMinimax-D9     The max depth that a Minimax AI will search to. Does not affect games where Minimax deciders are unused.
+-R              Random Internal Decider             MonteCarloTreeSearchDecider     -           MCTS-R              Applies a RandomDecider for a MCTS AI to use for simulating moves during it's decision process.
+-FM#            Fixed Minimax Internal Decider      MonteCarloTreeSearchDecider     -           MCTS-FM7            Applies a FixedMinimaxDecider for a MCTS AI to use for simulating moves during it's decision process. Takes a number to specify the Minimax decider's depth.
+-IM#            Iterative Minimax Internal Decider  MonteCarloTreeSearchDecider     -           MCTS-IM10           Applies a IterativeMinimaxDecider for a MCTS AI to use for simulating moves during it's decision process. Takes a number to specify the Minimax decider's depth.
+-S#             Simulation Maximum                  MonteCarloTreeSearchDecider     Infinite    MCTS-S25000         Sets the max number of simulations a MCTS AI will carry out before halting. If not specified, no limit will be placed.      
 
 
 Player argument formatting:
 
-Human Players:			Human
-AI Players:				AI(Random,Score)
-						AI(FixedMinimax-D4,Positional)
-						AI(MCTS-FM4-S100000,DeepLearning)
+Human Players:          Human
+AI Players:             AI(Random,Score)
+                        AI(FixedMinimax-D4,Positional)
+                        AI(MCTS-FM4-S100000,DeepLearning)
