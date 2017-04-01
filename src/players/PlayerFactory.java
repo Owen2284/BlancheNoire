@@ -35,10 +35,7 @@ public final class PlayerFactory {
 			Evaluator e = null;
 			
 			// Create variables to store arguments for specific AI.
-			int searchDepth = 6;
-			boolean useMaxSims = false;
-			int maxSims = 10000;
-			Decider internalDecider = new RandomDecider();			
+			int searchDepth = 6;	
 			
 			// Determine the Decider to be created.
 			if (decider.startsWith("Random")) {
@@ -78,18 +75,25 @@ public final class PlayerFactory {
 				}
 				d = new IterativeMinimaxDecider(searchDepth);
 			} else if (decider.startsWith("MCTS")) {
+				boolean useMaxSims = false;
+				int maxSims = 10000;
+				boolean useMinimax = false;
+				int depthLim = 6;
+				double prob = 0.10;
+				int internalSimMS = 10;
 				if (decider.length() > "MCTS".length()) {
 					String end = decider.substring("MCTS".length());
 					String[] miniArgs = end.split("-");
 					for (String miniArg : miniArgs) {
 						if (!miniArg.equals("")) {
 							if (miniArg.startsWith("R")) {
-								internalDecider = new RandomDecider();
+								useMinimax = false;
 							} else if (miniArg.startsWith("M")) {
 								try {
-									internalDecider = new FixedMinimaxDecider(Integer.parseInt(miniArg.substring(2)));
+									depthLim = Integer.parseInt(miniArg.substring(1));
+									useMinimax = true;
 								} catch(Exception e2) {
-									System.out.println("Invalid FM argument for MCTS decider.");
+									System.out.println("Invalid M argument for MCTS decider.");
 								}
 							} else if (miniArg.startsWith("S")) {
 								try {
@@ -98,13 +102,25 @@ public final class PlayerFactory {
 								} catch(Exception e2) {
 									System.out.println("Invalid S argument for MCTS decider.");
 								}
+							} else if (miniArg.startsWith("T")) {
+								try {
+									internalSimMS = Integer.parseInt(miniArg.substring(1));
+								} catch(Exception e2) {
+									System.out.println("Invalid T argument for MCTS decider.");
+								}
+							} else if (miniArg.startsWith("P")) {
+								try {
+									prob = Double.parseDouble(miniArg.substring(1));
+								} catch(Exception e2) {
+									System.out.println("Invalid P argument for MCTS decider.");
+								}
 							} else {
 								System.out.println("Unused argument for MCTS decider: " + miniArg);
 							}
 						}
 					}
 				}
-				d = new MonteCarloTreeSearchDecider(useMaxSims, maxSims, internalDecider);
+				d = new MonteCarloTreeSearchDecider(useMaxSims, maxSims, useMinimax, depthLim, prob, internalSimMS);
 			} else {
 				if (!defaultToNull) {d = new RandomDecider();}				
 				throw new IllegalArgumentException("Invalid Decider type.");

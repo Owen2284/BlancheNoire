@@ -8,26 +8,32 @@ import evaluators.Evaluator;
 import game.GameState;
 import players.Player;
 
-public class MonteCarloTreeSearchDecider extends Decider {
+public class MonteCarloTreeSearchDecider extends FixedMinimaxDecider {
 
-	private Decider internalDecider;
+	private boolean hardPlayouts;
 	private boolean useMaxSims;
 	private int maxSims;
+	private double randomChance;
+	private int timePerMinimax;
 	
 	private int simulationsRun = 0;
 	
-	public MonteCarloTreeSearchDecider(boolean useMaxSims, int maxSims, Decider internalDecider) {
+	public MonteCarloTreeSearchDecider(boolean useMaxSims, int maxSims, boolean useMinimax, int minimaxDepth, double randomChance, int timePerMinimax) {
+		super(minimaxDepth);
 		this.useMaxSims = useMaxSims;
 		this.maxSims = maxSims;
-		this.internalDecider = internalDecider;
+		this.hardPlayouts = useMinimax;
+		this.randomChance = randomChance;
+		this.timePerMinimax = timePerMinimax;
 	}
+
 
 	@Override
 	public String getType() {return "MCTS";}
 	
 	@Override
 	public String toFileString() {
-		return "MCTS(" + this.useMaxSims + "," + this.maxSims + "," + this.internalDecider.toFileString() + ")";
+		return "MCTS(" + this.useMaxSims + "," + this.maxSims + "," + this.hardPlayouts + "." + this.depthToSearchTo + "," + this.randomChance + "," + this.timePerMinimax + ")";
 	}
 
 	@Override
@@ -57,7 +63,7 @@ public class MonteCarloTreeSearchDecider extends Decider {
 		TreeNode root = new TreeNode();
 		
 		// Runs an initial simulation from the root node to set up the tree correctly.
-		int rootResult = simulate(game, p, p, e);
+		int rootResult = simulate(game, p, p, e, startTime, maxSearchTime);
 		root.total += 1;
 		root.wins += rootResult;
 		
@@ -122,7 +128,7 @@ public class MonteCarloTreeSearchDecider extends Decider {
 								
 								// Children must have one simulation complete for UCB1 calculations to work correctly. (SIMULATION)
 								GameState childState = currentGame.playMove(currentPlayer, new Point(row, col));
-								int childResult = simulate(childState, childState.getOpposingPlayer(currentPlayer), playerIAm, e);
+								int childResult = simulate(childState, childState.getOpposingPlayer(currentPlayer), playerIAm, e, startTime, maxSearchTime);
 								newChildNode.total += 1;
 								newChildNode.wins += childResult;
 								totalMoves += 1;
@@ -145,7 +151,7 @@ public class MonteCarloTreeSearchDecider extends Decider {
 				else if (currentGame.isOver()) {
 
 					// Get the result of the game and update the tree accordingly. (SIMULATION + BACKPROPOGATION)
-					int gameResult = simulate(currentGame, currentPlayer, playerIAm, e);
+					int gameResult = simulate(currentGame, currentPlayer, playerIAm, e, startTime, maxSearchTime);
 					for (int nodeNum = path.size() - 1; nodeNum >= 0; --nodeNum) {
 						TreeNode theNode = path.get(nodeNum);
 						theNode.total += 1;
@@ -164,7 +170,7 @@ public class MonteCarloTreeSearchDecider extends Decider {
 					
 					// Run a simulation from this node onward. (SIMULATION)
 					GameState childState = new GameState(currentGame);
-					int childResult = simulate(childState, childState.getOpposingPlayer(currentPlayer), playerIAm, e);
+					int childResult = simulate(childState, childState.getOpposingPlayer(currentPlayer), playerIAm, e, startTime, maxSearchTime);
 					newChildNode.total += 1;
 					newChildNode.wins += childResult;
 					
@@ -200,8 +206,7 @@ public class MonteCarloTreeSearchDecider extends Decider {
 			}
 		}
 		
-		p.setOutput("Move chosen: (" + bestChild.moveMade.x + "," + bestChild.moveMade.y + "). Score: " + bestChildEval + ". Minimum win percentage: " + bestScore + "%.");
-		//System.out.println(simulationsRun + " sims run over " + (endTime - startTime) + " milliseconds; " + ((double) simulationsRun / (endTime - startTime)) + " S/ms.");
+		p.setOutput("Move chosen: (" + bestChild.moveMade.x + "," + bestChild.moveMade.y + "). Score: " + bestChildEval + ". Win percentage: " + bestScore + "%. " + simulationsRun + "sims/" + (System.currentTimeMillis() - startTime) + "ms; " + ((double) simulationsRun / (System.currentTimeMillis() - startTime)) + " S/ms.");
 		
 		return bestChild.moveMade;
 		
@@ -210,7 +215,7 @@ public class MonteCarloTreeSearchDecider extends Decider {
 	/**
 	 * Method that simulates a game from the given GameState, and returns whether or not the provided player won.
 	 */
-	private int simulate(GameState startState, Player startPlayer, Player playerIAm, Evaluator e) {
+	private int simulate(GameState startState, Player startPlayer, Player playerIAm, Evaluator e, long startTime, int maxSearchTime) {
 		
 		// Creating variables needed for simulation.
 		GameState currentState = startState;
@@ -222,16 +227,20 @@ public class MonteCarloTreeSearchDecider extends Decider {
 			// Checks the player can play a move.
 			if (currentState.hasLegalMoves(currentPlayer)) {
 
-				double r = new Random().nextDouble();
+				double r = new Random(System.currentTimeMillis()).nextDouble();
 				Point moveToPlay;
 
 				// Occasionally use a RandomDecider to make an imperfect move.
-				if (r < 0.1) {
-					moveToPlay = new RandomDecider().decide(currentState, e, currentPlayer, 0);
-				} 
-				// Otherwise use the move specified by the internal decider to simulate moves.
-				else {
-					moveToPlay = internalDecider.decide(currentState, e, currentPlayer, 0);
+				if (hardPlayouts) {
+					if (r < this.randomChance) {
+						moveToPlay = new RandomDecider().decide(currentState, e, currentPlayer, timePerMinimax);
+					} 
+					// Otherwise use the move specified by the internal decider to simulate moves.
+					else {
+						moveToPlay = getMaxMove(currentState, depthToSearchTo, System.currentTimeMillis(), timePerMinimax, e, currentPlayer);
+					}
+				} else { 
+					moveToPlay = new RandomDecider().decide(currentState, e, currentPlayer, timePerMinimax);
 				}
 				
 				// Play the move onto the current state.

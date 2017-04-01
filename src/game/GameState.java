@@ -2,6 +2,9 @@ package game;
 
 import java.awt.Point;
 
+import org.nd4j.linalg.api.ndarray.INDArray;
+import org.nd4j.linalg.factory.Nd4j;
+
 import players.Player;
 
 /**
@@ -655,6 +658,9 @@ public class GameState {
 		}
 	}
 	
+	/**
+	 * Debug method for viewing the legal moves board.
+	 */
 	public void printLegalMoves(boolean[][] lm) {
 		for (int lRow = 0; lRow < getBoardDims()[0]; ++lRow) {
 			for (int lCol = 0; lCol < getBoardDims()[1]; ++lCol) {
@@ -666,6 +672,22 @@ public class GameState {
 			}
 			System.out.println("");
 		}
+	}
+	
+	/**
+	 * Converts the gamestate into a format suitable for deep learning processing.
+	 */
+	public INDArray toINDArray() {
+		INDArray boardArr = Nd4j.zeros(boardSize, boardSize);
+		for (int row = 0; row < boardSize; ++row) {
+			for (int col = 0; col < boardSize; ++col) {
+				if (this.board[row][col] != COUNTER_EMPTY) {
+					boardArr.putScalar(row, col, (double)this.board[row][col]);
+				}
+			}
+		}
+		System.out.println(boardArr);
+		return boardArr;
 	}
 	
 }
