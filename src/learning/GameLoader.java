@@ -1,10 +1,12 @@
-package game;
+package learning;
 
 import java.awt.Point;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Random;
 
+import game.GameScript;
+import game.GameState;
 import players.Player;
 import util.FileTools;
 

@@ -1,5 +1,6 @@
 package learning;
 
+import java.io.File;
 import java.util.ArrayList;
 
 import org.deeplearning4j.eval.Evaluation;
@@ -12,12 +13,12 @@ import org.deeplearning4j.nn.conf.layers.OutputLayer;
 import org.deeplearning4j.nn.multilayer.MultiLayerNetwork;
 import org.deeplearning4j.nn.weights.WeightInit;
 import org.deeplearning4j.optimize.listeners.ScoreIterationListener;
+import org.deeplearning4j.util.ModelSerializer;
 import org.nd4j.linalg.api.ndarray.INDArray;
 import org.nd4j.linalg.dataset.DataSet;
 import org.nd4j.linalg.dataset.api.iterator.DataSetIterator;
 import org.nd4j.linalg.lossfunctions.LossFunctions;
 
-import game.GameLoader;
 import util.FileTools;
 
 /**
@@ -30,12 +31,23 @@ public class NeuralNetFactory {
 
 	public static void main(String[] args) {
 		
+		final String FILE_EXT = ".zip";
+		
 		// Checks and retrieves file name arg.
 		String netPath = "nn/";
-		if (args.length > 0) {
-			netPath += args[1];
-		} else {
-			netPath += System.currentTimeMillis();
+		String netName = "blank";
+		double trainDataUsePercent = 100.0;
+		if (args.length >= 1) {
+			netName = args[0];
+			if (args.length >= 2) {
+				trainDataUsePercent = Double.parseDouble(args[1]);
+			}
+		}
+		netPath += "net-oth-"+netName+"-"+trainDataUsePercent+FILE_EXT;
+		
+		long t = System.currentTimeMillis();
+		while(t + 10000 > System.currentTimeMillis()) {
+			
 		}
 		
 		// Convert and split the data. (Uses same random seed so results can be reproduced.)
@@ -67,9 +79,18 @@ public class NeuralNetFactory {
 		// Running Neural Network creator.
 		System.out.println("Launching Neural Network creator.");
 		MultiLayerNetwork net = createNeuralNetwork(trainData, testData);
+		System.out.println("Closing Neural Network creator.");		
 		
 		// Saving the trained network.
-		System.out.println("Saving the created NN to" + netPath + ".");
+		System.out.println("Saving the created NN to \"" + netPath + "\".");
+		File loc = new File(netPath);
+		try {
+			ModelSerializer.writeModel(net, loc, false);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		System.out.println("Process complete! Ending program...");
 		
 	}
 	
@@ -81,7 +102,7 @@ public class NeuralNetFactory {
 		double learningRate = 0.01;
 		int batchSize = 50;
 		int epochCount = 10;
-		int inputCount = trainData.size();
+		int inputCount = 64;
 		int outputCount = 1;
 		int hiddenNodeCount = 100;
 		
