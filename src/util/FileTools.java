@@ -40,11 +40,17 @@ public class FileTools {
 	public static String[] getAllFilePathsInDir(String dir) {
 		File d = new File(dir);
 		File[] allFiles = d.listFiles();
-		String[] allPaths = new String[allFiles.length];
+		int fileCount = 0;
+		for (File f : allFiles) {
+			if (f.isFile()) {++fileCount;}
+		}
+		String[] allPaths = new String[fileCount];
 		int ptr = 0;
 		for (File f : allFiles) {
-			allPaths[ptr] = f.getPath();
-			++ptr;
+			if (f.isFile()) {
+				allPaths[ptr] = f.getPath();
+				++ptr;				
+			}
 		}
 		return allPaths;
 	}
@@ -53,6 +59,14 @@ public class FileTools {
 		File d = new File(dir);
 		File[] allFiles = d.listFiles();
 		return allFiles;
+	}
+	
+	public static ArrayList<String> readDir(String dir) {
+		ArrayList<String> all = new ArrayList<String>();
+		for (String path : getAllFilePathsInDir(dir)) {
+			all.addAll(readFile(path));
+		}
+		return all;
 	}
 
 }
