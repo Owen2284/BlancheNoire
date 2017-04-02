@@ -55,26 +55,57 @@ public class MonteCarloTreeSearchDecider extends FixedMinimaxDecider {
 		}
 		
 		simulationsRun = 0;
+		Player playerIAm = p;
 		
 		// Storing start time.
 		long startTime = System.currentTimeMillis();
+		
+		// Get the tree.
+		TreeNode root = constructTree(game, playerIAm, e, startTime, maxSearchTime);
+
+		// Returns the best move found.
+		TreeNode bestChild = null;
+		double bestScore = Double.NEGATIVE_INFINITY;
+		float bestChildEval = Float.NEGATIVE_INFINITY;
+		
+		for (TreeNode rootChild : root.children) {
+			GameState rootChildGameState = game.playMove(playerIAm, rootChild.moveMade);
+			float rootChildEvaluation = e.evaluate(rootChildGameState, playerIAm);
+			double rootChildScore = rootChild.getWinPercent();
+			if (rootChildScore > bestScore) {
+				bestScore = rootChildScore;
+				bestChild = rootChild;
+				bestChildEval = rootChildEvaluation;
+			} else if (rootChildScore == bestScore && rootChildEvaluation > bestChildEval) {
+				bestScore = rootChildScore;
+				bestChild = rootChild;
+				bestChildEval = rootChildEvaluation;
+			}
+		}
+		
+		p.setOutput("Move chosen: (" + bestChild.moveMade.x + "," + bestChild.moveMade.y + "). Score: " + bestChildEval + ". Win percentage: " + bestScore + "%. " + simulationsRun + "sims/" + (System.currentTimeMillis() - startTime) + "ms; " + ((double) simulationsRun / (System.currentTimeMillis() - startTime)) + " S/ms.");
+		
+		return bestChild.moveMade;
+		
+	}
+	
+	private TreeNode constructTree(GameState game, Player playerIAm, Evaluator e, long startTime, int maxSearchTime) {
 		
 		// Create the root node of the tree.
 		TreeNode root = new TreeNode();
 		
 		// Runs an initial simulation from the root node to set up the tree correctly.
-		int rootResult = simulate(game, p, p, e, startTime, maxSearchTime);
+		int rootResult = simulate(game, playerIAm, playerIAm, e, startTime, maxSearchTime);
 		root.total += 1;
 		root.wins += rootResult;
 		
 		// Starting the MCTS loop.
-		Player playerIAm = p;
 		while ( (System.currentTimeMillis() - startTime < maxSearchTime) && (!useMaxSims || simulationsRun < maxSims) ) {
 			
 			// Begins search at the root node, with an empty path list.
 			TreeNode currentNode = root;
 			GameState currentGame = new GameState(game);
-			Player currentPlayer = p;
+			Player currentPlayer = playerIAm;
 			
 			ArrayList<TreeNode> path = new ArrayList<TreeNode>();
 			path.add(currentNode);
@@ -184,31 +215,8 @@ public class MonteCarloTreeSearchDecider extends FixedMinimaxDecider {
 				}
 			}
 		}
-
 		
-		// Returns the best move found.
-		TreeNode bestChild = null;
-		double bestScore = Double.NEGATIVE_INFINITY;
-		float bestChildEval = Float.NEGATIVE_INFINITY;
-		
-		for (TreeNode rootChild : root.children) {
-			GameState rootChildGameState = game.playMove(playerIAm, rootChild.moveMade);
-			float rootChildEvaluation = e.evaluate(rootChildGameState, playerIAm);
-			double rootChildScore = rootChild.getWinPercent();
-			if (rootChildScore > bestScore) {
-				bestScore = rootChildScore;
-				bestChild = rootChild;
-				bestChildEval = rootChildEvaluation;
-			} else if (rootChildScore == bestScore && rootChildEvaluation > bestChildEval) {
-				bestScore = rootChildScore;
-				bestChild = rootChild;
-				bestChildEval = rootChildEvaluation;
-			}
-		}
-		
-		p.setOutput("Move chosen: (" + bestChild.moveMade.x + "," + bestChild.moveMade.y + "). Score: " + bestChildEval + ". Win percentage: " + bestScore + "%. " + simulationsRun + "sims/" + (System.currentTimeMillis() - startTime) + "ms; " + ((double) simulationsRun / (System.currentTimeMillis() - startTime)) + " S/ms.");
-		
-		return bestChild.moveMade;
+		return root;
 		
 	}
 	
@@ -264,7 +272,7 @@ public class MonteCarloTreeSearchDecider extends FixedMinimaxDecider {
 		}
 		
 	}
-	
+
 	/**
 	 * Returns the UCB1 score for the provided arguments.
 	 */
