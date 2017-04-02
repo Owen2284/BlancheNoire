@@ -1,6 +1,8 @@
 package evaluators;
 
 import org.deeplearning4j.nn.multilayer.MultiLayerNetwork;
+import org.deeplearning4j.util.ModelSerializer;
+import org.nd4j.linalg.api.ndarray.INDArray;
 
 import game.GameState;
 import players.Player;
@@ -10,8 +12,11 @@ public class DeepLearningEvaluator extends Evaluator {
 	private MultiLayerNetwork net;
 
 	public DeepLearningEvaluator(String netPath) {
-		// TODO: Read in the fitted neural network.
-		net = null;
+		try {
+			net = ModelSerializer.restoreMultiLayerNetwork(netPath);
+		} catch (Exception e) {
+			throw new IllegalArgumentException("Invalid file path for NN.");
+		}
 	}
 
 	@Override
@@ -26,8 +31,7 @@ public class DeepLearningEvaluator extends Evaluator {
 
 	@Override
 	public float evaluate(GameState game, Player p) {
-		// TODO: Convert GameState to appropriate data format.
-		//net.output(null, false);
+		INDArray result = net.output(game.toINDArray(p.getPlayerID(), game.getOpposingPlayer(p).getPlayerID()), false);
 		return 0;
 	}
 
