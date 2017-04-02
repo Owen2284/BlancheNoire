@@ -27,7 +27,7 @@ public class ScriptPlayer extends Player {
 
 	@Override
 	public Point getMove(GameState game, GamePanel panel) {
-		return gs.moves[game.getTurnNumber()-1];
+		return gs.getMove(game.getTurnNumber()-1);
 	}
 
 }
