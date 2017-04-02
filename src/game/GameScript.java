@@ -2,13 +2,14 @@ package game;
 
 import java.awt.Point;
 
+import players.Player;
 import players.ScriptPlayer;
 
 public class GameScript {
 	
-	public int[] scores;
-	public Point[] moves;
-	public int[] dims;
+	private int[] scores;
+	private Point[] moves;
+	private int[] dims;
 
 	public GameScript(int[] scores, Point[] moves, int[] dims) {
 		this.scores = (int[]) scores.clone();
@@ -45,6 +46,25 @@ public class GameScript {
 		return startState;
 	}
 	
+	public GameState generateStateAfterTurn(int turnNum) {
+		GameState g = this.generateStartState();		
+		if (turnNum <= 0) {
+			return g;
+		}
+		Player p = g.getPlayerByIndex(0);
+		while ((g.getTurnNumber() <= turnNum) && (!g.isOver())) {
+			if (g.hasLegalMoves(p)) {
+				g = g.playMove(p, p.getMove(g, null));
+			}
+			p = g.getOpposingPlayer(p);
+		}
+		return g;
+	}
+	
+	public GameState generateEndState() {
+		return generateStateAfterTurn(getTotalMoves());
+	}
+	
 	public String generateFileString() {
 		String fileString = "";
 		for (Point move : moves) {
@@ -54,6 +74,52 @@ public class GameScript {
 		fileString += scores[0] + ";" + scores[1] + ":";
 		fileString += dims[0] + ";" + dims[1];
 		return fileString;
+	}
+	
+	public Point getMove(int i) {
+		try {
+			return this.moves[i];
+		} catch (ArrayIndexOutOfBoundsException e) {
+			throw new IllegalArgumentException("Invalid move number.");
+		}
+	}
+	
+	/**
+	 * Returns the total number of moves played during the game.
+	 */
+	public int getTotalMoves() {
+		return this.moves.length;
+	}
+	
+	/**
+	 * Returns the score of the specified ID.
+	 */
+	public int getScoreOfCounter(int counterID) {
+		try {
+			return this.scores[counterID-1];
+		} catch (ArrayIndexOutOfBoundsException e) {
+			throw new IllegalArgumentException("Invalid counter ID.");
+		}
+	}
+	
+	/**
+	 * Determines if the dark player won, drew or lost.
+	 */
+	public int darkResult() {
+		if (scores[0] > scores[1]) {
+			return 1;
+		} else if (scores[0] == scores[1]) {
+			return 0;
+		} else {
+			return -1;
+		}		
+	}
+	
+	/**
+	 * Determines the difference between the dark and light players' scores.
+	 */
+	public int darkDiff() {
+		return scores[0] - scores[1];
 	}
 
 }
