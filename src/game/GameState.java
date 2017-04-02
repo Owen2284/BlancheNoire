@@ -675,19 +675,52 @@ public class GameState {
 	}
 	
 	/**
-	 * Converts the gamestate into a format suitable for deep learning processing.
+	 * Converts the GameState's board into a DL4J INDArray.
 	 */
-	public INDArray toINDArray() {
-		INDArray boardArr = Nd4j.zeros(boardSize, boardSize);
+	public INDArray toINDArray(int firstID, int secondID) {
+		INDArray boardArr = Nd4j.zeros(boardSize, boardSize, 2);
 		for (int row = 0; row < boardSize; ++row) {
 			for (int col = 0; col < boardSize; ++col) {
-				if (this.board[row][col] != COUNTER_EMPTY) {
-					boardArr.putScalar(row, col, (double)this.board[row][col]);
+				if (this.board[row][col] == firstID) {
+					boardArr.putScalar(row, col, 0, 1.0);
+				}
+			}
+		}
+		for (int row = 0; row < boardSize; ++row) {
+			for (int col = 0; col < boardSize; ++col) {
+				if (this.board[row][col] == secondID) {
+					boardArr.putScalar(row, col, 1, 1.0);
 				}
 			}
 		}
 		System.out.println(boardArr);
 		return boardArr;
+	}
+	
+	/**
+	 * Converts the GameState into a flat string of numbers representing the game board.
+	 */
+	public String toFlatString(int firstID, int secondID, String delim) {
+		String flat = "";
+		for (int row = 0; row < this.boardSize; ++row) {
+			for (int col = 0; col < this.boardSize; ++col) {
+				if (this.board[row][col] == firstID) {
+					flat += 1 + delim;
+				} else {
+					flat += 0 + delim;
+				}
+			}
+		}
+		for (int row = 0; row < this.boardSize; ++row) {
+			for (int col = 0; col < this.boardSize; ++col) {
+				if (this.board[row][col] == secondID) {
+					flat += 1 + delim;
+				} else {
+					flat += 0 + delim;
+				}
+			}
+		}
+		return flat.substring(0, flat.length() - delim.length());
 	}
 	
 }
