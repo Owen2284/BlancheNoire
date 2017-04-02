@@ -1,8 +1,12 @@
 package learning;
 
 import java.io.File;
-import java.util.ArrayList;
+import java.io.IOException;
 
+import org.datavec.api.records.reader.RecordReader;
+import org.datavec.api.records.reader.impl.csv.CSVRecordReader;
+import org.datavec.api.split.FileSplit;
+import org.deeplearning4j.datasets.datavec.RecordReaderDataSetIterator;
 import org.deeplearning4j.eval.Evaluation;
 import org.deeplearning4j.nn.api.OptimizationAlgorithm;
 import org.deeplearning4j.nn.conf.MultiLayerConfiguration;
@@ -14,12 +18,11 @@ import org.deeplearning4j.nn.multilayer.MultiLayerNetwork;
 import org.deeplearning4j.nn.weights.WeightInit;
 import org.deeplearning4j.optimize.listeners.ScoreIterationListener;
 import org.deeplearning4j.util.ModelSerializer;
+import org.nd4j.linalg.activations.Activation;
 import org.nd4j.linalg.api.ndarray.INDArray;
 import org.nd4j.linalg.dataset.DataSet;
 import org.nd4j.linalg.dataset.api.iterator.DataSetIterator;
 import org.nd4j.linalg.lossfunctions.LossFunctions;
-
-import util.FileTools;
 
 /**
  * Class containing all of the code necessary for creating a neural network from the provided Othello data.
@@ -34,106 +37,58 @@ public class NeuralNetFactory {
 		final String FILE_EXT = ".zip";
 		
 		// Checks and retrieves file name arg.
-		String netPath = "nn/";
+		String trainSrc = "";
+		String testSrc = "";
+		String netPath = "nn/othello-";
 		String netName = "blank";
 		double trainDataUsePercent = 100.0;
-		if (args.length >= 1) {
-			netName = args[0];
-			if (args.length >= 2) {
-				trainDataUsePercent = Double.parseDouble(args[1]);
-			}
-		}
-		netPath += "net-oth-"+netName+"-"+trainDataUsePercent+FILE_EXT;
-		
-		long t = System.currentTimeMillis();
-		while(t + 10000 > System.currentTimeMillis()) {
+		if (args.length >= 3) {
+			trainSrc = args[0];
+			testSrc = args[1];
+			netName = args[2];
+			netPath += "net-oth-"+netName+"-"+trainDataUsePercent+FILE_EXT;			
+			System.out.println("Using \"" + trainSrc + "\" as training data, and \"" + testSrc + "\" as testing data.");
+
+			System.out.println("Created NN will be saved to: " + netPath);
 			
+			// Running Neural Network creator.
+			System.out.println("Launching Neural Network creator.");
+			MultiLayerNetwork net = createNeuralNetwork(trainSrc, testSrc, trainDataUsePercent);
+			System.out.println("Closing Neural Network creator.");		
+			
+			// Saving the trained network.
+			System.out.println("Saving the created NN to \"" + netPath + "\"...");
+			File location = new File(netPath);
+			boolean furtherUpdates = false;
+			try {
+				ModelSerializer.writeModel(net, location, furtherUpdates);
+				System.out.println("File saved, process complete!");
+			} catch (Exception e) {
+				System.out.println("An error prevented the file from being saved:");
+				e.printStackTrace();
+			}
+		} else {
+			System.out.println();
 		}
 		
-		// Convert and split the data. (Uses same random seed so results can be reproduced.)
-		String startDir = "games/extracted/";
-		String convertedDir = "games/scripts/";
-		String trainDir = "games/training/";
-		String testDir = "games/test/";
-		GameLoader.convertExtractedToScripts(startDir, convertedDir);
-		GameLoader.splitScripts(convertedDir, trainDir, testDir, 123);
-		
-		// Loading in all data.
-		System.out.println("-----");
-		System.out.println("Begining Deep Learning process.");
-		System.out.println("Loading in training data...");
-		ArrayList<String> trainData = new ArrayList<String>();
-		for (String trainFile : FileTools.getAllFilePathsInDir(trainDir)) {
-			ArrayList<String> file = FileTools.readFile(trainFile);
-			trainData.addAll(file);
-		}
-		System.out.println(trainData.size() + " training game scripts loaded in.");
-		System.out.println("Loading in testing data...");
-		ArrayList<String> testData = new ArrayList<String>();
-		for (String testFile : FileTools.getAllFilePathsInDir(testDir)) {
-			ArrayList<String> file = FileTools.readFile(testFile);
-			testData.addAll(file);
-		}
-		System.out.println(testData.size() + " testing game scripts loaded in.");
-		
-		// Running Neural Network creator.
-		System.out.println("Launching Neural Network creator.");
-		MultiLayerNetwork net = createNeuralNetwork(trainData, testData);
-		System.out.println("Closing Neural Network creator.");		
-		
-		// Saving the trained network.
-		System.out.println("Saving the created NN to \"" + netPath + "\".");
-		File loc = new File(netPath);
-		try {
-			ModelSerializer.writeModel(net, loc, false);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		
-		System.out.println("Process complete! Ending program...");
+		System.out.println("Ending program...");
 		
 	}
 	
-	@SuppressWarnings("deprecation")
-	public static MultiLayerNetwork createNeuralNetwork(ArrayList<String> trainData, ArrayList<String> testData) {
+	public static MultiLayerNetwork createNeuralNetwork(String trainSrc, String testSrc, double trainPercent) {
 		
 		// Initialising key variables.
-		int seed = 123;
-		double learningRate = 0.01;
-		int batchSize = 50;
 		int epochCount = 10;
-		int inputCount = 64;
+		int inputCount = 128;
 		int outputCount = 1;
-		int hiddenNodeCount = 100;
+		int batchSize = 50;
 		
-		// TODO: Formating the input data for use by the NN.
-		DataSetIterator trainIter = null;
-		DataSetIterator testIter = null;
+		// Formating the input data for use by the NN.
+		DataSetIterator trainIter = createDataSetIterator(trainSrc, batchSize, 0, 2);
+		DataSetIterator testIter = createDataSetIterator(testSrc, batchSize, 0, 2);
 		
 		// Creating the NN object.
-		MultiLayerConfiguration conf = new NeuralNetConfiguration.Builder()
-				.seed(seed)
-				.iterations(1)
-				.optimizationAlgo(OptimizationAlgorithm.STOCHASTIC_GRADIENT_DESCENT)
-				.learningRate(learningRate)
-				.updater(Updater.NESTEROVS).momentum(0.9)
-				.list()
-				.layer(0, new DenseLayer.Builder()
-					.nIn(inputCount)
-					.nOut(hiddenNodeCount)
-					.weightInit(WeightInit.XAVIER)
-						.activation("relu")
-						.build()
-				)
-				.layer(1, new OutputLayer.Builder(LossFunctions.LossFunction.NEGATIVELOGLIKELIHOOD)
-						.weightInit(WeightInit.XAVIER)
-							.activation("softmax")
-							.weightInit(WeightInit.XAVIER)
-							.nIn(hiddenNodeCount)
-							.nOut(outputCount)
-							.build()
-				)
-				.pretrain(false).backprop(true).build();
+		MultiLayerConfiguration conf = nnConf1(inputCount, outputCount);
 				
 		// Training the network.
 		MultiLayerNetwork model = new MultiLayerNetwork(conf);
@@ -141,7 +96,7 @@ public class NeuralNetFactory {
 		model.setListeners(new ScoreIterationListener(10));
 		
 		for (int i = 0; i < epochCount; ++i) {
-			model.fit(trainIter);		// TODO: Provide data.
+			model.fit(trainIter);
 		}
 		
 		// Evaluating the network.
@@ -158,6 +113,52 @@ public class NeuralNetFactory {
 		// Returning the finished model.
 		return model;
 		
+	}
+	
+	private static DataSetIterator createDataSetIterator(String path, int batchSize, int labelIndex, int numPossibleLabels) {
+		try {
+			RecordReader rr = new CSVRecordReader();
+			rr.initialize(new FileSplit(new File(path)));
+			DataSetIterator dsi = new RecordReaderDataSetIterator(rr, batchSize, labelIndex, numPossibleLabels);
+			return dsi;
+		} catch (IOException e) {
+			throw new IllegalArgumentException("File \"" + path + "\" not found.");
+		} catch (InterruptedException e) {
+			throw new IllegalArgumentException("File \"" + path + "\" resulted in an interruption.");
+		}
+	}
+	
+	//TODO
+	private static MultiLayerConfiguration nnConf1(int inputCount, int outputCount) {
+		int seed = 123;
+		double learningRate = 0.01;
+		int hiddenNodeCount = 100;
+		
+		MultiLayerConfiguration conf = new NeuralNetConfiguration.Builder()
+				.seed(seed)
+				.iterations(1)
+				.optimizationAlgo(OptimizationAlgorithm.STOCHASTIC_GRADIENT_DESCENT)
+				.learningRate(learningRate)
+				.updater(Updater.NESTEROVS).momentum(0.9)
+				.list()
+				.layer(0, new DenseLayer.Builder()
+					.nIn(inputCount)
+					.nOut(hiddenNodeCount)
+					.weightInit(WeightInit.XAVIER)
+						.activation(Activation.RELU)
+						.build()
+				)
+				.layer(1, new OutputLayer.Builder(LossFunctions.LossFunction.NEGATIVELOGLIKELIHOOD)
+						.weightInit(WeightInit.XAVIER)
+							.activation(Activation.SOFTMAX)
+							.weightInit(WeightInit.XAVIER)
+							.nIn(hiddenNodeCount)
+							.nOut(outputCount)
+							.build()
+				)
+				.pretrain(false).backprop(true).build();
+		
+		return conf;
 	}
 
 }

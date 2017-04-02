@@ -3,6 +3,8 @@ package learning;
 import java.awt.Point;
 import java.io.File;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Random;
 
 import game.GameScript;
@@ -14,11 +16,97 @@ import util.FileTools;
  * Class containing code used to handle the Othello game data.
  * @author Owen
  */
-public class GameLoader {
+public class NeuralNetDataHandler {
 	
 	public static void main(String[] args) {
-		//convertExtractedToScripts("games/extracted/", "games/scripts/");
-		splitScripts("games/scripts/", "games/training/", "games/test/", System.currentTimeMillis());
+		double trainDataUseFraction = 1.0;
+		boolean prepare = true;
+		if (args.length >= 1) {
+			trainDataUseFraction = Double.parseDouble(args[0]);
+			if (args.length >= 2) {
+				prepare = Boolean.parseBoolean(args[1]);
+			}
+		}
+		System.out.println(trainDataUseFraction*100 + "% of the training data provided will be used.");
+		if (prepare) {prepare();}
+		format(trainDataUseFraction);
+	}
+	
+	public static void prepare() {
+		// Convert and split the data. (Uses same random seed so results can be reproduced.)
+		String startDir = "games/dataset/";
+		String convertedDir = "games/scripts/";
+		String trainDir = "games/scripts/train/";
+		String testDir = "games/scripts/test/";
+		convertDatasetToScripts(startDir, convertedDir);
+		splitScripts(convertedDir, trainDir, testDir, 2017);
+		mergeDir(trainDir, "train-master.oth");
+		mergeDir(testDir, "test-master.oth");
+	}
+	
+	public static void format(double trainDataUseFraction) {
+		
+		// Defining directories.
+		String trainDir = "games/scripts/train/";
+		String testDir = "games/scripts/test/";
+		String trainFinal = "games/csv/train/";
+		String testFinal = "games/csv/test/";
+		
+		// Loading in all data.
+		System.out.println("-----");
+		System.out.println("Loading in training data...");
+		ArrayList<String> trainData = FileTools.readDir(trainDir);
+		System.out.println(trainData.size() + " training game scripts loaded in.");
+		System.out.println("Loading in testing data...");
+		ArrayList<String> testData = FileTools.readDir(testDir);
+		System.out.println(testData.size() + " testing game scripts loaded in.");		
+		
+		// Putting data into CSV format.
+		int MAX_PER_FILE = 50000;
+		ArrayList<String> csv;
+		System.out.println("Formatting training data into CSV format...");
+		//csv = dataFormat1(trainData, trainDataUseFraction, 2017);
+		csv = dataFormat2(trainData, trainDataUseFraction, 2017);
+		if (csv.size() > MAX_PER_FILE) {
+			for (int fileNum = 0; fileNum < (csv.size()/MAX_PER_FILE + 1); ++fileNum) {
+				ArrayList<String> part = new ArrayList<String>();
+				for (int stateNum = (fileNum * MAX_PER_FILE); stateNum < Math.min((fileNum+1) * MAX_PER_FILE, csv.size()); ++stateNum) {
+					part.add(csv.get(stateNum));
+				}
+				FileTools.writeFile(trainFinal+"training-"+trainDataUseFraction+"-"+fileNum+ ".csv", part);
+			}
+		}
+		FileTools.writeFile(trainFinal+"training-" + trainDataUseFraction + "-whole.csv", csv);
+		
+		csv = null;
+		System.out.println("Training data has been saved as a CSV file.");
+		System.out.println("Formatting testing data into CSV format...");
+		//csv = dataFormat1(testData, 1.0, 2017);
+		csv = dataFormat2(testData, 1.0, 2017);
+		if (csv.size() > MAX_PER_FILE) {
+			for (int fileNum = 0; fileNum < (csv.size()/MAX_PER_FILE + 1); ++fileNum) {
+				ArrayList<String> part = new ArrayList<String>();
+				for (int stateNum = (fileNum * MAX_PER_FILE); stateNum < Math.min((fileNum+1) * MAX_PER_FILE, csv.size()); ++stateNum) {
+					part.add(csv.get(stateNum));
+				}
+				FileTools.writeFile(testFinal+"testing-"+fileNum+ ".csv", part);
+			}
+		}
+		FileTools.writeFile(testFinal+"testing-whole.csv", csv);
+		csv = null;
+		System.out.println("Testing data has been saved as a CSV file.");
+		System.out.println("Execution complete.");	
+	}
+	
+	public static void mergeDir(String dir, String newFileName) {
+		System.out.println("Merging all files in \"" + dir + "\"...");
+		ArrayList<String> merged = new ArrayList<String>();
+		for (File f : FileTools.getAllFilesInDir(dir)) {
+			merged.addAll(FileTools.readFile(f.getPath()));
+			f.delete();
+		}
+		FileTools.writeFile(dir + newFileName, merged);
+		System.out.println("Merging complete, data stored in \"" + dir + newFileName + "\".");
 	}
 	
 	public static void splitScripts(String initDir, String trainingDir, String testDir, long seed) {
@@ -53,7 +141,6 @@ public class GameLoader {
 		}
 		
 		// Loop through all files.
-		
 		for (String path : allPaths) {
 			
 			// Load in all games.
@@ -73,8 +160,9 @@ public class GameLoader {
 						}
 						p = g.getOpposingPlayer(p);
 					}
-					if (g.getTurnNumber()-1 == gs.moves.length) {
-						if (g.getScoreOfID(GameState.COUNTER_DARK) == gs.scores[0] && g.getScoreOfID(GameState.COUNTER_LIGHT) == gs.scores[1]) {
+					if (g.getTurnNumber()-1 == gs.getTotalMoves()) {
+						if (g.getScoreOfID(GameState.COUNTER_DARK) == gs.getScoreOfCounter(GameState.COUNTER_DARK) && 
+								g.getScoreOfID(GameState.COUNTER_LIGHT) == gs.getScoreOfCounter(GameState.COUNTER_LIGHT)) {
 							if (r.nextBoolean()) {
 								trainingData.add(game);
 								++trainingGames;
@@ -125,7 +213,7 @@ public class GameLoader {
 			}
 			
 			++pathCount;
-			if (pathCount % 25 == 0) {
+			if (pathCount % 100 == 0) {
 				System.out.println(" " + pathCount + "/" + maxPaths + " files split...");
 			}
 			
@@ -164,7 +252,7 @@ public class GameLoader {
 		
 	}
 	
-	public static void convertExtractedToScripts(String startDir, String storageDir) {;
+	public static void convertDatasetToScripts(String startDir, String storageDir) {;
 	
 		System.out.println("Begining coversion process...");
 		int totalFiles = 0;
@@ -172,19 +260,19 @@ public class GameLoader {
 		for (String path : FileTools.getAllFilePathsInDir(startDir)) {
 			if (path.endsWith(".oth")) {
 				++totalFiles;
-				GameScript[] allScripts = loadExtractedGames(path);
+				GameScript[] allScripts = loadDatasetGames(path);
 				ArrayList<String> strScripts = new ArrayList<String>();
 				for (GameScript gs : allScripts) {
 					++totalScripts;
 					strScripts.add(gs.generateFileString());
 				}
-				FileTools.writeFile(storageDir+path.substring("games/extracted/".length()), strScripts);
+				FileTools.writeFile(storageDir+"batch"+(totalFiles-1)+".oth", strScripts);
 			}
 		}
 		System.out.println("Conversion complete; " + totalFiles + " files containing " + totalScripts + " games converted.");
 	}
 
-	public static GameScript[] loadExtractedGames(String filePath) {
+	public static GameScript[] loadDatasetGames(String filePath) {
 		
 		ArrayList<String> file = FileTools.readFile(filePath);
 		GameScript[] scripts = new GameScript[file.size()];
@@ -261,4 +349,121 @@ public class GameLoader {
 		return new GameScript(scoresList, movesList, boardSizes);
 		
 	}
+	
+	/**
+	 * Creates data that is composed of a GameState and a label representing the % of wins resulting from that state.
+	 */
+	@SuppressWarnings("unused")
+	private static ArrayList<String> dataFormat1(ArrayList<String> in, double fractionToUse, long seed) {
+		
+		ArrayList<String> allScripts = new ArrayList<String>(in);
+		int gameCounter = 1;
+		int scriptsToUse = Math.min(allScripts.size(), (int)(allScripts.size() * fractionToUse));
+		Random r = new Random(seed);
+		Map<String, Integer> plays = new HashMap<String, Integer>();
+		Map<String, Integer> wins = new HashMap<String, Integer>();
+		
+		System.out.println(" " + scriptsToUse + " of the " + allScripts.size() + " scripts provided will be used.");
+		
+		// Loop for all scripts provided.
+		for (int n = 0; n < scriptsToUse; ++n) {
+			
+			// Fetch GameScript and store necessary values.
+			String game = allScripts.get(r.nextInt(allScripts.size()));
+			allScripts.remove(game);
+			GameScript gs = new GameScript(game);
+			int darkResult = Math.max(0, gs.darkResult());
+			
+			// Loop through all game states in the script.
+			for (int turn = 0; turn < gs.getTotalMoves(); ++turn) {
+						
+				// Stores the data about the GameState in the maps.
+				GameState g = gs.generateStateAfterTurn(turn);
+				String[] allRotations = {
+						g.toFlatString(GameState.COUNTER_DARK, GameState.COUNTER_LIGHT, ","), 
+						g.rotate(1).toFlatString(GameState.COUNTER_DARK, GameState.COUNTER_LIGHT, ","), 
+						g.rotate(2).toFlatString(GameState.COUNTER_DARK, GameState.COUNTER_LIGHT, ","), 
+						g.rotate(3).toFlatString(GameState.COUNTER_DARK, GameState.COUNTER_LIGHT, ",")
+				};
+				
+				boolean placed = false;
+				for (String rotatedState : allRotations) {
+					if (plays.containsKey(rotatedState)) { 
+						plays.put(rotatedState, plays.get(rotatedState) + 1);
+						wins.put(rotatedState, wins.get(rotatedState) + darkResult);
+						placed = true;
+						break;
+					}
+				}
+				if (!placed) {
+					plays.put(allRotations[0], plays.getOrDefault(allRotations[0], 0) + 1);
+					wins.put(allRotations[0], wins.getOrDefault(allRotations[0], 0) + darkResult);
+				}
+			}
+			if (gameCounter % 1000 == 0) {
+				System.out.println(" Game " + gameCounter + "/" + scriptsToUse + " complete.");
+			}
+			++gameCounter;
+		}
+		
+		// Pray that Java didn't run out of memory, then analyse the maps.
+		System.out.println(" Analysing " + plays.keySet().size() + " games.");
+		ArrayList<String> csvLines = new ArrayList<String>();
+		for (String gamestate : plays.keySet()) {
+			double winRatio = (double)wins.get(gamestate)/(double)plays.get(gamestate);
+			String newline = winRatio + "," + gamestate;
+			csvLines.add(newline);
+		}
+		
+		return csvLines;
+	}
+	
+	/**
+	 * Creates data that is composed of a GameState and a label representing whether or not the black player wins.
+	 */
+	private static ArrayList<String> dataFormat2(ArrayList<String> in, double fractionToUse, long seed) {
+		
+		ArrayList<String> allScripts = new ArrayList<String>(in);
+		int gameCounter = 1;
+		int scriptsToUse = Math.min(allScripts.size(), (int)(allScripts.size() * fractionToUse));
+		Random r = new Random(seed);
+		Map<String, Integer> results = new HashMap<String, Integer>();
+		
+		System.out.println(" " + scriptsToUse + " of the " + allScripts.size() + " scripts provided will be used.");
+		
+		// Loop for all scripts provided.
+		for (int n = 0; n < scriptsToUse; ++n) {
+			
+			// Fetch GameScript and store necessary values.
+			String game = allScripts.get(r.nextInt(allScripts.size()));
+			allScripts.remove(game);
+			GameScript gs = new GameScript(game);
+			int darkResult = Math.max(0, gs.darkResult());
+			
+			// Loop through all game states in the script.
+			for (int turn = 0; turn < gs.getTotalMoves(); ++turn) {
+						
+				// Stores the data about the GameState in the maps.
+				GameState g = gs.generateStateAfterTurn(turn);
+				String gamestate = g.toFlatString(GameState.COUNTER_DARK, GameState.COUNTER_LIGHT, ",");
+				results.put(gamestate, darkResult);
+				
+			}
+			if (gameCounter % 1000 == 0) {
+				System.out.println(" Game " + gameCounter + "/" + scriptsToUse + " complete.");
+			}
+			++gameCounter;
+		}
+		
+		// Pray that Java didn't run out of memory, then analyse the maps.
+		System.out.println(" Analysing " + results.keySet().size() + " states.");
+		ArrayList<String> csvLines = new ArrayList<String>();
+		for (String gamestate : results.keySet()) {
+			String newline = results.get(gamestate) + "," + gamestate;
+			csvLines.add(newline);
+		}
+		
+		return csvLines;
+	}
+	
 }
