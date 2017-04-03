@@ -84,7 +84,7 @@ public class NeuralNetDataHandler {
 			csv = dataFormat2(data, trainDataUseFraction, 2017);
 			
 			// Writing to CSV.
-			FileTools.writeFile(trainFinal+"training-" + trainDataUseFraction + "-whole.csv", csv);
+			FileTools.writeFile(trainFinal+"training-" + trainDataUseFraction + ".csv", csv);
 			System.out.println("Training data has been saved as CSV files.");
 		}
 		
@@ -103,7 +103,7 @@ public class NeuralNetDataHandler {
 			csv = dataFormat2(data, 1.0, 2017);
 			
 			// Writing to CSV.
-			FileTools.writeFile(testFinal+"testing"+name+"-whole.csv", csv);
+			FileTools.writeFile(testFinal+"testing"+name+".csv", csv);
 			System.out.println("Testing data has been saved as CSV files.");
 		}
 		
