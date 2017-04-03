@@ -52,7 +52,7 @@ public class NeuralNetFactory {
 			System.out.println("Created NN will be saved to: " + netPath);
 			
 			// Running Neural Network creator.
-			System.out.println("Launching Neural Network creator.");
+			System.out.println("Launching Neural Network creator....");
 			MultiLayerNetwork net = createNeuralNetwork(trainSrc, testSrc, trainDataUsePercent);
 			System.out.println("Closing Neural Network creator.");		
 			
@@ -84,22 +84,27 @@ public class NeuralNetFactory {
 		int batchSize = 50;
 		
 		// Formating the input data for use by the NN.
+		System.out.println("Loading in data sets...");
 		DataSetIterator trainIter = createDataSetIterator(trainSrc, batchSize, 0, 2);
 		DataSetIterator testIter = createDataSetIterator(testSrc, batchSize, 0, 2);
 		
 		// Creating the NN object.
+		System.out.println("Creating the initial network configuration...");
 		MultiLayerConfiguration conf = nnConf1(inputCount, outputCount);
 				
 		// Training the network.
+		System.out.println("Creating the initial network model...");
 		MultiLayerNetwork model = new MultiLayerNetwork(conf);
 		model.init();
 		model.setListeners(new ScoreIterationListener(10));
 		
+		System.out.println("Running the model fitting function...");
 		for (int i = 0; i < epochCount; ++i) {
 			model.fit(trainIter);
 		}
 		
 		// Evaluating the network.
+		System.out.println("Evaluating the created network...");
 		Evaluation eval = new Evaluation(outputCount);
 		while (testIter.hasNext()) {
 			DataSet t = testIter.next();

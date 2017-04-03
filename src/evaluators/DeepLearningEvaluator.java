@@ -32,6 +32,7 @@ public class DeepLearningEvaluator extends Evaluator {
 	@Override
 	public float evaluate(GameState game, Player p) {
 		INDArray result = net.output(game.toINDArray(p.getPlayerID(), game.getOpposingPlayer(p).getPlayerID()), false);
+		System.out.println(result);
 		return 0;
 	}
 

@@ -21,15 +21,30 @@ public class NeuralNetDataHandler {
 	public static void main(String[] args) {
 		double trainDataUseFraction = 1.0;
 		boolean prepare = true;
+		boolean train = true;
+		boolean test = true;
+		String name = "";
 		if (args.length >= 1) {
 			trainDataUseFraction = Double.parseDouble(args[0]);
 			if (args.length >= 2) {
 				prepare = Boolean.parseBoolean(args[1]);
+				if (args.length >= 3) {
+					train = Boolean.parseBoolean(args[2]);
+					if (args.length >= 4) {
+						test = Boolean.parseBoolean(args[3]);
+						if (args.length >= 4) {
+							name = "-" + args[4];
+						}
+					}
+				}
 			}
+		}
+		if (!name.equals("")) {
+			System.out.println("The file(s) in this dataset will have \"" + name + "\" added to them to distinguish them.");
 		}
 		System.out.println(trainDataUseFraction*100 + "% of the training data provided will be used.");
 		if (prepare) {prepare();}
-		format(trainDataUseFraction);
+		format(train, test, trainDataUseFraction, name);
 	}
 	
 	public static void prepare() {
@@ -44,7 +59,7 @@ public class NeuralNetDataHandler {
 		mergeDir(testDir, "test-master.oth");
 	}
 	
-	public static void format(double trainDataUseFraction) {
+	public static void format(boolean train, boolean test, double trainDataUseFraction, String name) {
 		
 		// Defining directories.
 		String trainDir = "games/scripts/train/";
@@ -52,50 +67,48 @@ public class NeuralNetDataHandler {
 		String trainFinal = "games/csv/train/";
 		String testFinal = "games/csv/test/";
 		
-		// Loading in all data.
+		// Initialising other variables.
+		ArrayList<String> data = null;
+		ArrayList<String> csv = null;
+		
 		System.out.println("-----");
-		System.out.println("Loading in training data...");
-		ArrayList<String> trainData = FileTools.readDir(trainDir);
-		System.out.println(trainData.size() + " training game scripts loaded in.");
-		System.out.println("Loading in testing data...");
-		ArrayList<String> testData = FileTools.readDir(testDir);
-		System.out.println(testData.size() + " testing game scripts loaded in.");		
-		
-		// Putting data into CSV format.
-		int MAX_PER_FILE = 50000;
-		ArrayList<String> csv;
-		System.out.println("Formatting training data into CSV format...");
-		//csv = dataFormat1(trainData, trainDataUseFraction, 2017);
-		csv = dataFormat2(trainData, trainDataUseFraction, 2017);
-		if (csv.size() > MAX_PER_FILE) {
-			for (int fileNum = 0; fileNum < (csv.size()/MAX_PER_FILE + 1); ++fileNum) {
-				ArrayList<String> part = new ArrayList<String>();
-				for (int stateNum = (fileNum * MAX_PER_FILE); stateNum < Math.min((fileNum+1) * MAX_PER_FILE, csv.size()); ++stateNum) {
-					part.add(csv.get(stateNum));
-				}
-				FileTools.writeFile(trainFinal+"training-"+trainDataUseFraction+"-"+fileNum+ ".csv", part);
-			}
+		if (train) {
+			
+			// Data loading.
+			System.out.println("Loading in training data...");
+			data = FileTools.readDir(trainDir);
+			System.out.println(data.size() + " training game scripts loaded in.");
+			
+			// Data formatting.
+			System.out.println("Formatting training data into CSV format...");
+			csv = dataFormat2(data, trainDataUseFraction, 2017);
+			
+			// Writing to CSV.
+			FileTools.writeFile(trainFinal+"training-" + trainDataUseFraction + "-whole.csv", csv);
+			System.out.println("Training data has been saved as CSV files.");
 		}
-		FileTools.writeFile(trainFinal+"training-" + trainDataUseFraction + "-whole.csv", csv);
 		
+		data = null;
 		csv = null;
-		System.out.println("Training data has been saved as a CSV file.");
-		System.out.println("Formatting testing data into CSV format...");
-		//csv = dataFormat1(testData, 1.0, 2017);
-		csv = dataFormat2(testData, 1.0, 2017);
-		if (csv.size() > MAX_PER_FILE) {
-			for (int fileNum = 0; fileNum < (csv.size()/MAX_PER_FILE + 1); ++fileNum) {
-				ArrayList<String> part = new ArrayList<String>();
-				for (int stateNum = (fileNum * MAX_PER_FILE); stateNum < Math.min((fileNum+1) * MAX_PER_FILE, csv.size()); ++stateNum) {
-					part.add(csv.get(stateNum));
-				}
-				FileTools.writeFile(testFinal+"testing-"+fileNum+ ".csv", part);
-			}
+		
+		if (test) {
+			
+			// Data loading.
+			System.out.println("Loading in testing data...");
+			data = FileTools.readDir(testDir);
+			System.out.println(data.size() + " testing game scripts loaded in.");	
+			
+			// Data formatting.
+			System.out.println("Formatting testing data into CSV format...");
+			csv = dataFormat2(data, 1.0, 2017);
+			
+			// Writing to CSV.
+			FileTools.writeFile(testFinal+"testing"+name+"-whole.csv", csv);
+			System.out.println("Testing data has been saved as CSV files.");
 		}
-		FileTools.writeFile(testFinal+"testing-whole.csv", csv);
-		csv = null;
-		System.out.println("Testing data has been saved as a CSV file.");
-		System.out.println("Execution complete.");	
+		
+		System.out.println("Execution complete.");
+		
 	}
 	
 	public static void mergeDir(String dir, String newFileName) {
