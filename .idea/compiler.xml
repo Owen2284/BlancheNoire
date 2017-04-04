@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="arbiter-examples" />
+        <module name="BlancheNoire" />
+        <module name="datavec-examples" />
+        <module name="deeplearning4j-aws" />
+        <module name="deeplearning4j-core" />
+        <module name="deeplearning4j-cuda-8.0" />
+        <module name="deeplearning4j-graph" />
+        <module name="deeplearning4j-keras" />
+        <module name="deeplearning4j-modelimport" />
+        <module name="deeplearning4j-nlp" />
+        <module name="deeplearning4j-nlp-japanese" />
+        <module name="deeplearning4j-nlp-korean" />
+        <module name="deeplearning4j-nlp-uima" />
+        <module name="deeplearning4j-nn" />
+        <module name="deeplearning4j-parallel-wrapper_2.11" />
+        <module name="deeplearning4j-play_2.11" />
+        <module name="deeplearning4j-scaleout-parallelwrapper-parameter-server" />
+        <module name="deeplearning4j-ui-components" />
+        <module name="deeplearning4j-ui-model" />
+        <module name="deeplearning4j-ui-remote-iterationlisteners" />
+        <module name="deeplearning4j-ui-resources" />
+        <module name="deeplearning4j-ui_2.11" />
+        <module name="dl4j-cuda-specific-examples" />
+        <module name="dl4j-examples" />
+        <module name="dl4j-spark" />
+        <module name="dl4j-spark-nlp-java8_2.11" />
+        <module name="dl4j-spark-nlp_2.11" />
+        <module name="dl4j-spark-parameterserver_2.11" />
+        <module name="dl4j-spark_2.11" />
+        <module name="dl4j-streaming_2.11" />
+        <module name="nd4j-examples" />
+        <module name="rl4j-examples" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="arbiter-examples" target="1.8" />
+      <module name="BlancheNoire" target="1.5" />
+      <module name="datavec-examples" target="1.8" />
+      <module name="deeplearning4j-aws" target="1.7" />
+      <module name="deeplearning4j-core" target="1.7" />
+      <module name="deeplearning4j-cuda-8.0" target="1.7" />
+      <module name="deeplearning4j-examples-parent" target="1.5" />
+      <module name="deeplearning4j-graph" target="1.7" />
+      <module name="deeplearning4j-keras" target="1.7" />
+      <module name="deeplearning4j-modelimport" target="1.7" />
+      <module name="deeplearning4j-nlp" target="1.7" />
+      <module name="deeplearning4j-nlp-japanese" target="1.7" />
+      <module name="deeplearning4j-nlp-korean" target="1.7" />
+      <module name="deeplearning4j-nlp-parent" target="1.7" />
+      <module name="deeplearning4j-nlp-uima" target="1.7" />
+      <module name="deeplearning4j-nn" target="1.7" />
+      <module name="deeplearning4j-parallel-wrapper_2.11" target="1.8" />
+      <module name="deeplearning4j-parent" target="1.7" />
+      <module name="deeplearning4j-play_2.11" target="1.8" />
+      <module name="deeplearning4j-scaleout" target="1.7" />
+      <module name="deeplearning4j-scaleout-parallelwrapper-parameter-server" target="1.8" />
+      <module name="deeplearning4j-ui-components" target="1.7" />
+      <module name="deeplearning4j-ui-model" target="1.7" />
+      <module name="deeplearning4j-ui-parent" target="1.7" />
+      <module name="deeplearning4j-ui-remote-iterationlisteners" target="1.7" />
+      <module name="deeplearning4j-ui-resources" target="1.7" />
+      <module name="deeplearning4j-ui_2.11" target="1.7" />
+      <module name="dl4j-cuda-specific-examples" target="1.8" />
+      <module name="dl4j-examples" target="1.8" />
+      <module name="dl4j-spark" target="1.8" />
+      <module name="dl4j-spark-examples" target="1.5" />
+      <module name="dl4j-spark-nlp-java8_2.11" target="1.7" />
+      <module name="dl4j-spark-nlp_2.11" target="1.7" />
+      <module name="dl4j-spark-parameterserver_2.11" target="1.7" />
+      <module name="dl4j-spark_2.11" target="1.7" />
+      <module name="dl4j-streaming_2.11" target="1.7" />
+      <module name="nd4j-examples" target="1.5" />
+      <module name="rl4j-examples" target="1.7" />
+      <module name="spark_2.11" target="1.7" />
+    </bytecodeTargetLevel>
+  </component>
+</project>

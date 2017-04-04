@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="Encoding">
+    <file url="file://$PROJECT_DIR$" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/dl4j/examples" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/dl4j/examples/arbiter-examples" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/dl4j/examples/datavec-examples" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/dl4j/examples/dl4j-cuda-specific-examples" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/dl4j/examples/dl4j-examples" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/dl4j/examples/dl4j-spark-examples" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/dl4j/examples/dl4j-spark-examples/dl4j-spark" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/dl4j/examples/nd4j-examples" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/dl4j/examples/rl4j-examples" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/dl4j/main" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/dl4j/main/deeplearning4j-core" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/dl4j/main/deeplearning4j-cuda" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/dl4j/main/deeplearning4j-graph" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/dl4j/main/deeplearning4j-keras" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/dl4j/main/deeplearning4j-modelimport" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/dl4j/main/deeplearning4j-nlp-parent" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/dl4j/main/deeplearning4j-nlp-parent/deeplearning4j-nlp" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/dl4j/main/deeplearning4j-nlp-parent/deeplearning4j-nlp-japanese" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/dl4j/main/deeplearning4j-nlp-parent/deeplearning4j-nlp-korean" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/dl4j/main/deeplearning4j-nlp-parent/deeplearning4j-nlp-uima" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/dl4j/main/deeplearning4j-nn" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/dl4j/main/deeplearning4j-scaleout" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/dl4j/main/deeplearning4j-scaleout/deeplearning4j-aws" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/dl4j/main/deeplearning4j-scaleout/deeplearning4j-scaleout-parallelwrapper" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/dl4j/main/deeplearning4j-scaleout/deeplearning4j-scaleout-parallelwrapper-parameter-server" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/dl4j/main/deeplearning4j-scaleout/dl4j-streaming" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/dl4j/main/deeplearning4j-scaleout/spark" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/dl4j/main/deeplearning4j-scaleout/spark/dl4j-spark" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/dl4j/main/deeplearning4j-scaleout/spark/dl4j-spark-nlp" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/dl4j/main/deeplearning4j-scaleout/spark/dl4j-spark-nlp-java8" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/dl4j/main/deeplearning4j-scaleout/spark/dl4j-spark-parameterserver" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/dl4j/main/deeplearning4j-ui-parent" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/dl4j/main/deeplearning4j-ui-parent/deeplearning4j-play" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/dl4j/main/deeplearning4j-ui-parent/deeplearning4j-ui" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/dl4j/main/deeplearning4j-ui-parent/deeplearning4j-ui-components" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/dl4j/main/deeplearning4j-ui-parent/deeplearning4j-ui-model" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/dl4j/main/deeplearning4j-ui-parent/deeplearning4j-ui-remote-iterationlisteners" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/dl4j/main/deeplearning4j-ui-parent/deeplearning4j-ui-resources" charset="UTF-8" />
+  </component>
+</project>

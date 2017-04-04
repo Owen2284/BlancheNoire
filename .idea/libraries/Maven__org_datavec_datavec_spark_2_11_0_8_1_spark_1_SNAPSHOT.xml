@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Maven: org.datavec:datavec-spark_2.11:0.8.1_spark_1-SNAPSHOT">
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/org/datavec/datavec-spark_2.11/0.8.1_spark_1-SNAPSHOT/datavec-spark_2.11-0.8.1_spark_1-20170403.041453-4.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$MAVEN_REPOSITORY$/org/datavec/datavec-spark_2.11/0.8.1_spark_1-SNAPSHOT/datavec-spark_2.11-0.8.1_spark_1-20170403.041453-4-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$MAVEN_REPOSITORY$/org/datavec/datavec-spark_2.11/0.8.1_spark_1-SNAPSHOT/datavec-spark_2.11-0.8.1_spark_1-20170403.041453-4-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

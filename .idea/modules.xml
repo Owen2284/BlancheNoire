@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/BlancheNoire.iml" filepath="$PROJECT_DIR$/BlancheNoire.iml" />
+      <module fileurl="file://$PROJECT_DIR$/dl4j/examples/arbiter-examples/arbiter-examples.iml" filepath="$PROJECT_DIR$/dl4j/examples/arbiter-examples/arbiter-examples.iml" />
+      <module fileurl="file://$PROJECT_DIR$/dl4j/examples/datavec-examples/datavec-examples.iml" filepath="$PROJECT_DIR$/dl4j/examples/datavec-examples/datavec-examples.iml" />
+      <module fileurl="file://$PROJECT_DIR$/dl4j/main/deeplearning4j-scaleout/deeplearning4j-aws/deeplearning4j-aws.iml" filepath="$PROJECT_DIR$/dl4j/main/deeplearning4j-scaleout/deeplearning4j-aws/deeplearning4j-aws.iml" />
+      <module fileurl="file://$PROJECT_DIR$/dl4j/main/deeplearning4j-core/deeplearning4j-core.iml" filepath="$PROJECT_DIR$/dl4j/main/deeplearning4j-core/deeplearning4j-core.iml" />
+      <module fileurl="file://$PROJECT_DIR$/dl4j/main/deeplearning4j-cuda/deeplearning4j-cuda-8.0.iml" filepath="$PROJECT_DIR$/dl4j/main/deeplearning4j-cuda/deeplearning4j-cuda-8.0.iml" />
+      <module fileurl="file://$PROJECT_DIR$/dl4j/examples/deeplearning4j-examples-parent.iml" filepath="$PROJECT_DIR$/dl4j/examples/deeplearning4j-examples-parent.iml" />
+      <module fileurl="file://$PROJECT_DIR$/dl4j/main/deeplearning4j-graph/deeplearning4j-graph.iml" filepath="$PROJECT_DIR$/dl4j/main/deeplearning4j-graph/deeplearning4j-graph.iml" />
+      <module fileurl="file://$PROJECT_DIR$/dl4j/main/deeplearning4j-keras/deeplearning4j-keras.iml" filepath="$PROJECT_DIR$/dl4j/main/deeplearning4j-keras/deeplearning4j-keras.iml" />
+      <module fileurl="file://$PROJECT_DIR$/dl4j/main/deeplearning4j-modelimport/deeplearning4j-modelimport.iml" filepath="$PROJECT_DIR$/dl4j/main/deeplearning4j-modelimport/deeplearning4j-modelimport.iml" />
+      <module fileurl="file://$PROJECT_DIR$/dl4j/main/deeplearning4j-nlp-parent/deeplearning4j-nlp/deeplearning4j-nlp.iml" filepath="$PROJECT_DIR$/dl4j/main/deeplearning4j-nlp-parent/deeplearning4j-nlp/deeplearning4j-nlp.iml" />
+      <module fileurl="file://$PROJECT_DIR$/dl4j/main/deeplearning4j-nlp-parent/deeplearning4j-nlp-japanese/deeplearning4j-nlp-japanese.iml" filepath="$PROJECT_DIR$/dl4j/main/deeplearning4j-nlp-parent/deeplearning4j-nlp-japanese/deeplearning4j-nlp-japanese.iml" />
+      <module fileurl="file://$PROJECT_DIR$/dl4j/main/deeplearning4j-nlp-parent/deeplearning4j-nlp-korean/deeplearning4j-nlp-korean.iml" filepath="$PROJECT_DIR$/dl4j/main/deeplearning4j-nlp-parent/deeplearning4j-nlp-korean/deeplearning4j-nlp-korean.iml" />
+      <module fileurl="file://$PROJECT_DIR$/dl4j/main/deeplearning4j-nlp-parent/deeplearning4j-nlp-parent.iml" filepath="$PROJECT_DIR$/dl4j/main/deeplearning4j-nlp-parent/deeplearning4j-nlp-parent.iml" />
+      <module fileurl="file://$PROJECT_DIR$/dl4j/main/deeplearning4j-nlp-parent/deeplearning4j-nlp-uima/deeplearning4j-nlp-uima.iml" filepath="$PROJECT_DIR$/dl4j/main/deeplearning4j-nlp-parent/deeplearning4j-nlp-uima/deeplearning4j-nlp-uima.iml" />
+      <module fileurl="file://$PROJECT_DIR$/dl4j/main/deeplearning4j-nn/deeplearning4j-nn.iml" filepath="$PROJECT_DIR$/dl4j/main/deeplearning4j-nn/deeplearning4j-nn.iml" />
+      <module fileurl="file://$PROJECT_DIR$/dl4j/main/deeplearning4j-scaleout/deeplearning4j-scaleout-parallelwrapper/deeplearning4j-parallel-wrapper_2.11.iml" filepath="$PROJECT_DIR$/dl4j/main/deeplearning4j-scaleout/deeplearning4j-scaleout-parallelwrapper/deeplearning4j-parallel-wrapper_2.11.iml" />
+      <module fileurl="file://$PROJECT_DIR$/dl4j/main/deeplearning4j-parent.iml" filepath="$PROJECT_DIR$/dl4j/main/deeplearning4j-parent.iml" />
+      <module fileurl="file://$PROJECT_DIR$/dl4j/main/deeplearning4j-ui-parent/deeplearning4j-play/deeplearning4j-play_2.11.iml" filepath="$PROJECT_DIR$/dl4j/main/deeplearning4j-ui-parent/deeplearning4j-play/deeplearning4j-play_2.11.iml" />
+      <module fileurl="file://$PROJECT_DIR$/dl4j/main/deeplearning4j-scaleout/deeplearning4j-scaleout.iml" filepath="$PROJECT_DIR$/dl4j/main/deeplearning4j-scaleout/deeplearning4j-scaleout.iml" />
+      <module fileurl="file://$PROJECT_DIR$/dl4j/main/deeplearning4j-scaleout/deeplearning4j-scaleout-parallelwrapper-parameter-server/deeplearning4j-scaleout-parallelwrapper-parameter-server.iml" filepath="$PROJECT_DIR$/dl4j/main/deeplearning4j-scaleout/deeplearning4j-scaleout-parallelwrapper-parameter-server/deeplearning4j-scaleout-parallelwrapper-parameter-server.iml" />
+      <module fileurl="file://$PROJECT_DIR$/dl4j/main/deeplearning4j-ui-parent/deeplearning4j-ui-components/deeplearning4j-ui-components.iml" filepath="$PROJECT_DIR$/dl4j/main/deeplearning4j-ui-parent/deeplearning4j-ui-components/deeplearning4j-ui-components.iml" />
+      <module fileurl="file://$PROJECT_DIR$/dl4j/main/deeplearning4j-ui-parent/deeplearning4j-ui-model/deeplearning4j-ui-model.iml" filepath="$PROJECT_DIR$/dl4j/main/deeplearning4j-ui-parent/deeplearning4j-ui-model/deeplearning4j-ui-model.iml" />
+      <module fileurl="file://$PROJECT_DIR$/dl4j/main/deeplearning4j-ui-parent/deeplearning4j-ui-parent.iml" filepath="$PROJECT_DIR$/dl4j/main/deeplearning4j-ui-parent/deeplearning4j-ui-parent.iml" />
+      <module fileurl="file://$PROJECT_DIR$/dl4j/main/deeplearning4j-ui-parent/deeplearning4j-ui-remote-iterationlisteners/deeplearning4j-ui-remote-iterationlisteners.iml" filepath="$PROJECT_DIR$/dl4j/main/deeplearning4j-ui-parent/deeplearning4j-ui-remote-iterationlisteners/deeplearning4j-ui-remote-iterationlisteners.iml" />
+      <module fileurl="file://$PROJECT_DIR$/dl4j/main/deeplearning4j-ui-parent/deeplearning4j-ui-resources/deeplearning4j-ui-resources.iml" filepath="$PROJECT_DIR$/dl4j/main/deeplearning4j-ui-parent/deeplearning4j-ui-resources/deeplearning4j-ui-resources.iml" />
+      <module fileurl="file://$PROJECT_DIR$/dl4j/main/deeplearning4j-ui-parent/deeplearning4j-ui/deeplearning4j-ui_2.11.iml" filepath="$PROJECT_DIR$/dl4j/main/deeplearning4j-ui-parent/deeplearning4j-ui/deeplearning4j-ui_2.11.iml" />
+      <module fileurl="file://$PROJECT_DIR$/dl4j/examples/dl4j-cuda-specific-examples/dl4j-cuda-specific-examples.iml" filepath="$PROJECT_DIR$/dl4j/examples/dl4j-cuda-specific-examples/dl4j-cuda-specific-examples.iml" />
+      <module fileurl="file://$PROJECT_DIR$/dl4j/examples/dl4j-examples/dl4j-examples.iml" filepath="$PROJECT_DIR$/dl4j/examples/dl4j-examples/dl4j-examples.iml" />
+      <module fileurl="file://$PROJECT_DIR$/dl4j/examples/dl4j-spark-examples/dl4j-spark/dl4j-spark.iml" filepath="$PROJECT_DIR$/dl4j/examples/dl4j-spark-examples/dl4j-spark/dl4j-spark.iml" />
+      <module fileurl="file://$PROJECT_DIR$/dl4j/examples/dl4j-spark-examples/dl4j-spark-examples.iml" filepath="$PROJECT_DIR$/dl4j/examples/dl4j-spark-examples/dl4j-spark-examples.iml" />
+      <module fileurl="file://$PROJECT_DIR$/dl4j/main/deeplearning4j-scaleout/spark/dl4j-spark-nlp-java8/dl4j-spark-nlp-java8_2.11.iml" filepath="$PROJECT_DIR$/dl4j/main/deeplearning4j-scaleout/spark/dl4j-spark-nlp-java8/dl4j-spark-nlp-java8_2.11.iml" />
+      <module fileurl="file://$PROJECT_DIR$/dl4j/main/deeplearning4j-scaleout/spark/dl4j-spark-nlp/dl4j-spark-nlp_2.11.iml" filepath="$PROJECT_DIR$/dl4j/main/deeplearning4j-scaleout/spark/dl4j-spark-nlp/dl4j-spark-nlp_2.11.iml" />
+      <module fileurl="file://$PROJECT_DIR$/dl4j/main/deeplearning4j-scaleout/spark/dl4j-spark-parameterserver/dl4j-spark-parameterserver_2.11.iml" filepath="$PROJECT_DIR$/dl4j/main/deeplearning4j-scaleout/spark/dl4j-spark-parameterserver/dl4j-spark-parameterserver_2.11.iml" />
+      <module fileurl="file://$PROJECT_DIR$/dl4j/main/deeplearning4j-scaleout/spark/dl4j-spark/dl4j-spark_2.11.iml" filepath="$PROJECT_DIR$/dl4j/main/deeplearning4j-scaleout/spark/dl4j-spark/dl4j-spark_2.11.iml" />
+      <module fileurl="file://$PROJECT_DIR$/dl4j/main/deeplearning4j-scaleout/dl4j-streaming/dl4j-streaming_2.11.iml" filepath="$PROJECT_DIR$/dl4j/main/deeplearning4j-scaleout/dl4j-streaming/dl4j-streaming_2.11.iml" />
+      <module fileurl="file://$PROJECT_DIR$/dl4j/examples/nd4j-examples/nd4j-examples.iml" filepath="$PROJECT_DIR$/dl4j/examples/nd4j-examples/nd4j-examples.iml" />
+      <module fileurl="file://$PROJECT_DIR$/dl4j/examples/rl4j-examples/rl4j-examples.iml" filepath="$PROJECT_DIR$/dl4j/examples/rl4j-examples/rl4j-examples.iml" />
+      <module fileurl="file://$PROJECT_DIR$/dl4j/main/deeplearning4j-scaleout/spark/spark_2.11.iml" filepath="$PROJECT_DIR$/dl4j/main/deeplearning4j-scaleout/spark/spark_2.11.iml" />
+    </modules>
+  </component>
+</project>
