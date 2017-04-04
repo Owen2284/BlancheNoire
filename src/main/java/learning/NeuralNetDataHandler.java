@@ -19,13 +19,29 @@ import util.FileTools;
 public class NeuralNetDataHandler {
 	
 	public static void main(String[] args) {
-		double trainDataUseFraction = 1.0;
+		// Initialising argument storage variables.
+		String[] portionsInit;
+		double[] portions = new double[1]; portions[0] = 1.0;
+		double portionMax = 1.0;
 		boolean prepare = true;
 		boolean train = true;
 		boolean test = true;
 		String name = "";
+
+		// Checking what args are provided by the user.
 		if (args.length >= 1) {
-			trainDataUseFraction = Double.parseDouble(args[0]);
+			portionsInit = args[0].split(",");
+			portions = new double[portionsInit.length];
+			portionMax = 0.0;
+			int ptr = 0;
+			for (String p : portionsInit) {
+				double val = Double.parseDouble(p);
+				portions[ptr] = val;
+				if (val > portionMax) {
+					portionMax = val;
+				}
+				++ptr;
+			}
 			if (args.length >= 2) {
 				prepare = Boolean.parseBoolean(args[1]);
 				if (args.length >= 3) {
@@ -42,9 +58,9 @@ public class NeuralNetDataHandler {
 		if (!name.equals("")) {
 			System.out.println("The file(s) in this dataset will have \"" + name + "\" added to them to distinguish them.");
 		}
-		System.out.println(trainDataUseFraction*100 + "% of the training data provided will be used.");
+		System.out.println("A max of " + portionMax*100 + "% of the training data provided will be used.");
 		if (prepare) {prepare();}
-		format(train, test, trainDataUseFraction, name);
+		format(train, test, portions, portionMax, name);
 	}
 	
 	public static void prepare() {
@@ -59,7 +75,7 @@ public class NeuralNetDataHandler {
 		mergeDir(testDir, "test-master.oth");
 	}
 	
-	public static void format(boolean train, boolean test, double trainDataUseFraction, String name) {
+	public static void format(boolean train, boolean test, double[] portions, double maxPortion, String name) {
 		
 		// Defining directories.
 		String trainDir = "games/scripts/train/";
@@ -69,7 +85,10 @@ public class NeuralNetDataHandler {
 		
 		// Initialising other variables.
 		ArrayList<String> data = null;
-		ArrayList<String> csv = null;
+		ArrayList<String> states = null;
+
+		// Constants
+		int MAX_PER_CSV = 100000;
 		
 		System.out.println("-----");
 		if (train) {
@@ -81,15 +100,29 @@ public class NeuralNetDataHandler {
 			
 			// Data formatting.
 			System.out.println("Formatting training data into CSV format...");
-			csv = dataFormat2(data, trainDataUseFraction, 2017);
+			states = dataFormat2(data, maxPortion, 2017);
+			int maxStates = (int) (states.size() / maxPortion);
 			
 			// Writing to CSV.
-			FileTools.writeFile(trainFinal+"training-" + trainDataUseFraction + ".csv", csv);
+			System.out.println("Writing training data...");
+			ArrayList<String> csvPortion;
+			for (double portion : portions) {
+				int stateTotal = (int)(maxStates * portion);
+				int fileTotal = (stateTotal / MAX_PER_CSV) + 1;
+				System.out.println(" Writing " + stateTotal + " of " + maxStates + " states as a " + (portion * 100) + "% training set (" + fileTotal + " files expected)...");
+				for (int fileNum = 0; fileNum < fileTotal; ++fileNum) {
+					csvPortion = new ArrayList<String>();
+					for (int stateNum = fileNum * MAX_PER_CSV; stateNum < (fileNum + 1) * MAX_PER_CSV; ++stateNum) {
+						csvPortion.add(states.get(stateNum));
+					}
+					FileTools.writeFile(trainFinal + "training" + name + "-" + portion + "-" + fileNum + ".csv", states);
+				}
+			}
 			System.out.println("Training data has been saved as CSV files.");
 		}
 		
 		data = null;
-		csv = null;
+		states = null;
 		
 		if (test) {
 			
@@ -100,10 +133,21 @@ public class NeuralNetDataHandler {
 			
 			// Data formatting.
 			System.out.println("Formatting testing data into CSV format...");
-			csv = dataFormat2(data, 1.0, 2017);
+			states = dataFormat2(data, 1.0, 2017);
 			
 			// Writing to CSV.
-			FileTools.writeFile(testFinal+"testing"+name+".csv", csv);
+			System.out.println("Writing testing data...");
+			int stateTotal = states.size();
+			int fileTotal = (stateTotal / MAX_PER_CSV) + 1;
+			ArrayList<String> csvPortion;
+			System.out.println(" Writing all " + stateTotal + " states as a 100% training set (" + fileTotal + " files expected)...");
+			for (int fileNum = 0; fileNum < fileTotal; ++fileNum) {
+				csvPortion = new ArrayList<String>();
+				for (int stateNum = fileNum * MAX_PER_CSV; stateNum < (fileNum + 1) * MAX_PER_CSV; ++stateNum) {
+					csvPortion.add(states.get(stateNum));
+				}
+				FileTools.writeFile(trainFinal + "training" + name + "-" + fileNum + ".csv", states);
+			}
 			System.out.println("Testing data has been saved as CSV files.");
 		}
 		
@@ -113,12 +157,7 @@ public class NeuralNetDataHandler {
 	
 	public static void mergeDir(String dir, String newFileName) {
 		System.out.println("Merging all files in \"" + dir + "\"...");
-		ArrayList<String> merged = new ArrayList<String>();
-		for (File f : FileTools.getAllFilesInDir(dir)) {
-			merged.addAll(FileTools.readFile(f.getPath()));
-			f.delete();
-		}
-		FileTools.writeFile(dir + newFileName, merged);
+		FileTools.mergeDir(dir, newFileName);
 		System.out.println("Merging complete, data stored in \"" + dir + newFileName + "\".");
 	}
 	

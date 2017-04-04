@@ -15,7 +15,7 @@ public class DeepLearningEvaluator extends Evaluator {
 		try {
 			net = ModelSerializer.restoreMultiLayerNetwork(netPath);
 		} catch (Exception e) {
-			throw new IllegalArgumentException("Invalid file path for NN.");
+			throw new IllegalArgumentException("Invalid file path for NN: \"" + netPath + "\"");
 		}
 	}
 

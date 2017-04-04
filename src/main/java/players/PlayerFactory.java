@@ -132,11 +132,12 @@ public final class PlayerFactory {
 			} else if (evaluator.startsWith("Positional")) {
 				e = new PositionalEvaluator();
 			} else if (evaluator.startsWith("DeepLearning")) {
-				String path = "nn/net.txt";
+				String path = "";
 				if (evaluator.length() > "DeepLearning".length()) {
 					String end = decider.substring("DeepLearning".length());
 					String[] miniArgs = end.split("-");
 					for (String miniArg : miniArgs) {
+						System.out.println(miniArg);
 						if (!miniArg.equals("")) {
 							if (miniArg.startsWith("F")) {
 								path = miniArg.substring(2, miniArg.length()-1);

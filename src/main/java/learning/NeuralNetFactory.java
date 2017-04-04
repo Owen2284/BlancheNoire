@@ -40,18 +40,18 @@ public class NeuralNetFactory {
 
 		final String FILE_EXT = ".zip";
 		
-		// Checks and retrieves file name arg.
+		// Checks and retrieves command line args.
 		String trainSrc = "";
 		String testSrc = "";
-		String netPath = "nn/othello-";
+		String netPath = "nn/othello_net_";
 		String netName = "blank";
 		if (args.length >= 3) {
 			trainSrc = args[0];
 			testSrc = args[1];
 			netName = args[2];
 			netPath += netName+FILE_EXT;
-			System.out.println("Using \"" + trainSrc + "\" as training data, and \"" + testSrc + "\" as testing data.");
 
+			System.out.println("Using \"" + trainSrc + "\" as training data, and \"" + testSrc + "\" as testing data.");
 			System.out.println("Created NN will be saved to: " + netPath);
 			
 			// Running Neural Network creator.

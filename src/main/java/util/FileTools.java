@@ -69,4 +69,23 @@ public class FileTools {
 		return all;
 	}
 
+	public static void mergeDir(String dir, String newFileName) {
+		ArrayList<String> merged = new ArrayList<String>();
+		for (File f : getAllFilesInDir(dir)) {
+			merged.addAll(readFile(f.getPath()));
+			f.delete();
+		}
+		writeFile(dir + newFileName, merged);
+	}
+
+	public static void mergeFilesStaringWith(String dir, String starting, String newDir) {
+		ArrayList<String> merged = new ArrayList<String>();
+		for (File f : getAllFilesInDir(dir)) {
+			if (f.getName().startsWith(starting)) {
+				merged.addAll(readFile(f.getPath()));
+			}
+		}
+		writeFile(newDir, merged);
+	}
+
 }
