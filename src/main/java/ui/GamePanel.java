@@ -213,7 +213,7 @@ public class GamePanel extends JPanel implements MouseListener {
 		if (players[1] != null) {
 			displayString = players[1].getPlayerType();
 		}
-		g.drawString(players[1].getPlayerType(), PANEL_WIDTH - DIST_FROM_EDGE - (3 * BIG_OVAL_RADIUS / 2) - (int) (displayString.length() * 1.5), BIG_OVAL_HEIGHT + (2 * BIG_OVAL_RADIUS) + 20);
+		g.drawString(displayString, PANEL_WIDTH - DIST_FROM_EDGE - (3 * BIG_OVAL_RADIUS / 2) - (int) (displayString.length() * 1.5), BIG_OVAL_HEIGHT + (2 * BIG_OVAL_RADIUS) + 20);
 	
 	}
 

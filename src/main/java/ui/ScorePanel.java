@@ -33,6 +33,7 @@ public class ScorePanel extends JPanel {
 		this.scores[0] = 0;
 		this.scores[1] = 0;
 		this.turn = 0;
+		this.phase = "";
 	}
 	
 	/**
