@@ -302,18 +302,15 @@ public class NeuralNetDataHandler {
 			for (int pos = 0; pos < moves.length(); pos += 2) {
 				String singleMove = moves.substring(pos, pos + 2);
 				int row = Integer.parseInt(singleMove.substring(1)) - 1;
-				int col;
-				switch (singleMove.substring(0,1)) {
-					case "a":col = 0;break;
-					case "b":col = 1;break;
-					case "c":col = 2;break;
-					case "d":col = 3;break;
-					case "e":col = 4;break;
-					case "f":col = 5;break;
-					case "g":col = 6;break;
-					case "h":col = 7;break;
-					default:throw new IllegalArgumentException("File has malformed move list.");
+				int col = -1;
+				String[] colLabels = {"a", "b", "c", "d", "e", "f", "g", "h"};
+				for (int l = 0; l < colLabels.length; ++l) {
+					if (singleMove.substring(0,1).equals(colLabels[l])) {
+						col = l;
+						break;
+					}
 				}
+				if (col == -1) throw new IllegalArgumentException("File has malformed move list.");
 				Point singlePoint = new Point(row,col);
 				movesList[pos / 2] = singlePoint;
 			}
@@ -409,8 +406,8 @@ public class NeuralNetDataHandler {
 					}
 				}
 				if (!placed) {
-					plays.put(allRotations[0], plays.getOrDefault(allRotations[0], 0) + 1);
-					wins.put(allRotations[0], wins.getOrDefault(allRotations[0], 0) + darkResult);
+					plays.put(allRotations[0], 1);
+					wins.put(allRotations[0], darkResult);
 				}
 			}
 			if (gameCounter % 1000 == 0) {
