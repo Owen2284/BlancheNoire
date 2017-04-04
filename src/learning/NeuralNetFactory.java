@@ -68,7 +68,7 @@ public class NeuralNetFactory {
 				e.printStackTrace();
 			}
 		} else {
-			System.out.println();
+			System.out.println("Invalid number of arguments.");
 		}
 		
 		System.out.println("Ending program...");
