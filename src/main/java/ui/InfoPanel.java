@@ -34,6 +34,7 @@ public class InfoPanel extends JPanel {
 	 * Method that caches information about the game.
 	 * @param game - the current GameState of the Othello game.
 	 * @param playerToPlay - The player who is currently taking their turn.
+	 * @param s
 	 */
 	public void updateUI(GameState game, Player playerToPlay) {
 		if (game.isOver()) {
@@ -56,8 +57,9 @@ public class InfoPanel extends JPanel {
 			}
 		}
 	}
-	
-	@Override
+
+	public void setInfo(String s) {this.info = s;}
+
 	protected void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		g.setColor(Color.BLACK);

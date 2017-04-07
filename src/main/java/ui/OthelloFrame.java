@@ -25,7 +25,7 @@ public class OthelloFrame extends JFrame {
 
 	private static final long serialVersionUID = -7230594703974179925L;
 
-	public OthelloFrame() throws HeadlessException {
+	public OthelloFrame(GameState game) throws HeadlessException {
 		
 		// Initial setup.
 		this.setLayout(new BorderLayout());
@@ -37,8 +37,12 @@ public class OthelloFrame extends JFrame {
 		
 		// Adding panels.
         this.top = new ScorePanel();
+        this.top.updateUI(game);
         this.middle = new GamePanel();
+        this.middle.updateUI(game, game.getPlayerByID(GameState.COUNTER_DARK));
         this.bottom = new InfoPanel();
+        this.bottom.updateUI(game, game.getPlayerByID(GameState.COUNTER_DARK));
+        this.bottom.setInfo("Initialising...");
         this.add(this.top, BorderLayout.NORTH);
         this.add(this.middle, BorderLayout.CENTER);
         this.add(this.bottom, BorderLayout.SOUTH);

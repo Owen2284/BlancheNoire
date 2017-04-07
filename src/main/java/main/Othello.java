@@ -5,6 +5,7 @@ import java.io.PrintWriter;
 import java.util.HashMap;
 
 import game.GameState;
+import players.HumanPlayer;
 import players.Player;
 import players.PlayerFactory;
 import ui.OthelloFrame;
@@ -64,13 +65,13 @@ public class Othello {
 		} catch (Exception e) {System.out.println("Error parsing -boardSize argument. (" + e.getMessage() + ")");}
 			
 		// Defines main game variables.
-		GameState game = null;
+		GameState game = new GameState(new HumanPlayer(GameState.COUNTER_DARK, useGUI), new HumanPlayer(GameState.COUNTER_LIGHT, useGUI), 8);
 		Player p1 = null;
 		Player p2 = null;
 		int[] wins = {0,0};
 		OthelloFrame ui = null;
 		if (useGUI) {
-			ui = new OthelloFrame();
+			ui = new OthelloFrame(game);
 		}
 		
 		// Runs the game multiple times if required.
