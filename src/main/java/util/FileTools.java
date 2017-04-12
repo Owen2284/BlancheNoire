@@ -78,14 +78,12 @@ public class FileTools {
 		writeFile(dir + newFileName, merged);
 	}
 
-	public static void mergeFilesStaringWith(String dir, String starting, String newDir) {
+	public static void mergeDirNoDelete(String dir, String newPath) {
 		ArrayList<String> merged = new ArrayList<String>();
 		for (File f : getAllFilesInDir(dir)) {
-			if (f.getName().startsWith(starting)) {
-				merged.addAll(readFile(f.getPath()));
-			}
+			merged.addAll(readFile(f.getPath()));
 		}
-		writeFile(newDir, merged);
+		writeFile(newPath, merged);
 	}
 
 }

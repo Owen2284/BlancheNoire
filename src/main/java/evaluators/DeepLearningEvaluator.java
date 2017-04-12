@@ -8,10 +8,12 @@ import game.GameState;
 import players.Player;
 
 public class DeepLearningEvaluator extends Evaluator {
-	
+
+	private String netPath;
 	private MultiLayerNetwork net;
 
 	public DeepLearningEvaluator(String netPath) {
+		this.netPath = netPath;
 		try {
 			net = ModelSerializer.restoreMultiLayerNetwork(netPath);
 		} catch (Exception e) {
@@ -19,20 +21,19 @@ public class DeepLearningEvaluator extends Evaluator {
 		}
 	}
 
-	@Override
 	public String getType() {
 		return "DeepLearning";
 	}
 
-	@Override
-	public String toFileString() {
-		return "DeepLearning("+")";
-	}
+	public String toFileString() {return "DeepLearning("+this.netPath+")";}
 
-	@Override
 	public float evaluate(GameState game, Player p) {
+		// Get output from the NN.
 		INDArray result = net.output(game.toINDArray(p.getPlayerID(), game.getOpposingPlayer(p).getPlayerID()), false);
-		System.out.println(result);
+		// Determine the most likely score from the returned INDArray.
+		for (int i = 0; i < result.shape()[1]; ++i) {
+
+		}
 		return 0;
 	}
 

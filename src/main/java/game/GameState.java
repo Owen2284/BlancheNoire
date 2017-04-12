@@ -678,22 +678,21 @@ public class GameState {
 	 * Converts the GameState's board into a DL4J INDArray.
 	 */
 	public INDArray toINDArray(int firstID, int secondID) {
-		INDArray boardArr = Nd4j.zeros(boardSize, boardSize, 2);
+		INDArray boardArr = Nd4j.zeros(1, this.boardSize * this.boardSize * 2);
 		for (int row = 0; row < boardSize; ++row) {
 			for (int col = 0; col < boardSize; ++col) {
 				if (this.board[row][col] == firstID) {
-					boardArr.putScalar(row, col, 0, 1.0);
+					boardArr.putScalar(0, (row * 8) + col, 1.0);
 				}
 			}
 		}
 		for (int row = 0; row < boardSize; ++row) {
 			for (int col = 0; col < boardSize; ++col) {
 				if (this.board[row][col] == secondID) {
-					boardArr.putScalar(row, col, 1, 1.0);
+					boardArr.putScalar(0, ((row * 8) + col) + 64, 1.0);
 				}
 			}
 		}
-		System.out.println(boardArr);
 		return boardArr;
 	}
 	

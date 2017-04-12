@@ -25,6 +25,7 @@ import org.nd4j.linalg.dataset.api.iterator.DataSetIterator;
 import org.nd4j.linalg.lossfunctions.LossFunctions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import util.FileTools;
 
 /**
  * Class containing all of the code necessary for creating a neural network from the provided Othello data.
@@ -41,22 +42,22 @@ public class NeuralNetFactory {
 		final String FILE_EXT = ".zip";
 		
 		// Checks and retrieves command line args.
-		String trainSrc = "";
-		String testSrc = "";
-		String netPath = "nn/othello_net_";
+		String trainDir = "";
+		String testDir = "";
+		String netPath = "ann/othello_net_";
 		String netName = "blank";
 		if (args.length >= 3) {
-			trainSrc = args[0];
-			testSrc = args[1];
+			trainDir = args[0];
+			testDir = args[1];
 			netName = args[2];
 			netPath += netName+FILE_EXT;
 
-			System.out.println("Using \"" + trainSrc + "\" as training data, and \"" + testSrc + "\" as testing data.");
+			System.out.println("Using \"" + trainDir + "\" as training data, and \"" + testDir + "\" as testing data.");
 			System.out.println("Created NN will be saved to: " + netPath);
 			
 			// Running Neural Network creator.
 			System.out.println("Launching Neural Network creator....");
-			MultiLayerNetwork net = createNeuralNetwork(trainSrc, testSrc);
+			MultiLayerNetwork net = createNeuralNetwork(trainDir, testDir);
 			System.out.println("Closing Neural Network creator.");		
 			
 			// Saving the trained network.
@@ -78,18 +79,18 @@ public class NeuralNetFactory {
 		
 	}
 	
-	public static MultiLayerNetwork createNeuralNetwork(String trainSrc, String testSrc) {
+	public static MultiLayerNetwork createNeuralNetwork(String trainDir, String testDir) {
 		
 		// Initialising key variables.
 		int epochCount = 10;
 		int inputCount = 128;
 		int outputCount = 2;
-		int batchSize = 50;
+		int batchSize = 1;
 		
 		// Formating the input data for use by the NN.
 		System.out.println("Loading in data sets...");
-		DataSetIterator trainIter = createDataSetIterator(trainSrc, batchSize, 0, 2);
-		DataSetIterator testIter = createDataSetIterator(testSrc, batchSize, 0, 2);
+		DataSetIterator trainIter = createDataSetIterator(trainDir, batchSize, 0, 2);
+		DataSetIterator testIter = createDataSetIterator(testDir, batchSize, 0, 2);
 		
 		// Creating the NN object.
 		System.out.println("Creating the initial network configuration...");
@@ -100,41 +101,59 @@ public class NeuralNetFactory {
 		System.out.println("Creating the initial network model...");
 		MultiLayerNetwork model = new MultiLayerNetwork(conf);
 		model.init();
-		model.setListeners(new ScoreIterationListener(10));
+		model.setListeners(new ScoreIterationListener(batchSize));
 		
 		System.out.println("Running the model fitting function...");
 		for (int i = 0; i < epochCount; ++i) {
-			model.fit(trainIter);
-			System.out.println(" Epoch " + i + "/" + epochCount + " complete.");
+			//model.fit(trainIter);
+			System.out.println(" Epoch " + (i+1) + "/" + epochCount + " complete.");
 		}
 		
 		// Evaluating the network.
 		System.out.println("Evaluating the created network...");
 		Evaluation eval = new Evaluation(outputCount);
+		boolean test = true;
 		while (testIter.hasNext()) {
 			DataSet t = testIter.next();
 			// Retrieves the data, the true result and the networks prediction.
 			INDArray features = t.getFeatureMatrix();
 			INDArray labels = t.getLabels();
 			INDArray predicted = model.output(features, false);
+			if (test) {
+				System.out.println(labels);
+				System.out.println();
+				System.out.println(features);
+				System.out.println(features.rank());
+				System.out.println(features.shape()[0] + "," + features.shape()[1]);
+				System.out.println();
+				System.out.println(predicted);
+				System.out.println(predicted.rank());
+				System.out.println(predicted.shape()[0] + "," + predicted.shape()[1]);
+				test = false;
+			}
 			eval.eval(labels, predicted);
 		}
-		
+
+		// TODO: Delete the files created when creating the DataSetIterators.
+
 		// Returning the finished model.
 		return model;
 		
 	}
 	
-	private static DataSetIterator createDataSetIterator(String path, int batchSize, int labelIndex, int numPossibleLabels) {
+	private static DataSetIterator createDataSetIterator(String dir, int batchSize, int labelIndex, int numPossibleLabels) {
 		try {
+			String tempFilePath = dir + "full.csv";
+			FileTools.mergeDirNoDelete(dir, tempFilePath);
 			RecordReader rr = new CSVRecordReader();
-			rr.initialize(new FileSplit(new File(path)));
+			rr.initialize(new FileSplit(new File(tempFilePath)));
 			DataSetIterator dsi = new RecordReaderDataSetIterator(rr, batchSize, labelIndex, numPossibleLabels);
+			System.out.println(" Data from " + dir + " has been loaded.");
 			return dsi;
 		} catch (IOException e) {
-			throw new IllegalArgumentException("File \"" + path + "\" not found.");
+			throw new IllegalArgumentException(" File \"" + dir + "\" not found.");
 		} catch (InterruptedException e) {
-			throw new IllegalArgumentException("File \"" + path + "\" resulted in an interruption.");
+			throw new IllegalArgumentException(" File \"" + dir + "\" resulted in an interruption.");
 		}
 	}
 	
