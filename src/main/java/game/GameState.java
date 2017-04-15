@@ -496,18 +496,46 @@ public class GameState {
 		for (int i = 0; i < numRotates; ++i) {
 			newState.rotateAndChange();
 		}
-		return newState;
+		return new GameState(newState);
 	}
 	
 	/**
-	 * Rotates the board 90 degrees clockwise for the number of times specified.
-	 * Directly changes the game state.
+	 * Rotates the board 90 degrees clockwise. Directly changes the game state.
 	 */
 	private void rotateAndChange() {
 		int[][] oldBoard = this.getBoard();
 		for (int row = 0; row < boardSize; ++row) {
 			for (int col = 0; col < boardSize; ++col) {
 				this.board[row][col] = oldBoard[col][boardSize - row - 1];
+			}
+		}
+	}
+
+	/**
+	 * Flips the GameState along either the horizontal line or the veritcal line.
+	 */
+	public GameState flip(boolean horizontal) {
+		GameState newState = new GameState(this);
+		newState.flipAndChange(horizontal);
+		return new GameState(newState);
+	}
+
+	/**
+	 * Flips the board. Directly changes the game state.
+	 */
+	private void flipAndChange(boolean horizontal) {
+		int[][] oldBoard = this.getBoard();
+		if (horizontal) {
+			for (int row = 0; row < boardSize; ++row) {
+				for (int col = 0; col < boardSize; ++col) {
+					this.board[row][col] = oldBoard[this.boardSize - row - 1][col];
+				}
+			}
+		} else {
+			for (int row = 0; row < boardSize; ++row) {
+				for (int col = 0; col < boardSize; ++col) {
+					this.board[row][col] = oldBoard[row][this.boardSize - col - 1];
+				}
 			}
 		}
 	}
@@ -533,6 +561,27 @@ public class GameState {
 		for (int rotation = 0; rotation < 4; ++rotation) {
 			GameState thatRotated = that.rotate(rotation);
 			if (this.hasSameBoardAs(thatRotated)) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	/**
+	 * Checks if a GameState is a rotation or flipped rotation of another GameState.
+	 * Only checks the board of the game, not players or turn number.
+	 */
+	public boolean isVariantOf(GameState that) {
+		for (int rotation = 0; rotation < 4; ++rotation) {
+			GameState thatRotated = that.rotate(rotation);
+			if (this.hasSameBoardAs(thatRotated)) {
+				return true;
+			}
+		}
+		GameState thatFlipped = that.flip(true);
+		for (int rotation = 0; rotation < 4; ++rotation) {
+			GameState thatFlippedRotated = thatFlipped.rotate(rotation);
+			if (this.hasSameBoardAs(thatFlippedRotated)) {
 				return true;
 			}
 		}
@@ -675,7 +724,7 @@ public class GameState {
 	}
 	
 	/**
-	 * Converts the GameState's board into a DL4J INDArray.
+	 * Converts the GameState's board into a 1x128 DL4J INDArray.
 	 */
 	public INDArray toINDArray(int firstID, int secondID) {
 		INDArray boardArr = Nd4j.zeros(1, this.boardSize * this.boardSize * 2);
