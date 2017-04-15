@@ -13,7 +13,7 @@ import players.Player;
 import util.FileTools;
 
 /**
- * Class containing code used to handle the Othello game data.
+ * Class containing code used to handle the Othello game data. Possibly the ugliest code I've ever written.
  * @author Owen
  */
 public class NeuralNetDataHandler {
@@ -87,7 +87,7 @@ public class NeuralNetDataHandler {
 
 		// Output to user.
 		System.out.println("The file(s) in this data set will be stored in the \"" + trainFinal + dirName +
-				"/\" and \"" + testFinal + dirName + "/\" directories. Please ensure these directories already exist.");
+				"/\" and \"" + testFinal + dirName + "/\" directories.");
 		
 		// Initialising other variables.
 		ArrayList<String> data = null;
@@ -117,11 +117,20 @@ public class NeuralNetDataHandler {
 				int fileTotal = (stateTotal / MAX_PER_CSV) + 1;
 				System.out.println(" Writing " + stateTotal + " of " + maxStates + " states as a " + (portion * 100) + "% training set (" + fileTotal + " files expected)...");
 				for (int fileNum = 0; fileNum < fileTotal; ++fileNum) {
+
+					// Loading in all of the lines to store in a single file.
 					csvPortion = new ArrayList<String>();
 					for (int stateNum = fileNum * MAX_PER_CSV; stateNum < Math.min((fileNum + 1) * MAX_PER_CSV, stateTotal); ++stateNum) {
 						csvPortion.add(states.get(stateNum));
 					}
-					FileTools.writeFile(trainFinal + dirName + "/" + "training" + "-" + portion + "-" + fileNum + ".csv", csvPortion);
+
+					// Checking directories exist, and writing to the file.
+					String saveLocation = trainFinal + dirName + "/" + portion + "/" + "training" + "-" + portion + "-" + fileNum + ".csv";
+					File saveDir = new File(trainFinal + dirName + "/" + portion);
+					if (!saveDir.exists()) {
+						saveDir.mkdirs();
+					}
+					FileTools.writeFile(saveLocation, csvPortion);
 				}
 			}
 			System.out.println("Training data has been saved as CSV files.");
@@ -148,11 +157,21 @@ public class NeuralNetDataHandler {
 			ArrayList<String> csvPortion;
 			System.out.println(" Writing all " + stateTotal + " states as a 100% testing set (" + fileTotal + " files expected)...");
 			for (int fileNum = 0; fileNum < fileTotal; ++fileNum) {
+
+				// Loading in all of the lines to store in a single file.
 				csvPortion = new ArrayList<String>();
 				for (int stateNum = fileNum * MAX_PER_CSV; stateNum < Math.min((fileNum + 1) * MAX_PER_CSV, stateTotal); ++stateNum) {
 					csvPortion.add(states.get(stateNum));
 				}
-				FileTools.writeFile(testFinal + dirName + "/" + "testing" + "-" + fileNum + ".csv", csvPortion);
+
+				// Checking directories exist, and writing to the file.
+				String saveLocation = testFinal + dirName + "/" + "testing" + "-" + fileNum + ".csv";
+				File saveDir = new File(testFinal + dirName);
+				if (!saveDir.exists()) {
+					saveDir.mkdirs();
+				}
+				FileTools.writeFile(saveLocation, csvPortion);
+
 			}
 			System.out.println("Testing data has been saved as CSV files.");
 		}
@@ -406,74 +425,6 @@ public class NeuralNetDataHandler {
 	}
 	
 	/**
-	 * Creates data that is composed of a GameState and a label representing the % of wins resulting from that state.
-	 */
-	@SuppressWarnings("unused")
-	private static ArrayList<String> dataFormat1(ArrayList<String> in, double fractionToUse, long seed) {
-		
-		ArrayList<String> allScripts = new ArrayList<String>(in);
-		int gameCounter = 1;
-		int scriptsToUse = Math.min(allScripts.size(), (int)(allScripts.size() * fractionToUse));
-		Random r = new Random(seed);
-		Map<String, Integer> plays = new HashMap<String, Integer>();
-		Map<String, Integer> wins = new HashMap<String, Integer>();
-		
-		System.out.println(" " + scriptsToUse + " of the " + allScripts.size() + " scripts provided will be used.");
-		
-		// Loop for all scripts provided.
-		for (int n = 0; n < scriptsToUse; ++n) {
-			
-			// Fetch GameScript and store necessary values.
-			String game = allScripts.get(r.nextInt(allScripts.size()));
-			allScripts.remove(game);
-			GameScript gs = new GameScript(game);
-			int darkResult = Math.max(0, gs.darkResult());
-			
-			// Loop through all game states in the script.
-			for (int turn = 0; turn < gs.getTotalMoves(); ++turn) {
-						
-				// Stores the data about the GameState in the maps.
-				GameState g = gs.generateStateAfterTurn(turn);
-				String[] allRotations = {
-						g.toFlatString(GameState.COUNTER_DARK, GameState.COUNTER_LIGHT, ","), 
-						g.rotate(1).toFlatString(GameState.COUNTER_DARK, GameState.COUNTER_LIGHT, ","), 
-						g.rotate(2).toFlatString(GameState.COUNTER_DARK, GameState.COUNTER_LIGHT, ","), 
-						g.rotate(3).toFlatString(GameState.COUNTER_DARK, GameState.COUNTER_LIGHT, ",")
-				};
-				
-				boolean placed = false;
-				for (String rotatedState : allRotations) {
-					if (plays.containsKey(rotatedState)) { 
-						plays.put(rotatedState, plays.get(rotatedState) + 1);
-						wins.put(rotatedState, wins.get(rotatedState) + darkResult);
-						placed = true;
-						break;
-					}
-				}
-				if (!placed) {
-					plays.put(allRotations[0], 1);
-					wins.put(allRotations[0], darkResult);
-				}
-			}
-			if (gameCounter % 1000 == 0) {
-				System.out.println(" Game " + gameCounter + "/" + scriptsToUse + " complete.");
-			}
-			++gameCounter;
-		}
-		
-		// Pray that Java didn't run out of memory, then analyse the maps.
-		System.out.println(" Analysing " + plays.keySet().size() + " games.");
-		ArrayList<String> csvLines = new ArrayList<String>();
-		for (String gamestate : plays.keySet()) {
-			double winRatio = (double)wins.get(gamestate)/(double)plays.get(gamestate);
-			String newline = winRatio + "," + gamestate;
-			csvLines.add(newline);
-		}
-		
-		return csvLines;
-	}
-	
-	/**
 	 * Creates data that is composed of a GameState and a label representing whether or not the black player wins.
 	 */
 	private static ArrayList<String> dataFormat2(ArrayList<String> in, double fractionToUse, long seed) {
@@ -518,6 +469,78 @@ public class NeuralNetDataHandler {
 			csvLines.add(newline);
 		}
 		
+		return csvLines;
+	}
+
+	/**
+	 * Creates data that is composed of a GameState and a score between 0 and 10.
+	 */
+	private static ArrayList<String> dataFormat3(ArrayList<String> in, double fractionToUse, long seed) {
+
+		ArrayList<String> allScripts = new ArrayList<String>(in);
+		int gameCounter = 1;
+		int scriptsToUse = Math.min(allScripts.size(), (int)(allScripts.size() * fractionToUse));
+		Random r = new Random(seed);
+		Map<String, WinDataStore> states = new HashMap<String, WinDataStore>();
+
+		System.out.println(" " + scriptsToUse + " of the " + allScripts.size() + " scripts provided will be used.");
+
+		// Loop for all scripts provided.
+		for (int n = 0; n < scriptsToUse; ++n) {
+
+			// Fetch GameScript and store necessary values.
+			String game = allScripts.get(r.nextInt(allScripts.size()));
+			allScripts.remove(game);
+			GameScript gs = new GameScript(game);
+			int darkResult = Math.max(0, gs.darkResult());
+
+			// Loop through all game states in the script.
+			for (int turn = 0; turn < gs.getTotalMoves(); ++turn) {
+
+				// Stores the data about the GameState in the maps.
+				GameState g = gs.generateStateAfterTurn(turn);
+				GameState f = g.flip(true);
+				String[] allVariants = {
+						g.toFlatString(GameState.COUNTER_DARK, GameState.COUNTER_LIGHT, ","),
+						g.rotate(1).toFlatString(GameState.COUNTER_DARK, GameState.COUNTER_LIGHT, ","),
+						g.rotate(2).toFlatString(GameState.COUNTER_DARK, GameState.COUNTER_LIGHT, ","),
+						g.rotate(3).toFlatString(GameState.COUNTER_DARK, GameState.COUNTER_LIGHT, ","),
+						f.toFlatString(GameState.COUNTER_DARK, GameState.COUNTER_LIGHT, ","),
+						f.rotate(1).toFlatString(GameState.COUNTER_DARK, GameState.COUNTER_LIGHT, ","),
+						f.rotate(2).toFlatString(GameState.COUNTER_DARK, GameState.COUNTER_LIGHT, ","),
+						f.rotate(3).toFlatString(GameState.COUNTER_DARK, GameState.COUNTER_LIGHT, ",")
+				};
+
+				boolean placed = false;
+				for (String rotatedState : allVariants) {
+					if (states.containsKey(rotatedState)) {
+						states.get(rotatedState).add(darkResult);
+						placed = true;
+						break;
+					}
+				}
+				if (!placed) {
+					WinDataStore wd = new WinDataStore();
+					wd.add(darkResult);
+					states.put(allVariants[0], wd);
+				}
+			}
+			if (gameCounter % 1000 == 0) {
+				System.out.println(" Game " + gameCounter + "/" + scriptsToUse + " complete.");
+			}
+			++gameCounter;
+		}
+
+		// Pray that Java didn't run out of memory, then analyse the map.
+		System.out.println(" Analysing " + states.keySet().size() + " games.");
+		ArrayList<String> csvLines = new ArrayList<String>();
+		for (String state : states.keySet()) {
+			WinDataStore stateData = states.get(state);
+			float winRatio = stateData.getWinPercent();
+			String newline = winRatio + "," + state;
+			csvLines.add(newline);
+		}
+
 		return csvLines;
 	}
 	

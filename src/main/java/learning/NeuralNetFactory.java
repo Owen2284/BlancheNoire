@@ -105,7 +105,7 @@ public class NeuralNetFactory {
 		
 		System.out.println("Running the model fitting function...");
 		for (int i = 0; i < epochCount; ++i) {
-			//model.fit(trainIter);
+			model.fit(trainIter);
 			System.out.println(" Epoch " + (i+1) + "/" + epochCount + " complete.");
 		}
 		
@@ -134,7 +134,7 @@ public class NeuralNetFactory {
 			eval.eval(labels, predicted);
 		}
 
-		// TODO: Delete the files created when creating the DataSetIterators.
+		System.out.println(eval.stats());
 
 		// Returning the finished model.
 		return model;
@@ -145,15 +145,17 @@ public class NeuralNetFactory {
 		try {
 			String tempFilePath = dir + "full.csv";
 			FileTools.mergeDirNoDelete(dir, tempFilePath);
+			File tempFile = new File(tempFilePath);
 			RecordReader rr = new CSVRecordReader();
-			rr.initialize(new FileSplit(new File(tempFilePath)));
+			rr.initialize(new FileSplit(tempFile));
 			DataSetIterator dsi = new RecordReaderDataSetIterator(rr, batchSize, labelIndex, numPossibleLabels);
+			tempFile.deleteOnExit();
 			System.out.println(" Data from " + dir + " has been loaded.");
 			return dsi;
 		} catch (IOException e) {
-			throw new IllegalArgumentException(" File \"" + dir + "\" not found.");
+			throw new IllegalArgumentException(" Directory \"" + dir + "\" not found.");
 		} catch (InterruptedException e) {
-			throw new IllegalArgumentException(" File \"" + dir + "\" resulted in an interruption.");
+			throw new IllegalArgumentException(" Reading from \"" + dir + "\" resulted in an interruption.");
 		}
 	}
 	
