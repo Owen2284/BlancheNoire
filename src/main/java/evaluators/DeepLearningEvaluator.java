@@ -31,10 +31,13 @@ public class DeepLearningEvaluator extends Evaluator {
 		// Get output from the NN.
 		INDArray result = net.output(game.toINDArray(p.getPlayerID(), game.getOpposingPlayer(p).getPlayerID()), false);
 		// Determine the most likely score from the returned INDArray.
+		int mostLikelyScore = -1;
 		for (int i = 0; i < result.shape()[1]; ++i) {
-
+			if (mostLikelyScore == -1 || result.getFloat(0, i) > result.getFloat(0, mostLikelyScore)) {
+				mostLikelyScore = i;
+			}
 		}
-		return 0;
+		return (float)mostLikelyScore;
 	}
 
 }
