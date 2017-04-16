@@ -137,7 +137,6 @@ public final class PlayerFactory {
 					String end = evaluator.substring("DeepLearning".length());
 					String[] miniArgs = end.split("-");
 					for (String miniArg : miniArgs) {
-						System.out.println(miniArg);
 						if (!miniArg.equals("")) {
 							if (miniArg.startsWith("F")) {
 								path = miniArg.substring(1);
