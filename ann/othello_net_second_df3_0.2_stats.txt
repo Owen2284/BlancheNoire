@@ -1,0 +1,22 @@
+
+Examples labeled as 0 classified by model as 0: 1708251 times
+Examples labeled as 0 classified by model as 1: 2370 times
+Examples labeled as 0 classified by model as 2: 755666 times
+Examples labeled as 1 classified by model as 0: 28268 times
+Examples labeled as 1 classified by model as 1: 1999 times
+Examples labeled as 1 classified by model as 2: 31660 times
+Examples labeled as 2 classified by model as 0: 688519 times
+Examples labeled as 2 classified by model as 1: 2349 times
+Examples labeled as 2 classified by model as 2: 1766288 times
+
+
+==========================Scores========================================
+ Accuracy:        0.6973
+ Precision:       0.5646
+ Recall:          0.4813
+ F1 Score:        0.5196
+========================================================================
+Program Parameters:
+ Number of labels: 3
+ Number of epochs: 20
+ NN Config used: 2

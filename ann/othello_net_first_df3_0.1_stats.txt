@@ -1,0 +1,23 @@
+
+Examples labeled as 0 classified by model as 0: 1796623 times
+Examples labeled as 0 classified by model as 1: 148 times
+Examples labeled as 0 classified by model as 2: 669516 times
+Examples labeled as 1 classified by model as 0: 36055 times
+Examples labeled as 1 classified by model as 1: 177 times
+Examples labeled as 1 classified by model as 2: 25695 times
+Examples labeled as 2 classified by model as 0: 778302 times
+Examples labeled as 2 classified by model as 1: 179 times
+Examples labeled as 2 classified by model as 2: 1678675 times
+
+
+==========================Scores========================================
+
+ Accuracy:        0.6971
+
+ Precision:       0.5821
+
+ Recall:          0.4715
+
+ F1 Score:        0.521
+
+========================================================================
