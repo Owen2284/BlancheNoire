@@ -1,18 +1,14 @@
 package learning;
 
-public class StateDataStore {
+public class WinDataStore {
 
-    private String state;
     private int wins;
     private int total;
 
-    public StateDataStore(String state) {
-        this.state = state;
+    public WinDataStore() {
         this.wins = 0;
         this.total = 0;
     }
-
-    public String getState() {return this.state;}
 
     public int getWins() {return this.wins;}
 

@@ -2,6 +2,7 @@ package learning;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 
 import org.datavec.api.records.reader.RecordReader;
 import org.datavec.api.records.reader.impl.csv.CSVRecordReader;
@@ -35,30 +36,55 @@ import util.FileTools;
  */
 public class NeuralNetFactory {
 
-	private static Logger log = LoggerFactory.getLogger(NeuralNetFactory.class);
+	private static Logger log;
 
 	public static void main(String[] args) {
 
 		final String FILE_EXT = ".zip";
 		
-		// Checks and retrieves command line args.
+		// Variables to store command line args.
 		String trainDir = "";
 		String testDir = "";
+		int labelCount = 0;
 		String netPath = "ann/othello_net_";
-		String netName = "blank";
-		if (args.length >= 3) {
+		String binDir = "dat/csv/bin/";
+		boolean detailedLogs = true;
+		int epochCount = 10;
+		int nnConfig = 2;
+
+		// Ensuring required args are present.
+		if (args.length >= 4) {
+
+			// Stores required args.
 			trainDir = args[0];
 			testDir = args[1];
-			netName = args[2];
-			netPath += netName+FILE_EXT;
+			labelCount = Integer.parseInt(args[2]);
+			netPath += args[3] + FILE_EXT;
 
-			System.out.println("Using \"" + trainDir + "\" as training data, and \"" + testDir + "\" as testing data.");
+			// Checks for optional args.
+			if (args.length >= 5) {detailedLogs = Boolean.parseBoolean(args[4]);}
+			if (args.length >= 6) {epochCount = Integer.parseInt(args[5]);}
+			if (args.length >= 7) {nnConfig = Integer.parseInt(args[6]);}
+
+			if (detailedLogs) {
+				log = LoggerFactory.getLogger(NeuralNetFactory.class);
+			} else {
+				log = null;
+			}
+
+			System.out.println("Using \"" + trainDir + "\" as training data, and \"" + testDir + "\" as testing data. Expecting " + labelCount + " labels in the data.");
 			System.out.println("Created NN will be saved to: " + netPath);
+			if (!detailedLogs) {
+				System.out.println("Detailed logs have been turned off.");
+			}
+			System.out.println("Using NN Config " + nnConfig + " with " + epochCount + " epochs to train the network.");
 			
 			// Running Neural Network creator.
+			long startTimestamp = System.currentTimeMillis();
 			System.out.println("Launching Neural Network creator....");
-			MultiLayerNetwork net = createNeuralNetwork(trainDir, testDir);
-			System.out.println("Closing Neural Network creator.");		
+			MultiLayerNetwork net = createNeuralNetwork(trainDir, testDir, binDir, netPath.substring(0, netPath.length()-4), labelCount, epochCount, nnConfig, detailedLogs);
+			System.out.println("Closing Neural Network creator.");
+			System.out.println("Time taken: " + ((float)(System.currentTimeMillis() - startTimestamp) / (1000 * 60 * 60)) + " hours.");
 			
 			// Saving the trained network.
 			System.out.println("Saving the created NN to \"" + netPath + "\"...");
@@ -71,97 +97,123 @@ public class NeuralNetFactory {
 				System.out.println("An error prevented the file from being saved:");
 				e.printStackTrace();
 			}
+
+			// Clear bin folder.
+			File binCheck = new File(binDir);
+			if (binCheck.exists()) {
+				for (String binPath : FileTools.getAllFilePathsInDir(binDir)) {
+					File binFile = new File(binPath);
+					binFile.delete();
+				}
+				System.out.println("Bin folder cleared.");
+			}
+
 		} else {
-			System.out.println("Invalid number of arguments.");
+			System.out.println("Invalid number of arguments. Please provide a training data directory, a testing " +
+					"data directory, the number of labels in the data sets, and a name for the neural network.");
 		}
 		
 		System.out.println("Ending program...");
 		
 	}
 	
-	public static MultiLayerNetwork createNeuralNetwork(String trainDir, String testDir) {
+	public static MultiLayerNetwork createNeuralNetwork(String trainDir, String testDir, String binDir, String statPath, int labelCount, int epochCount, int configToUse, boolean showScores) {
 		
 		// Initialising key variables.
-		int epochCount = 10;
 		int inputCount = 128;
-		int outputCount = 2;
-		int batchSize = 1;
+		int batchSize = 50;
+		int SEED = 2017;
 		
-		// Formating the input data for use by the NN.
-		System.out.println("Loading in data sets...");
-		DataSetIterator trainIter = createDataSetIterator(trainDir, batchSize, 0, 2);
-		DataSetIterator testIter = createDataSetIterator(testDir, batchSize, 0, 2);
+		// Loading in the input data for use by the NN.
+		System.out.println("Loading in training data...");
+		DataSetIterator trainIter = createDataSetIterator(trainDir, binDir, batchSize, 0, labelCount);
 		
 		// Creating the NN object.
 		System.out.println("Creating the initial network configuration...");
 		MultiLayerConfiguration conf;
-		conf = nnConf1(inputCount, outputCount);
+		if (configToUse == 1) {
+			conf = nnConf1(inputCount, labelCount, SEED);
+		} else if (configToUse == 2) {
+			conf = nnConf2(inputCount, labelCount, SEED);
+		} else {
+			throw new IllegalArgumentException("Invalid NN config number.");
+		}
 				
 		// Training the network.
 		System.out.println("Creating the initial network model...");
 		MultiLayerNetwork model = new MultiLayerNetwork(conf);
 		model.init();
-		model.setListeners(new ScoreIterationListener(batchSize));
+		if (showScores) {
+			model.setListeners(new ScoreIterationListener(batchSize));
+		}
 		
 		System.out.println("Running the model fitting function...");
 		for (int i = 0; i < epochCount; ++i) {
+			long epochStart = System.currentTimeMillis();
 			model.fit(trainIter);
-			System.out.println(" Epoch " + (i+1) + "/" + epochCount + " complete.");
+			System.out.println(" Epoch " + (i+1) + "/" + epochCount + " complete. Time taken:- " + ((float)(System.currentTimeMillis() - epochStart) / (1000 * 60)) + " minutes.");
 		}
+
+		// Memory management followed by getting testing data.
+		System.out.println("Loading in testing data...");
+		trainIter = null;
+		System.gc();
+		DataSetIterator testIter = createDataSetIterator(testDir, binDir, batchSize, 0, labelCount);
 		
 		// Evaluating the network.
 		System.out.println("Evaluating the created network...");
-		Evaluation eval = new Evaluation(outputCount);
-		boolean test = true;
+		Evaluation eval = new Evaluation(labelCount);
 		while (testIter.hasNext()) {
 			DataSet t = testIter.next();
 			// Retrieves the data, the true result and the networks prediction.
 			INDArray features = t.getFeatureMatrix();
 			INDArray labels = t.getLabels();
 			INDArray predicted = model.output(features, false);
-			if (test) {
-				System.out.println(labels);
-				System.out.println();
-				System.out.println(features);
-				System.out.println(features.rank());
-				System.out.println(features.shape()[0] + "," + features.shape()[1]);
-				System.out.println();
-				System.out.println(predicted);
-				System.out.println(predicted.rank());
-				System.out.println(predicted.shape()[0] + "," + predicted.shape()[1]);
-				test = false;
-			}
 			eval.eval(labels, predicted);
 		}
 
+		// Show the mode's stats, and save them to an additional file.
 		System.out.println(eval.stats());
+		ArrayList<String> evalStats = new ArrayList<String>();
+		evalStats.add(eval.stats());
+		evalStats.add("Program Parameters:");
+		evalStats.add(" Number of labels: " + labelCount);
+		evalStats.add(" Number of epochs: " + epochCount);
+		evalStats.add(" NN Config used: " + configToUse);
+		FileTools.writeFile(statPath + "_stats.txt", evalStats);
+
+		// Clear out the memory of the other iterator.
+		testIter = null;
+		System.gc();
 
 		// Returning the finished model.
 		return model;
 		
 	}
 	
-	private static DataSetIterator createDataSetIterator(String dir, int batchSize, int labelIndex, int numPossibleLabels) {
+	private static DataSetIterator createDataSetIterator(String readDir, String binDir, int batchSize, int labelIndex, int numPossibleLabels) {
 		try {
-			String tempFilePath = dir + "full.csv";
-			FileTools.mergeDirNoDelete(dir, tempFilePath);
+			File binCheck = new File(binDir);
+			if (!binCheck.exists()) {
+				binCheck.mkdirs();
+			}
+			String tempFilePath = binDir + "full" + System.currentTimeMillis() + ".csv";
+			FileTools.mergeDirNoDelete(readDir, tempFilePath);
 			File tempFile = new File(tempFilePath);
 			RecordReader rr = new CSVRecordReader();
 			rr.initialize(new FileSplit(tempFile));
 			DataSetIterator dsi = new RecordReaderDataSetIterator(rr, batchSize, labelIndex, numPossibleLabels);
-			tempFile.deleteOnExit();
-			System.out.println(" Data from " + dir + " has been loaded.");
+			System.out.println(" Data from " + readDir + " has been loaded.");
 			return dsi;
 		} catch (IOException e) {
-			throw new IllegalArgumentException(" Directory \"" + dir + "\" not found.");
+			throw new IllegalArgumentException(" Directory \"" + readDir + "\" not found.");
 		} catch (InterruptedException e) {
-			throw new IllegalArgumentException(" Reading from \"" + dir + "\" resulted in an interruption.");
+			throw new IllegalArgumentException(" Reading from \"" + readDir + "\" resulted in an interruption.");
 		}
 	}
 	
-	//TODO
-	private static MultiLayerConfiguration nnConf1(int inputCount, int outputCount) {
-		int seed = 123;
+	// A basic layout from the DL4J examples.
+	private static MultiLayerConfiguration nnConf1(int inputCount, int outputCount, int seed) {
 		double learningRate = 0.01;
 		int hiddenNodeCount = 100;
 		
@@ -189,6 +241,52 @@ public class NeuralNetFactory {
 				)
 				.pretrain(false).backprop(true).build();
 		
+		return conf;
+	}
+
+	// Creates a NN with many more hidden nodes and layers than the previous config.
+	private static MultiLayerConfiguration nnConf2(int inputCount, int outputCount, int seed) {
+		double learningRate = 0.01;
+		int hiddenNodeCount = 128;
+
+		MultiLayerConfiguration conf = new NeuralNetConfiguration.Builder()
+				.seed(seed)
+				.iterations(1)
+				.optimizationAlgo(OptimizationAlgorithm.STOCHASTIC_GRADIENT_DESCENT)
+				.learningRate(learningRate)
+				.updater(Updater.NESTEROVS).momentum(0.9)
+				.list()
+				.layer(0, new DenseLayer.Builder()
+						.nIn(inputCount)
+						.nOut(hiddenNodeCount)
+						.weightInit(WeightInit.XAVIER)
+						.activation(Activation.RELU)
+						.build()
+				)
+				.layer(1, new DenseLayer.Builder()
+						.nIn(hiddenNodeCount)
+						.nOut(hiddenNodeCount)
+						.weightInit(WeightInit.XAVIER)
+						.activation(Activation.RELU)
+						.build()
+				)
+				.layer(2, new DenseLayer.Builder()
+						.nIn(hiddenNodeCount)
+						.nOut(hiddenNodeCount)
+						.weightInit(WeightInit.XAVIER)
+						.activation(Activation.RELU)
+						.build()
+				)
+				.layer(3, new OutputLayer.Builder(LossFunctions.LossFunction.NEGATIVELOGLIKELIHOOD)
+						.weightInit(WeightInit.XAVIER)
+						.activation(Activation.SOFTMAX)
+						.weightInit(WeightInit.XAVIER)
+						.nIn(hiddenNodeCount)
+						.nOut(outputCount)
+						.build()
+				)
+				.pretrain(false).backprop(true).build();
+
 		return conf;
 	}
 
