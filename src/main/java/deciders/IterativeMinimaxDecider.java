@@ -7,6 +7,9 @@ import evaluators.Evaluator;
 import game.GameState;
 import players.Player;
 
+/*
+ * TODO
+ */
 public class IterativeMinimaxDecider extends MinimaxDecider {
 
 	public IterativeMinimaxDecider(int depthToSearchTo) {super(depthToSearchTo);}

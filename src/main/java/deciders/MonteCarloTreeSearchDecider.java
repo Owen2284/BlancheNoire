@@ -119,7 +119,7 @@ public class MonteCarloTreeSearchDecider extends FixedMinimaxDecider {
 				
 				// Checks each child node to determine the next move to be made.
 				for (TreeNode childNode : currentNode.children) {
-					double childUCB1 = getUCB1Score(childNode.wins, childNode.total, currentNode.total);
+					double childUCB1 = getUCTScore(childNode.wins, childNode.total, currentNode.total);
 					if (childUCB1 > bestUCB1) {
 						bestUCB1 = childUCB1;
 						bestMove = childNode;
@@ -274,9 +274,9 @@ public class MonteCarloTreeSearchDecider extends FixedMinimaxDecider {
 	}
 
 	/**
-	 * Returns the UCB1 score for the provided arguments.
+	 * Returns the UCT score for the provided arguments.
 	 */
-	private double getUCB1Score(int w, int n, int t) {
+	private double getUCTScore(int w, int n, int t) {
 		final double C = Math.sqrt(2);
 		return ((double)w/(double)n) + (C * Math.sqrt(Math.log(t) / (double)n));
 	}

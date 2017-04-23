@@ -6,16 +6,17 @@ import evaluators.Evaluator;
 import game.GameState;
 import players.Player;
 
+/*
+ * TODO
+ */
 public class FixedMinimaxDecider extends MinimaxDecider {
 
 	public FixedMinimaxDecider(int depthToSearchTo) {super(depthToSearchTo);}
 
-	@Override
 	public String getType() {
 		return "FixedMinimax";
 	}
-	
-	@Override
+
 	public String toFileString() {
 		return "FixedMinimax(" + this.depthToSearchTo + ")";
 	}

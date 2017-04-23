@@ -11,8 +11,6 @@ import players.Player;
  * as deciders must use.
  */
 public abstract class Decider {
-	
-	protected String output = "";
 
 	public Decider() {}
 	
@@ -20,15 +18,15 @@ public abstract class Decider {
 	 * Returns the type of decider this class represents.
 	 */
 	public abstract String getType();
-	
+
+	/**
+	 * Function that creates a file string that accurately represents the Decider object.
+	 */
 	public abstract String toFileString();
 	
 	/**
-	 * Has the decider produce a move that the AI player can play.
-	 * @param g - the GameState to evaluate.
-	 * @param e - the Evaluator to use.
-	 * @param p - the Player making the move.
-	 * @return a Point on the game board that the Decider wants to play a counter at.
+	 * Has the decider produce a move that the AI player can play, based on the GameState, Evaluator,
+	 * Player and search time (im ms) provided.
 	 */
 	public abstract Point decide(GameState game, Evaluator e, Player p, int maxSearchTime);
 

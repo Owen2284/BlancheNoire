@@ -6,6 +6,10 @@ import evaluators.Evaluator;
 import game.GameState;
 import players.Player;
 
+/*
+ * Abstract class that implements the methods typically used by a Minimax algorithm on top of the default
+ * Decider interface's methods.
+ */
 public abstract class MinimaxDecider extends Decider {
 
 	protected int depthToSearchTo;
