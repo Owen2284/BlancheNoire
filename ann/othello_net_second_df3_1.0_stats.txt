@@ -11,10 +11,15 @@ Examples labeled as 2 classified by model as 2: 1778965 times
 
 
 ==========================Scores========================================
+
  Accuracy:        0.7067
+
  Precision:       0.5831
+
  Recall:          0.4869
+
  F1 Score:        0.5307
+
 ========================================================================
 Program Parameters:
  Number of labels: 3
