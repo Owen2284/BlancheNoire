@@ -38,6 +38,7 @@ public class Othello {
 		boolean useGUI = true;
 		boolean showOutput = false;
 		boolean archiveGames = true;
+		boolean alternate = true;
 		int delayBetweenMoves = 100;
 		int maxSearchTime = 5000;
 		int timesToRun = 1;
@@ -50,7 +51,10 @@ public class Othello {
 		} catch (Exception e) {System.out.println("Error parsing -showOutput argument. (" + e.getMessage() + ")");}	
 		try {
 			if (argMap.keySet().contains("-archiveGame".toUpperCase())) {archiveGames = Boolean.parseBoolean(argMap.get("-archiveGame".toUpperCase()));}
-		} catch (Exception e) {System.out.println("Error parsing -archiveGame argument. (" + e.getMessage() + ")");}	
+		} catch (Exception e) {System.out.println("Error parsing -archiveGame argument. (" + e.getMessage() + ")");}
+		try {
+			if (argMap.keySet().contains("-alternate".toUpperCase())) {alternate = Boolean.parseBoolean(argMap.get("-alternate".toUpperCase()));}
+		} catch (Exception e) {System.out.println("Error parsing -alternate argument. (" + e.getMessage() + ")");}
 		try {
 			if (argMap.keySet().contains("-moveDelay".toUpperCase())) {delayBetweenMoves = Integer.parseInt(argMap.get("-moveDelay".toUpperCase()));}
 		} catch (Exception e) {System.out.println("Error parsing -moveDelay argument. (" + e.getMessage() + ")");}
@@ -75,40 +79,51 @@ public class Othello {
 		}
 		
 		// Runs the game multiple times if required.
-		for (int numRuns = 0; numRuns < timesToRun; ++numRuns) {
+		for (int runNumber = 0; runNumber < timesToRun; ++runNumber) {
 		
 			// Creates the player objects.
+			int playerID = GameState.COUNTER_DARK;
+			if (alternate && (runNumber % 2 == 1)) {playerID = GameState.COUNTER_LIGHT;}
 			if (argMap.keySet().contains("-player1".toUpperCase())) {
 				try {
 					String argString = argMap.get("-player1".toUpperCase());
 					if (argString.startsWith("AI")) {
 						String[] aiArgs = argString.substring(3, argString.length() - 1).split(",");
-						p1 = PlayerFactory.createPlayer(GameState.COUNTER_DARK, "AI", aiArgs[0], aiArgs[1], useGUI, maxSearchTime, false);
+						p1 = PlayerFactory.createPlayer(playerID, "AI", aiArgs[0], aiArgs[1], useGUI, maxSearchTime, false);
 					} else if (argString.startsWith("Human")) {
-						p1 = PlayerFactory.createPlayer(GameState.COUNTER_DARK, "Human", "", "", useGUI, maxSearchTime, false);
+						p1 = PlayerFactory.createPlayer(playerID, "Human", "", "", useGUI, maxSearchTime, false);
 					}
 				} catch (Exception e) {
 					System.out.println("Error parsing -player1 argument. (" + e.getMessage() + ")");
-					p1 = PlayerFactory.createPlayer(GameState.COUNTER_DARK, "Human", "", "", useGUI, maxSearchTime, false);
+					p1 = PlayerFactory.createPlayer(playerID, "Human", "", "", useGUI, maxSearchTime, false);
 				}
 			} else {
-				p1 = PlayerFactory.createPlayer(GameState.COUNTER_DARK, "Human", "", "", useGUI, maxSearchTime, false);
+				p1 = PlayerFactory.createPlayer(playerID, "Human", "", "", useGUI, maxSearchTime, false);
 			}
+			playerID = GameState.COUNTER_LIGHT;
+			if (alternate && (runNumber % 2 == 1)) {playerID = GameState.COUNTER_DARK;}
 			if (argMap.keySet().contains("-player2".toUpperCase())) {
 				try {
 					String argString = argMap.get("-player2".toUpperCase());
 					if (argString.startsWith("AI")) {
 						String[] aiArgs = argString.substring(3, argString.length() - 1).split(",");
-						p2 = PlayerFactory.createPlayer(GameState.COUNTER_LIGHT, "AI", aiArgs[0], aiArgs[1], useGUI, maxSearchTime, false);
+						p2 = PlayerFactory.createPlayer(playerID, "AI", aiArgs[0], aiArgs[1], useGUI, maxSearchTime, false);
 					} else if (argString.startsWith("Human")) {
-						p2 = PlayerFactory.createPlayer(GameState.COUNTER_LIGHT, "Human", "", "", useGUI, maxSearchTime, false);
+						p2 = PlayerFactory.createPlayer(playerID, "Human", "", "", useGUI, maxSearchTime, false);
 					}
 				} catch (Exception e) {
 					System.out.println("Error parsing -player2 argument. (" + e.getMessage() + ")");
-					p2 = PlayerFactory.createPlayer(GameState.COUNTER_LIGHT, "AI", "Random", "Score", useGUI, maxSearchTime, false);
+					p2 = PlayerFactory.createPlayer(playerID, "AI", "Random", "Score", useGUI, maxSearchTime, false);
 				}
 			} else {
-				p2 = PlayerFactory.createPlayer(GameState.COUNTER_LIGHT, "AI", "Random", "Score", useGUI, maxSearchTime, false);
+				p2 = PlayerFactory.createPlayer(playerID, "AI", "Random", "Score", useGUI, maxSearchTime, false);
+			}
+
+			// Swaps the players on odd run numbers, if the alternate argument is true.
+			if (alternate && (runNumber % 2 == 1)) {
+				Player temp = p1;
+				p1 = p2;
+				p2 = temp;
 			}
 			
 			// Creates initial game state.
@@ -122,7 +137,7 @@ public class Othello {
 			Player playerToPlay = null;
 			
 			if (timesToRun > 1) {
-				System.out.println("Running game " + (numRuns+1) + "...");
+				System.out.println("Running game " + (runNumber+1) + "...");
 			}
 				
 			// Creates game UI.
@@ -183,10 +198,18 @@ public class Othello {
 			}
 			
 			// Update wins array based on outcome.
-			if (game.isWinning(p1)) {
-				wins[0] += 1;
-			} else if (game.isWinning(p2)) {
-				wins[1] += 1;
+			if (alternate && (runNumber % 2 == 1)) {
+				if (game.isWinning(p1)) {
+					wins[1] += 1;
+				} else if (game.isWinning(p2)) {
+					wins[0] += 1;
+				}
+			} else {
+				if (game.isWinning(p1)) {
+					wins[0] += 1;
+				} else if (game.isWinning(p2)) {
+					wins[1] += 1;
+				}
 			}
 			
 			// Writes game archive to a file.

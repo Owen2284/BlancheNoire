@@ -139,7 +139,7 @@ public final class PlayerFactory {
 					for (String miniArg : miniArgs) {
 						if (!miniArg.equals("")) {
 							if (miniArg.startsWith("F")) {
-								path = miniArg.substring(1);
+								path = miniArg.substring(2, miniArg.length()-1);
 							}
 						}
 					}
