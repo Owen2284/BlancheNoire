@@ -1,36 +1,56 @@
-OTHELLO
+BlancheNoire
+Command Line Argument Guide
 
+1. Available Arguments:
 
-Available arguments:
-
-Argument Label      Type        Default 
--------------------------------------------------------------------------------------------------------------------------------------------------------------------------
--player1            String      Human               Defines the type of player to represent player 1.
--player2            String      AI(Random,Score)    Defines the type of player to represent player 2.
+Argument Label      Type        Default             Description
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+-player1            String      Human               Defines the type of player to represent player 1. Human players require no extra arguments.
+-player2            String      AI(Random,Score)    Defines the type of player to represent player 2. AI players must be given a decider and an evaluator.
 -useGUI             boolean     true                Toggles the graphical interface on or off.
 -showOutput         boolean     false               Tells the program whether or not to display, in the console, the output the AI players produce.
 -archiveGame        boolean     true                Determines whether or not the played game is written to an archive file upon completion.
+-alternate          boolean     false               If set to true, will swap which counters the players control in each game. Only affects runs where -runCount is greater then 1.
 -moveDelay          int         100                 Number of milliseconds to wait before allowing the next player to move. Allows game state to be viewed before it is changed again.
 -AIRunTime          int         5000                Number of milliseconds that an AI player is allowed to use to determine the move it wants to play.
 -runCount           int         1                   Number of times to repeat the execution of the Othello game.
 -boardSize          int         8                   The width and height of the Othello board in board spaces.
 
 
-Additional Decider Arguments:   
+2. Available Deciders and Evaluators:
 
-Argument Label  Name                                Used By                         Default     Example                     Description     
--------------------------------------------------------------------------------------------------------------------------------------------------------------------------
--D#             Depth                               MinimaxDeciders                 6           FixedMinimax-D9             The max depth that a Minimax AI will search to. Does not affect games where Minimax deciders are unused.
--R              Random Internal Decider             MonteCarloTreeSearchDecider     In Use      MCTS-R                      Applies a RandomDecider for a MCTS AI to use for simulating moves during it's decision process.
--M#             Fixed Minimax Internal Decider      MonteCarloTreeSearchDecider     Not in Use  MCTS-M7                     Applies a FixedMinimaxDecider for a MCTS AI to use for simulating moves during it's decision process. Takes a number to specify the Minimax decider's depth (Recommended range for this value is between 4 and 8 inclusively, depending the power of the computer's CPU).
--S#             Simulation Maximum                  MonteCarloTreeSearchDecider     Infinite    MCTS-S25000                 Sets the max number of simulations a MCTS AI will carry out before halting. If not specified, no limit will be placed.      
--P#				Probability of Imperfect Simulation MonteCarloTreeSearchDecider     0.10        MCTS-P0.01                  Specifies the chance that a RandomDecider is used to determine moves in the MCTS simulations instead of the provided decider (see -R and -M args).
--T#				Milliseconds Per Minimax            MonteCarloTreeSearchDecider     10          MCTS-T25                    Sets the time the internal decider can spend deciding a move. Larger times result in more accurate simulations, but less of them.
--F("")			DeepLearning Network Filename		DeepLearningEvaluator			-			DeepLearning-F(nn/net.txt)  Used to specify the file to load the pretrained NN from for the DeepLearningEvaluator. Program will use default path if no path is provided.
+Decider Name                   Argument            Description
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+RandomDecider                  Random              Uses random selection to determine what moves to play.
+FixedMinimaxDecider            FixedMinimax        Searches to a fixed depth and determines what move to play via evaluation of possible moves. Execution can be halted by timeout, resulting in some states not being evaluated.
+IterativeMinimaxDecider        IterativeMinimax    Improved Minimaxer that iteratively searched to deeper depths until max is reached. On timeout, will always return a value for each state.
+MonteCarloTreeSearchDecider    MCTS                Chooses moves based on simulations of possible futures from the said move. The returned move has the highest predicted victory chance.
 
-Player argument formatting:
+Evaluator Name                 Argument            Description
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ScoreEvaluator                 Score               Evaluates states based on the difference between the two player's scores.
+PositionalEvaluator            Positional          Determines the worth of a state based on what counters they own and in what positions they are in.
+DeepLearningEvaluator          DeepLearning        Returns the valuation of the game state based on the result of the evaluator's artificial neural network. Must be given the ANN to use as an additional argument.
+
+
+3. Additional Decider/Evaluator Arguments:
+
+Argument Label  Name                                Used By                         Default                     Example                       Description
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+-D#             Depth                               MinimaxDeciders                 6                           FixedMinimax-D9               The max depth that a Minimax AI will search to. Does not affect games where Minimax deciders are unused.
+-R              Random Internal Decider             MonteCarloTreeSearchDecider     In Use                      MCTS-R                        Applies a RandomDecider for a MCTS AI to use for simulating moves during it's decision process.
+-M#             Fixed Minimax Internal Decider      MonteCarloTreeSearchDecider     Not in Use                  MCTS-M7                       Applies a FixedMinimaxDecider for a MCTS AI to use for simulating moves during it's decision process. Takes a number to specify the Minimax decider's depth (Recommended range for this value is between 4 and 8 inclusively, depending on the power of the computer's CPU).
+-S#             Simulation Maximum                  MonteCarloTreeSearchDecider     Infinite                    MCTS-S25000                   Sets the max number of simulations a MCTS AI will carry out before halting. If not specified, no limit will be placed.
+-P#				Probability of Imperfect Simulation MonteCarloTreeSearchDecider     0.10                        MCTS-P0.01                    Specifies the chance that a RandomDecider is used to determine moves in the MCTS simulations instead of the provided decider (see -R and -M args).
+-T#				Milliseconds Per Minimax            MonteCarloTreeSearchDecider     10                          MCTS-T25                      Sets the time the internal decider can spend deciding a move. Larger times result in more accurate simulations, but less of them.
+-F("")			DeepLearning Network Filename		DeepLearningEvaluator			None, path required			DeepLearning-F(ann/net.zip)   Used to specify the file to load the pretrained NN from for the DeepLearningEvaluator. Program will use default path if no path is provided.
+
+
+
+4. Player argument formatting examples:
 
 Human Players:          Human
 AI Players:             AI(Random,Score)
                         AI(FixedMinimax-D4,Positional)
-                        AI(MCTS-M4-S100000,DeepLearning)
+                        AI(MCTS-M4-S100000,Positional)
+                        AI(IterativeMinimax-D6,DeepLearning-F(ann/othello_net_second_df3_1.0.zip))
