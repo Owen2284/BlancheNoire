@@ -132,9 +132,11 @@ public class NeuralNetFactory {
 		System.out.println("Creating the initial network configuration...");
 		MultiLayerConfiguration conf;
 		if (configToUse == 1) {
-			conf = nnConf1(inputCount, labelCount, SEED);
+			conf = configClassification1(inputCount, labelCount, SEED);
 		} else if (configToUse == 2) {
-			conf = nnConf2(inputCount, labelCount, SEED);
+			conf = configClassification2(inputCount, labelCount, SEED);
+		} else if (configToUse == 3) {
+			conf = configRegression1(inputCount, SEED);
 		} else {
 			throw new IllegalArgumentException("Invalid NN config number.");
 		}
@@ -213,7 +215,7 @@ public class NeuralNetFactory {
 	}
 	
 	// A basic layout from the DL4J examples.
-	private static MultiLayerConfiguration nnConf1(int inputCount, int outputCount, int seed) {
+	private static MultiLayerConfiguration configClassification1(int inputCount, int outputCount, int seed) {
 		double learningRate = 0.01;
 		int hiddenNodeCount = 100;
 		
@@ -245,7 +247,7 @@ public class NeuralNetFactory {
 	}
 
 	// Creates a NN with many more hidden nodes and layers than the previous config.
-	private static MultiLayerConfiguration nnConf2(int inputCount, int outputCount, int seed) {
+	private static MultiLayerConfiguration configClassification2(int inputCount, int outputCount, int seed) {
 		double learningRate = 0.01;
 		int hiddenNodeCount = 128;
 
@@ -283,6 +285,51 @@ public class NeuralNetFactory {
 						.weightInit(WeightInit.XAVIER)
 						.nIn(hiddenNodeCount)
 						.nOut(outputCount)
+						.build()
+				)
+				.pretrain(false).backprop(true).build();
+
+		return conf;
+	}
+
+	// Creates a NN wthat regresses the data to a single float output.
+	private static MultiLayerConfiguration configRegression1(int inputCount, int seed) {
+		double learningRate = 0.01;
+		int hiddenNodeCount = 128;
+
+		MultiLayerConfiguration conf = new NeuralNetConfiguration.Builder()
+				.seed(seed)
+				.iterations(1)
+				.optimizationAlgo(OptimizationAlgorithm.STOCHASTIC_GRADIENT_DESCENT)
+				.learningRate(learningRate)
+				.updater(Updater.NESTEROVS).momentum(0.9)
+				.list()
+				.layer(0, new DenseLayer.Builder()
+						.nIn(inputCount)
+						.nOut(hiddenNodeCount)
+						.weightInit(WeightInit.XAVIER)
+						.activation(Activation.RELU)
+						.build()
+				)
+				.layer(1, new DenseLayer.Builder()
+						.nIn(hiddenNodeCount)
+						.nOut(hiddenNodeCount)
+						.weightInit(WeightInit.XAVIER)
+						.activation(Activation.RELU)
+						.build()
+				)
+				.layer(2, new DenseLayer.Builder()
+						.nIn(hiddenNodeCount)
+						.nOut(hiddenNodeCount)
+						.weightInit(WeightInit.XAVIER)
+						.activation(Activation.RELU)
+						.build()
+				)
+				.layer(3, new OutputLayer.Builder(LossFunctions.LossFunction.NEGATIVELOGLIKELIHOOD)
+						.weightInit(WeightInit.XAVIER)
+						.activation(Activation.IDENTITY)
+						.nIn(hiddenNodeCount)
+						.nOut(1)
 						.build()
 				)
 				.pretrain(false).backprop(true).build();
