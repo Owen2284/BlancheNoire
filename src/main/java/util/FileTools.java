@@ -6,6 +6,9 @@ import java.io.FileReader;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 
+/**
+ * Static methods that simplify file reading, writing and merging methods.
+ */
 public class FileTools {
 
 	public static ArrayList<String> readFile(String filePath) {

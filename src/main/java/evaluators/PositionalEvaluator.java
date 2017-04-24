@@ -3,6 +3,10 @@ package evaluators;
 import game.GameState;
 import players.Player;
 
+/**
+ * Evaluates game states based on the counters the player owns and the percieved value of those
+ * counters' locations (e.g. edge and corner pieces are worth more than other pieces)
+ */
 public class PositionalEvaluator extends Evaluator {
 	
 	private final double EDGE_WEIGHT = 1.5;
@@ -10,17 +14,14 @@ public class PositionalEvaluator extends Evaluator {
 
 	public PositionalEvaluator() {}
 
-	@Override
 	public String getType() {
 		return "Positional";
 	}
-	
-	@Override
+
 	public String toFileString() {
 		return "Positional(" + ")";
 	}
 
-	@Override
 	public float evaluate(GameState game, Player p) {
 
 		// Initialisation

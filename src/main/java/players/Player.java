@@ -15,8 +15,7 @@ public abstract class Player {
 	private String output;
 	
 	/**
-	 * Basic constructor.
-	 * @param id - The id number of the counter that the player will control. 
+	 * Basic constructor, which takes a counter ID.
 	 */
 	public Player(int id) {
 		this.id = id;

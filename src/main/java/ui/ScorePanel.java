@@ -24,7 +24,7 @@ public class ScorePanel extends JPanel {
 	private static final long serialVersionUID = -3281906619038828564L;
 
 	/**
-	 * Constructor.
+	 * Default constructor.
 	 */
 	public ScorePanel() {
 		this.setPreferredSize(new Dimension(PANEL_WIDTH, PANEL_HEIGHT));
@@ -37,8 +37,7 @@ public class ScorePanel extends JPanel {
 	}
 	
 	/**
-	 * Method that caches information about the game.
-	 * @param game - the current GameState of the Othello game.
+	 * Method that caches information about the game necessary for the drawing methods.
 	 */
 	public void updateUI(GameState game) {
 		this.scores[0] = game.getScoreOfPlayer(0);
@@ -46,8 +45,10 @@ public class ScorePanel extends JPanel {
 		this.phase = game.getGamePhase() + " Phase";
 		this.turn = game.getTurnNumber();
 	}
-	
-	@Override
+
+	/**
+	 * Method that paints the panel with the necessary graphics.
+	 */
 	protected void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		

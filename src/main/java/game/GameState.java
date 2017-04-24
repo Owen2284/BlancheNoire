@@ -30,7 +30,8 @@ public class GameState {
 	private boolean[] hasLegalMovesCache;
 	private boolean gameOver;
 	private int[] scoreCache;
-	
+
+	// Constants for the counter IDs.
 	public static final int COUNTER_EMPTY = 0;
 	public static final int COUNTER_DARK = 1;
 	public static final int COUNTER_LIGHT = 2;
@@ -122,8 +123,6 @@ public class GameState {
 	
 	/**
 	 * Returns the player in the game state that isn't the provided player.
-	 * @param p - the player that is already known.
-	 * @return the Player object representing the opposing player.
 	 */
 	public Player getOpposingPlayer(Player p) {
 		if (p.equals(this.players[0])) {return this.players[1];}
@@ -250,7 +249,10 @@ public class GameState {
 			}
 		}		
 	}
-	
+
+	/**
+	 * Private method for summing the number of counters for a given ID.
+	 */
 	private int scoreCount(int id) {
 		int sum = 0;
 		for (int row = 0; row < boardSize; ++row) {
@@ -324,12 +326,19 @@ public class GameState {
 	 * Function that computes all legal moves at construction.
 	 */
 	private void computeLegalMoves() {
+
+		// Initialising cache.
 		this.hasLegalMovesCache[0] = false;
 		this.hasLegalMovesCache[1] = false;
+
+		// For loop to process both players.
 		for (int i = 0; i < 2; ++i) {
 			for (int row = 0; row < boardSize; ++row) {
 				for (int col = 0; col < boardSize; ++col) {
+
+					// Gets the value of the counter at the specified coordinate.
 					int boardValue = getBoardValue(new Point(row, col));
+
 					// Checks if board space is already occupied.
 					if (boardValue == COUNTER_EMPTY) {
 						
@@ -361,7 +370,10 @@ public class GameState {
 		}
 		this.gameOver = !(this.hasLegalMovesCache[0] || this.hasLegalMovesCache[1]);
 	}
-	
+
+	/**
+	 * Internal method for determining the cache.
+	 */
 	private void cacheSetup() {
 		this.legalMovesCache = new boolean[2][this.boardSize][this.boardSize];
 		this.hasLegalMovesCache = new boolean[2];
@@ -482,7 +494,10 @@ public class GameState {
 		}
 		
 	}
-	
+
+	/**
+	 * Private method to allow counters to be placed on the board.
+	 */
 	private void placeCounter(int id, Point move) {
 		this.board[move.x][move.y] = id;
 	}
@@ -724,7 +739,7 @@ public class GameState {
 	}
 	
 	/**
-	 * Converts the GameState's board into a 1x128 DL4J INDArray.
+	 * Converts the GameState's board into a 1x128 ND4J INDArray, for use by DeepLearningEvaluator.
 	 */
 	public INDArray toINDArray(int firstID, int secondID) {
 		INDArray boardArr = Nd4j.zeros(1, this.boardSize * this.boardSize * 2);

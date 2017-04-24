@@ -25,11 +25,14 @@ public class OthelloFrame extends JFrame {
 
 	private static final long serialVersionUID = -7230594703974179925L;
 
+	/**
+	 * Constructor that takes an initial game state to allow for the interface to be drawn.
+	 */
 	public OthelloFrame(GameState game) throws HeadlessException {
 		
 		// Initial setup.
 		this.setLayout(new BorderLayout());
-		this.setTitle("Othello");
+		this.setTitle("BlancheNoire");
 		this.setBackground(Color.BLACK);
 		this.setPreferredSize(new Dimension(FRAME_WIDTH, FRAME_HEIGHT));
 		this.setResizable(false);
@@ -56,8 +59,6 @@ public class OthelloFrame extends JFrame {
 	
 	/**
 	 * Method that changes the interface to reflect the game state.
-	 * @param game - the current GameState of the Othello game.
-	 * @param playerToPlay - The player who is currently taking their turn.
 	 */
 	public void updateUI(GameState game, Player playerToPlay) {
 		this.top.updateUI(game);

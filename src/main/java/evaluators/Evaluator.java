@@ -14,7 +14,10 @@ public abstract class Evaluator {
 	public abstract String getType();
 	
 	public abstract String toFileString();
-	
+
+	/**
+	 * Method that returns a numerical evaluation of a provided game state for the specified player.
+	 */
 	public abstract float evaluate(GameState game, Player p);
 
 }

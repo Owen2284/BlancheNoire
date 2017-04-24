@@ -19,10 +19,7 @@ public class AIPlayer extends Player {
 	int maxSearchTime;
 
 	/**
-	 * Constructor for the AIPlayer.
-	 * @param id - the id number of the counter that this player will control.
-	 * @param d - the Decider object that the AIPlayer will use when deciding moves to play.
-	 * @param e - the Evaluator object that the AIPlayer will use when evaluating moves.
+	 * Constructor for the AIPlayer, when given a counter ID, a Decider and Evaluator to use, and a search time limit.
 	 */
 	public AIPlayer(int id, Decider d, Evaluator e, int maxSearchTime) {
 		super(id);
@@ -30,18 +27,15 @@ public class AIPlayer extends Player {
 		this.e = e;
 		this.maxSearchTime = maxSearchTime;
 	}
-	
-	@Override
+
 	public String getPlayerType() {
 		return "AI(" + d.getType() + "," + e.getType() + ")"; 
 	}
-	
-	@Override
+
 	public String toFileString() {
 		return "AI(" + d.toFileString() + "," + e.toFileString() + ")";
 	}
 
-	@Override
 	public Point getMove(GameState game, GamePanel panel) {
 		return d.decide(game, e, this, this.maxSearchTime);
 	}

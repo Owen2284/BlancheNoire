@@ -15,7 +15,10 @@ public class HumanPlayer extends Player {
 
 	private boolean usingGUI;
 	private Scanner scanner;
-	
+
+	/**
+	 * Constructor requiring a counter ID and information on whether the GUI is in use or not.
+	 */
 	public HumanPlayer(int id, boolean useGUI) {
 		super(id);
 		this.usingGUI = useGUI;
@@ -23,18 +26,15 @@ public class HumanPlayer extends Player {
 			this.scanner = new Scanner(System.in);
 		}
 	}
-	
-	@Override
+
 	public String getPlayerType() {
 		return "Human";
 	}
-	
-	@Override
+
 	public String toFileString() {
 		return "Human(" + this.id + "," + this.usingGUI + ")";
 	}
-		
-	@Override
+
 	public Point getMove(GameState game, GamePanel panel) {
 		Point theMove;
 		if (!usingGUI) {
@@ -53,10 +53,7 @@ public class HumanPlayer extends Player {
 	}
 	
 	/**
-	 * Method that obtains the player's move via the command prompt.
-	 * (UNUSED - Doesn't work.)
-	 * @param g - the current GameState.
-	 * @return a Point on the board of the GameState to play a counter on.
+	 * Method that obtains the player's move via the command prompt. (May or may not work, oops)
 	 */
 	private Point getMoveFromCommandPrompt(GameState g) {
 		

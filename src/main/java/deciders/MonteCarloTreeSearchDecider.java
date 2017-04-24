@@ -8,14 +8,19 @@ import evaluators.Evaluator;
 import game.GameState;
 import players.Player;
 
+/**
+ * TODO
+ */
 public class MonteCarloTreeSearchDecider extends FixedMinimaxDecider {
 
+	// Fields for storing the search parameters.
 	private boolean hardPlayouts;
 	private boolean useMaxSims;
 	private int maxSims;
 	private double randomChance;
 	private int timePerMinimax;
-	
+
+	// Statistical field(s).
 	private int simulationsRun = 0;
 	
 	public MonteCarloTreeSearchDecider(boolean useMaxSims, int maxSims, boolean useMinimax, int minimaxDepth, double randomChance, int timePerMinimax) {
@@ -28,31 +33,32 @@ public class MonteCarloTreeSearchDecider extends FixedMinimaxDecider {
 	}
 
 
-	@Override
 	public String getType() {return "MCTS";}
-	
-	@Override
+
 	public String toFileString() {
 		return "MCTS(" + this.useMaxSims + "," + this.maxSims + "," + this.hardPlayouts + "." + this.depthToSearchTo + "," + this.randomChance + "," + this.timePerMinimax + ")";
 	}
 
-	@Override
+	/**
+	 * Runs the entire MCTS process and returns the best move from it.
+	 */
 	public Point decide(GameState game, Evaluator e, Player p, int maxSearchTime) {
 		
 		// Checks if a decision needs to be made, or if the only move can be returned.
-		int moveCount = 0;
+		Point foundMove = null;
+		boolean onlyOneMove = true;
 		for (int row = 0; row < game.getBoardDims()[0]; row++) {
 			for (int col = 0; col < game.getBoardDims()[1]; col++) {
-				if (game.getLegalMoves(p)[row][col]) {++moveCount;}
-			}
-		}
-		if (moveCount == 1) {
-			for (int row = 0; row < game.getBoardDims()[0]; row++) {
-				for (int col = 0; col < game.getBoardDims()[1]; col++) {
-					if (game.getLegalMoves(p)[row][col]) {return new Point(row, col);}
+				if (game.getLegalMoves(p)[row][col]) {
+					if (foundMove == null) {
+						foundMove = new Point(row, col);
+					} else {
+						onlyOneMove = false;
+					}
 				}
 			}
 		}
+		if (onlyOneMove) {return foundMove;}
 		
 		simulationsRun = 0;
 		Player playerIAm = p;
@@ -63,11 +69,10 @@ public class MonteCarloTreeSearchDecider extends FixedMinimaxDecider {
 		// Get the tree.
 		TreeNode root = constructTree(game, playerIAm, e, startTime, maxSearchTime);
 
-		// Returns the best move found.
+		// Determines the best move found.
 		TreeNode bestChild = null;
 		double bestScore = Double.NEGATIVE_INFINITY;
 		float bestChildEval = Float.NEGATIVE_INFINITY;
-		
 		for (TreeNode rootChild : root.children) {
 			GameState rootChildGameState = game.playMove(playerIAm, rootChild.moveMade);
 			float rootChildEvaluation = e.evaluate(rootChildGameState, playerIAm);
@@ -82,13 +87,19 @@ public class MonteCarloTreeSearchDecider extends FixedMinimaxDecider {
 				bestChildEval = rootChildEvaluation;
 			}
 		}
-		
+
+		// Sets output.
 		p.setOutput("Move chosen: (" + bestChild.moveMade.x + "," + bestChild.moveMade.y + "). Score: " + bestChildEval + ". Win percentage: " + bestScore + "%. " + simulationsRun + "sims/" + (System.currentTimeMillis() - startTime) + "ms; " + ((double) simulationsRun / (System.currentTimeMillis() - startTime)) + " S/ms.");
-		
+
+		// Returns the move.
 		return bestChild.moveMade;
 		
 	}
-	
+
+	/**
+	 * Runs the main MCTS algorithm, which constructs the tree via numerous simulations. Returns the root
+	 * node of the tree.
+	 */
 	private TreeNode constructTree(GameState game, Player playerIAm, Evaluator e, long startTime, int maxSearchTime) {
 		
 		// Create the root node of the tree.
@@ -281,7 +292,9 @@ public class MonteCarloTreeSearchDecider extends FixedMinimaxDecider {
 		return ((double)w/(double)n) + (C * Math.sqrt(Math.log(t) / (double)n));
 	}
 	
-	// Internal class for storing statistics on simulations.
+	/**
+	 * Internal class for storing statistics on simulations.
+	 */
 	private class TreeNode {
 		
 		public int wins = 0;

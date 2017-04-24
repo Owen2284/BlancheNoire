@@ -6,7 +6,7 @@ import evaluators.Evaluator;
 import game.GameState;
 import players.Player;
 
-/*
+/**
  * Abstract class that implements the methods typically used by a Minimax algorithm on top of the default
  * Decider interface's methods.
  */
@@ -18,8 +18,7 @@ public abstract class MinimaxDecider extends Decider {
 	public MinimaxDecider(int depthToSearchTo) {
 		this.depthToSearchTo = depthToSearchTo;
 	}
-	
-	@Override
+
 	public Point decide(GameState game, Evaluator e, Player p, int maxSearchTime) {
 
 		// Initialising variables.
@@ -62,6 +61,7 @@ public abstract class MinimaxDecider extends Decider {
 		boolean[][] lm = current.getLegalMoves(playerToPlay);
 		for (int row = 0; row < current.getBoardDims()[0]; ++row) {
 			for (int col = 0; col < current.getBoardDims()[1]; ++col) {
+				// Checks for move legality.
 				if (lm[row][col]) {	
 					GameState child = current.playMove(playerToPlay, new Point(row, col));
 					float childScore = getMinScore(child, depth-1, startTimestamp, timeLimit, e, playerToEvaluate, child.getOpposingPlayer(playerToPlay), alpha, beta);
@@ -104,6 +104,7 @@ public abstract class MinimaxDecider extends Decider {
 		boolean[][] lm = current.getLegalMoves(playerToPlay);
 		for (int row = 0; row < current.getBoardDims()[0]; ++row) {
 			for (int col = 0; col < current.getBoardDims()[1]; ++col) {
+				// Checks for move legality.
 				if (lm[row][col]) {
 					GameState child = current.playMove(playerToPlay, new Point(row, col));
 					float childScore = getMaxScore(child, depth-1, startTimestamp, timeLimit, e, playerToEvaluate, child.getOpposingPlayer(playerToPlay), alpha, beta);

@@ -7,19 +7,17 @@ import evaluators.Evaluator;
 import game.GameState;
 import players.Player;
 
-/*
- * TODO
+/**
+ * A Minimax decider that iteratively increases the depth it searches to up to a specified maximum.
  */
 public class IterativeMinimaxDecider extends MinimaxDecider {
 
 	public IterativeMinimaxDecider(int depthToSearchTo) {super(depthToSearchTo);}
 
-	@Override
 	public String getType() {
 		return "IterativeMinimax";
 	}
-	
-	@Override
+
 	public String toFileString() {
 		return "IterativeMinimax(" + this.depthToSearchTo + ")";
 	}
@@ -74,7 +72,10 @@ public class IterativeMinimaxDecider extends MinimaxDecider {
 				highScoringMove = key;
 			}
 		}
+
+		// Setting output message.
 		p.setOutput("Move chosen: (" + highScoringMove.x + "," + highScoringMove.y + "). Score: " + moveScores.get(highScoringMove) + ". Depth reached: " + (currentDepth - 1) + ". (N/ms:- " + (this.debugNodesChecked / (System.currentTimeMillis() - startTimestamp + 1)) + ")");
+
 		return highScoringMove;
 		
 	}

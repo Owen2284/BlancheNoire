@@ -22,7 +22,7 @@ public class InfoPanel extends JPanel {
 	private static final long serialVersionUID = 1895792502596588154L;
 
 	/**
-	 * Constructor.
+	 * Default constructor.
 	 */
 	public InfoPanel() {
 		this.setPreferredSize(new Dimension(PANEL_WIDTH, PANEL_HEIGHT));
@@ -31,10 +31,7 @@ public class InfoPanel extends JPanel {
 	}
 	
 	/**
-	 * Method that caches information about the game.
-	 * @param game - the current GameState of the Othello game.
-	 * @param playerToPlay - The player who is currently taking their turn.
-	 * @param s
+	 * Method that caches information about the game for use by the drawing method.
 	 */
 	public void updateUI(GameState game, Player playerToPlay) {
 		if (game.isOver()) {
@@ -58,8 +55,14 @@ public class InfoPanel extends JPanel {
 		}
 	}
 
+	/*
+	 * Allows for the information string for the panel to be manually set.
+	 */
 	public void setInfo(String s) {this.info = s;}
 
+	/**
+	 * Method that paints the panel with the necessary graphics.
+	 */
 	protected void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		g.setColor(Color.BLACK);

@@ -6,8 +6,8 @@ import evaluators.Evaluator;
 import game.GameState;
 import players.Player;
 
-/*
- * TODO
+/**
+ * Minimax player that searches directly to a certain depth. Can be cut off due to time constraints.
  */
 public class FixedMinimaxDecider extends MinimaxDecider {
 

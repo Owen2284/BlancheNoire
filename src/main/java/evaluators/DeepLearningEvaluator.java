@@ -7,6 +7,9 @@ import org.nd4j.linalg.api.ndarray.INDArray;
 import game.GameState;
 import players.Player;
 
+/**
+ * Evaluator that uses a neural network to determine the worth of a game state.
+ */
 public class DeepLearningEvaluator extends Evaluator {
 
 	private String netPath;

@@ -38,6 +38,10 @@ public class NeuralNetFactory {
 
 	private static Logger log;
 
+	/**
+	 * Main method that creates an ANN and stores it in a .zip file. Ensure data is formatted using
+	 * NeuralNetDataHandler first.
+	 */
 	public static void main(String[] args) {
 
 		final String FILE_EXT = ".zip";
@@ -116,7 +120,11 @@ public class NeuralNetFactory {
 		System.out.println("Ending program...");
 		
 	}
-	
+
+	/**
+	 * Ties together the network config selection and the data loading methods to create, train and test
+	 * the ANN.
+	 */
 	public static MultiLayerNetwork createNeuralNetwork(String trainDir, String testDir, String binDir, String statPath, int labelCount, int epochCount, int configToUse, boolean showScores) {
 		
 		// Initialising key variables.
@@ -192,7 +200,11 @@ public class NeuralNetFactory {
 		return model;
 		
 	}
-	
+
+	/**
+	 * Creates a DataSetIterator for the provided csv file(s), which is used by the trainer/tester to feed
+	 * the data to the ANN.
+	 */
 	private static DataSetIterator createDataSetIterator(String readDir, String binDir, int batchSize, int labelIndex, int numPossibleLabels) {
 		try {
 			File binCheck = new File(binDir);
@@ -213,8 +225,10 @@ public class NeuralNetFactory {
 			throw new IllegalArgumentException(" Reading from \"" + readDir + "\" resulted in an interruption.");
 		}
 	}
-	
-	// A basic layout from the DL4J examples.
+
+	/**
+	 * A basic network layout with 1 hidden layer.
+	 */
 	private static MultiLayerConfiguration configClassification1(int inputCount, int outputCount, int seed) {
 		double learningRate = 0.01;
 		int hiddenNodeCount = 100;
@@ -246,7 +260,9 @@ public class NeuralNetFactory {
 		return conf;
 	}
 
-	// Creates a NN with many more hidden nodes and layers than the previous config.
+	/*
+	 * Creates a NN with many more hidden nodes and layers than the previous config.
+	 */
 	private static MultiLayerConfiguration configClassification2(int inputCount, int outputCount, int seed) {
 		double learningRate = 0.01;
 		int hiddenNodeCount = 128;
@@ -292,7 +308,9 @@ public class NeuralNetFactory {
 		return conf;
 	}
 
-	// Creates a NN wthat regresses the data to a single float output.
+	/*
+	 * Creates a NN wthat regresses the data to a single float output.
+	 */
 	private static MultiLayerConfiguration configRegression1(int inputCount, int seed) {
 		double learningRate = 0.01;
 		int hiddenNodeCount = 128;

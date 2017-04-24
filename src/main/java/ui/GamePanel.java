@@ -40,7 +40,7 @@ public class GamePanel extends JPanel implements MouseListener {
 	private static final long serialVersionUID = -5194744397408657473L;
 
 	/**
-	 * Constructor.
+	 * Default constructor.
 	 */
 	public GamePanel() {
 		
@@ -70,9 +70,7 @@ public class GamePanel extends JPanel implements MouseListener {
 	}
 	
 	/**
-	 * Method that caches information about the game.
-	 * @param game - the current GameState of the Othello game.
-	 * @param playerToPlay - The player who is currently taking their turn.
+	 * Method that caches information about the game for use by drawing methods.
 	 */
 	public void updateUI(GameState game, Player playerToPlay) {
 		
@@ -91,9 +89,6 @@ public class GamePanel extends JPanel implements MouseListener {
 	
 	/**
 	 * Method that returns a move obtained via user input.
-	 * @param game - The current GameState.
-	 * @param player - The player currently taking their turn.
-	 * @return
 	 */
 	public Point getPlayerMoveViaUI(GameState game, Player player) {
 
@@ -120,9 +115,11 @@ public class GamePanel extends JPanel implements MouseListener {
 			
 		}
 		
-	}	
-	
-	@Override
+	}
+
+	/**
+	 * Method that paints the panel with the necessary graphics.
+	 */
 	protected void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		
@@ -217,6 +214,9 @@ public class GamePanel extends JPanel implements MouseListener {
 	
 	}
 
+	/**
+	 * MouseListener method that allows for obtaining Human player moves.
+	 */
 	public void mouseClicked(MouseEvent e) {this.lastMousePos = e.getPoint();}
 
 	public void mousePressed(MouseEvent e) {/* Do nothing. */}

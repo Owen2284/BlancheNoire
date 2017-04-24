@@ -11,7 +11,8 @@ import players.PlayerFactory;
 import ui.OthelloFrame;
 
 /**
- * The main class that runs the Othello game.
+ * The main class that runs the Othello game. Can be provided numerous command line arguments to
+ * change the operation of the game. (See help.txt for usage of arguments.)
  */
 public class Othello {
 	
@@ -19,7 +20,6 @@ public class Othello {
 	
 	/**
 	 * Main method.
-	 * @param args
 	 */
 	public static void main(String[] args) {
 		

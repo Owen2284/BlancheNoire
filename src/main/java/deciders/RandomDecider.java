@@ -31,6 +31,7 @@ public class RandomDecider extends Decider {
 
 	@Override
 	public Point decide(GameState game, Evaluator e, Player p, int maxSearchTime) {
+		// Creates a list of all legal moves.
 		boolean[][] legalMoves = game.getLegalMoves(p);
 		ArrayList<Point> possibleMoves = new ArrayList<Point>();
 		for (int row = 0; row < game.getBoardDims()[0]; ++row) {
@@ -40,8 +41,14 @@ public class RandomDecider extends Decider {
 				}
 			}
 		}
+
+		// Gets a random move from the legal moves.
 		Point theMove = possibleMoves.get(new Random().nextInt(possibleMoves.size()));
+
+		// Sets the player's output.
 		p.setOutput("Move chosen: (" + theMove.x + "," + theMove.y + ").");
+
+		// Returns the move.
 		return theMove;
 	}
 
