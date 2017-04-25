@@ -9,11 +9,11 @@ Argument Label      Type        Default             Description
 -player2            String      AI(Random,Score)    Defines the type of player to represent player 2. AI players must be given a decider and an evaluator.
 -useGUI             boolean     true                Toggles the graphical interface on or off.
 -showOutput         boolean     false               Tells the program whether or not to display, in the console, the output the AI players produce.
--archiveGame        boolean     true                Determines whether or not the played game is written to an archive file upon completion.
--alternate          boolean     false               If set to true, will swap which counters the players control in each game. Only affects runs where -runCount is greater then 1.
--moveDelay          int         100                 Number of milliseconds to wait before allowing the next player to move. Allows game state to be viewed before it is changed again.
+-archiveGame        boolean     true                Determines whether or not the played games is written to an archive file upon completion.
+-alternate          boolean     false               If set to true, will swap which counters the players control in each games. Only affects runs where -runCount is greater then 1.
+-moveDelay          int         100                 Number of milliseconds to wait before allowing the next player to move. Allows games state to be viewed before it is changed again.
 -AIRunTime          int         5000                Number of milliseconds that an AI player is allowed to use to determine the move it wants to play.
--runCount           int         1                   Number of times to repeat the execution of the Othello game.
+-runCount           int         1                   Number of times to repeat the execution of the Othello games.
 -boardSize          int         8                   The width and height of the Othello board in board spaces.
 
 
@@ -30,7 +30,7 @@ Evaluator Name                 Argument            Description
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 ScoreEvaluator                 Score               Evaluates states based on the difference between the two player's scores.
 PositionalEvaluator            Positional          Determines the worth of a state based on what counters they own and in what positions they are in.
-DeepLearningEvaluator          DeepLearning        Returns the valuation of the game state based on the result of the evaluator's artificial neural network. Must be given the ANN to use as an additional argument.
+DeepLearningEvaluator          DeepLearning        Returns the valuation of the games state based on the result of the evaluator's artificial neural network. Must be given the ANN to use as an additional argument.
 
 
 3. Additional Decider/Evaluator Arguments:
