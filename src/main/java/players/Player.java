@@ -2,7 +2,7 @@ package players;
 
 import java.awt.Point;
 
-import game.GameState;
+import games.GameState;
 import ui.GamePanel;
 
 /**

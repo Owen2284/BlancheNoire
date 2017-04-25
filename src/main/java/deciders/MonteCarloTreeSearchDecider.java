@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.Random;
 
 import evaluators.Evaluator;
-import game.GameState;
+import games.GameState;
 import players.Player;
 
 /**
@@ -136,13 +136,13 @@ public class MonteCarloTreeSearchDecider extends FixedMinimaxDecider {
 						bestMove = childNode;
 					}
 				}
-				
+
 				// Add next move to the path, and update current variables.
 				path.add(bestMove);
 				currentNode = bestMove;
 				if (currentNode.moveMade.x != -1 || currentNode.moveMade.y != -1) {
 					// A Point with coords (-1,-1) is used to show a move where the player cannot play.
-					// The if statement here ensures that this lack of change in the game state is correctly handled.
+					// The if statement here ensures that this lack of change in the games state is correctly handled.
 					currentGame = currentGame.playMove(currentPlayer, currentNode.moveMade);
 				}
 				currentPlayer = currentGame.getOpposingPlayer(currentPlayer);
@@ -189,10 +189,10 @@ public class MonteCarloTreeSearchDecider extends FixedMinimaxDecider {
 					
 				}
 				
-				// Code for when the game is over.
+				// Code for when the games is over.
 				else if (currentGame.isOver()) {
 
-					// Get the result of the game and update the tree accordingly. (SIMULATION + BACKPROPOGATION)
+					// Get the result of the games and update the tree accordingly. (SIMULATION + BACKPROPOGATION)
 					int gameResult = simulate(currentGame, currentPlayer, playerIAm, e, startTime, maxSearchTime);
 					for (int nodeNum = path.size() - 1; nodeNum >= 0; --nodeNum) {
 						TreeNode theNode = path.get(nodeNum);
@@ -232,7 +232,7 @@ public class MonteCarloTreeSearchDecider extends FixedMinimaxDecider {
 	}
 	
 	/**
-	 * Method that simulates a game from the given GameState, and returns whether or not the provided player won.
+	 * Method that simulates a games from the given GameState, and returns whether or not the provided player won.
 	 */
 	private int simulate(GameState startState, Player startPlayer, Player playerIAm, Evaluator e, long startTime, int maxSearchTime) {
 		
@@ -240,7 +240,7 @@ public class MonteCarloTreeSearchDecider extends FixedMinimaxDecider {
 		GameState currentState = startState;
 		Player currentPlayer = startPlayer;
 		
-		// Run the simulation loop until the game is completed.
+		// Run the simulation loop until the games is completed.
 		while (!currentState.isOver()) {
 			
 			// Checks the player can play a move.

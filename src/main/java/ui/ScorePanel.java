@@ -7,10 +7,10 @@ import java.awt.Graphics;
 
 import javax.swing.JPanel;
 
-import game.GameState;
+import games.GameState;
 
 /**
- * A UI panel for displaying the game scores.
+ * A UI panel for displaying the games scores.
  */
 public class ScorePanel extends JPanel {
 	
@@ -37,7 +37,7 @@ public class ScorePanel extends JPanel {
 	}
 	
 	/**
-	 * Method that caches information about the game necessary for the drawing methods.
+	 * Method that caches information about the games necessary for the drawing methods.
 	 */
 	public void updateUI(GameState game) {
 		this.scores[0] = game.getScoreOfPlayer(0);

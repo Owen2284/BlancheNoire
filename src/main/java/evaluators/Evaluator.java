@@ -1,6 +1,6 @@
 package evaluators;
 
-import game.GameState;
+import games.GameState;
 import players.Player;
 
 /**
@@ -16,7 +16,7 @@ public abstract class Evaluator {
 	public abstract String toFileString();
 
 	/**
-	 * Method that returns a numerical evaluation of a provided game state for the specified player.
+	 * Method that returns a numerical evaluation of a provided games state for the specified player.
 	 */
 	public abstract float evaluate(GameState game, Player p);
 

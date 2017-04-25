@@ -5,12 +5,12 @@ import java.util.ArrayList;
 import java.util.Random;
 
 import evaluators.Evaluator;
-import game.GameState;
+import games.GameState;
 import players.Player;
 
 /**
  * A decider that chooses moves to play at random, based on what moves are
- * legal in the current game state.
+ * legal in the current games state.
  */
 public class RandomDecider extends Decider {
 

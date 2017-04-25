@@ -4,13 +4,13 @@ import java.awt.Point;
 import java.io.File;
 import java.util.*;
 
-import game.GameScript;
-import game.GameState;
+import games.GameScript;
+import games.GameState;
 import players.Player;
 import util.FileTools;
 
 /**
- * Class containing code used to handle the Othello game data. Possibly the ugliest code I've ever written.
+ * Class containing code used to handle the Othello games data. Possibly the ugliest code I've ever written.
  * @author Owen
  */
 public class NeuralNetDataHandler {
@@ -111,7 +111,7 @@ public class NeuralNetDataHandler {
 			// Data loading.
 			System.out.println("Loading in training data...");
 			data = FileTools.readDir(trainDir);
-			System.out.println(data.size() + " training game scripts loaded in.");
+			System.out.println(data.size() + " training games scripts loaded in.");
 			
 			// Data formatting.
 			System.out.println("Formatting training data into CSV format...");
@@ -153,7 +153,7 @@ public class NeuralNetDataHandler {
 			// Data loading.
 			System.out.println("Loading in testing data...");
 			data = FileTools.readDir(testDir);
-			System.out.println(data.size() + " testing game scripts loaded in.");	
+			System.out.println(data.size() + " testing games scripts loaded in.");
 			
 			// Data formatting.
 			System.out.println("Formatting testing data into CSV format...");
@@ -235,7 +235,7 @@ public class NeuralNetDataHandler {
 			// Loop through all games.
 			for (String game : file) {
 				
-				// Check the game correctly simulates all the way through.
+				// Check the games correctly simulates all the way through.
 				GameScript gs = new GameScript(game);
 				GameState g = gs.generateStartState();
 				Player p = g.getPlayerByIndex(0);

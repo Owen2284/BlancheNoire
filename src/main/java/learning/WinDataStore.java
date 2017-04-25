@@ -1,7 +1,7 @@
 package learning;
 
 /**
- * Simple class that stores data about wins for a game state. Used by NeuralNetDataFormatter subclasses.
+ * Simple class that stores data about wins for a games state. Used by NeuralNetDataFormatter subclasses.
  */
 public class WinDataStore {
 

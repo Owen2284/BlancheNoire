@@ -4,7 +4,7 @@ import java.awt.Point;
 import java.util.HashMap;
 
 import evaluators.Evaluator;
-import game.GameState;
+import games.GameState;
 import players.Player;
 
 /**
@@ -23,7 +23,7 @@ public class IterativeMinimaxDecider extends MinimaxDecider {
 	}
 	
 	/**
-	 * Evaluates all children of the current game state and returns the most promising one.
+	 * Evaluates all children of the current games state and returns the most promising one.
 	 */
 	public Point getMaxMove(GameState current, int maxDepth, long startTimestamp, int timeLimit, Evaluator e, Player p) {
 		
@@ -34,7 +34,7 @@ public class IterativeMinimaxDecider extends MinimaxDecider {
 		HashMap<Point, Float> moveScores = new HashMap<Point, Float>();
 		int currentDepth = 1;
 		
-		// Runs a loop to analyse each move from the current game state.
+		// Runs a loop to analyse each move from the current games state.
 		while (System.currentTimeMillis() - startTimestamp <= timeLimit && currentDepth <= maxDepth) {
 			
 			// Loop to check all board spaces.
@@ -44,7 +44,7 @@ public class IterativeMinimaxDecider extends MinimaxDecider {
 					// Checks if a legal move is available at this space.
 					if (current.getLegalMoves(p)[row][col]) {
 						
-						// Analyses the game tree that sprouts from playing a move at the current space.
+						// Analyses the games tree that sprouts from playing a move at the current space.
 						GameState child = current.playMove(p, new Point(row, col));
 						float childScore = getMinScore(child, currentDepth-1, startTimestamp, timeLimit, e, p, child.getOpposingPlayer(p), Float.NEGATIVE_INFINITY, Float.POSITIVE_INFINITY);
 						

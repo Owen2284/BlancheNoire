@@ -2,8 +2,8 @@ package players;
 
 import java.awt.Point;
 
-import game.GameScript;
-import game.GameState;
+import games.GameScript;
+import games.GameState;
 import ui.GamePanel;
 
 /**

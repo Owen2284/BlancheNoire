@@ -1,4 +1,4 @@
-package game;
+package games;
 
 import java.awt.Point;
 
@@ -8,8 +8,8 @@ import org.nd4j.linalg.factory.Nd4j;
 import players.Player;
 
 /**
- * A class for representing the Othello game state and logic. Provides methods for
- * determining legal moves, future states and game outcomes.
+ * A class for representing the Othello games state and logic. Provides methods for
+ * determining legal moves, future states and games outcomes.
  */
 public class GameState {
 	
@@ -22,7 +22,7 @@ public class GameState {
 	// Tracks the turn number.
 	private int turnNumber;
 	
-	// Stores the size of the game board.
+	// Stores the size of the games board.
 	private int boardSize;
 	
 	// Caches for holding data that takes a while to calculate.
@@ -92,7 +92,7 @@ public class GameState {
 	}
 	
 	/**
-	 * Returns a clone of the game board.
+	 * Returns a clone of the games board.
 	 */
 	public int[][] getBoard() {
 		return (int[][]) this.board.clone();
@@ -122,12 +122,12 @@ public class GameState {
 	}
 	
 	/**
-	 * Returns the player in the game state that isn't the provided player.
+	 * Returns the player in the games state that isn't the provided player.
 	 */
 	public Player getOpposingPlayer(Player p) {
 		if (p.equals(this.players[0])) {return this.players[1];}
 		else if (p.equals(this.players[1])) {return this.players[0];}
-		else {throw new IllegalArgumentException("Provided Player object is not participating in this game.");}
+		else {throw new IllegalArgumentException("Provided Player object is not participating in this games.");}
 	}
 	
 	/**
@@ -144,14 +144,14 @@ public class GameState {
 	private void incTurnNumber() {++this.turnNumber;}
 	
 	/**
-	 * Returns the maximum number of turns the game can last for.
+	 * Returns the maximum number of turns the games can last for.
 	 */
 	public int getMaxTurns() {
 		return (boardSize * boardSize) - 4;
 	}
 	
 	/**
-	 * Returns the "phase" of the game, which can be "Opening" (first 20 turns),
+	 * Returns the "phase" of the games, which can be "Opening" (first 20 turns),
 	 * "Midgame" (middle 20 turns) or "Endgame" (last 20 turns).
 	 */
 	public String getGamePhase() {
@@ -166,7 +166,7 @@ public class GameState {
 	}
 	
 	/**
-	 * Returns the number of turns remaining before the end of the game.
+	 * Returns the number of turns remaining before the end of the games.
 	 */
 	public int getTurnsLeft() {
 		int totalTurns = getMaxTurns();
@@ -174,18 +174,18 @@ public class GameState {
 	}
 	
 	/**
-	 * Gets the value located at a specific point of the game board.
+	 * Gets the value located at a specific point of the games board.
 	 */
 	public int getBoardValue(Point p) {
 		try {
 			return this.board[p.x][p.y];
 		} catch (ArrayIndexOutOfBoundsException e) {
-			throw new ArrayIndexOutOfBoundsException("The game board is of size " + boardSize + " by " + boardSize + ". The coordinates entered are out of these bounds.");
+			throw new ArrayIndexOutOfBoundsException("The games board is of size " + boardSize + " by " + boardSize + ". The coordinates entered are out of these bounds.");
 		}
 	}
 	
 	/**
-	 * Returns the width and height of the game board as an array.
+	 * Returns the width and height of the games board as an array.
 	 */
 	public int[] getBoardDims() {
 		int[] dims = {boardSize, boardSize};
@@ -222,12 +222,12 @@ public class GameState {
 	public boolean isWinning(int id) {return getScoreOfID(id) > getScoreOfID(getOpposingPlayer(getPlayerByID(id)).getPlayerID());}
 	
 	/**
-	 * Determines if the current game is at a draw.
+	 * Determines if the current games is at a draw.
 	 */
 	public boolean isDraw() {return this.scoreCache[0] == this.scoreCache[1];}
 	
 	/**
-	 * Determines if the game has progressed as far as it possibly can.
+	 * Determines if the games has progressed as far as it possibly can.
 	 */
 	public boolean isOver() {return this.gameOver;}
 	
@@ -266,7 +266,7 @@ public class GameState {
 	}
 	
 	/**
-	 * Determines the number of empty spaces on the game board.
+	 * Determines the number of empty spaces on the games board.
 	 */
 	public int getEmptySpaces() {
 		return (boardSize * boardSize) - this.scoreCache[0] - this.scoreCache[1];
@@ -515,7 +515,7 @@ public class GameState {
 	}
 	
 	/**
-	 * Rotates the board 90 degrees clockwise. Directly changes the game state.
+	 * Rotates the board 90 degrees clockwise. Directly changes the games state.
 	 */
 	private void rotateAndChange() {
 		int[][] oldBoard = this.getBoard();
@@ -536,7 +536,7 @@ public class GameState {
 	}
 
 	/**
-	 * Flips the board. Directly changes the game state.
+	 * Flips the board. Directly changes the games state.
 	 */
 	private void flipAndChange(boolean horizontal) {
 		int[][] oldBoard = this.getBoard();
@@ -556,7 +556,7 @@ public class GameState {
 	}
 
 	/**
-	 * Checks to see if the provided game state is identical to this one.
+	 * Checks to see if the provided games state is identical to this one.
 	 */
 	public boolean isEqual(GameState that) {
 		boolean result = true;
@@ -570,7 +570,7 @@ public class GameState {
 	
 	/**
 	 * Checks if a GameState is a rotation of another GameState.
-	 * Only checks the board of the game, not players or turn number.
+	 * Only checks the board of the games, not players or turn number.
 	 */
 	public boolean isRotationOf(GameState that) {
 		for (int rotation = 0; rotation < 4; ++rotation) {
@@ -584,7 +584,7 @@ public class GameState {
 
 	/**
 	 * Checks if a GameState is a rotation or flipped rotation of another GameState.
-	 * Only checks the board of the game, not players or turn number.
+	 * Only checks the board of the games, not players or turn number.
 	 */
 	public boolean isVariantOf(GameState that) {
 		for (int rotation = 0; rotation < 4; ++rotation) {
@@ -622,7 +622,7 @@ public class GameState {
 	}
 	
 	/**
-	 * Method for easily displaying the game state.
+	 * Method for easily displaying the games state.
 	 */
 	public String toString() {
 		
@@ -695,7 +695,7 @@ public class GameState {
 	}
 	
 	/**
-	 * Debug method for viewing the game board.
+	 * Debug method for viewing the games board.
 	 */
 	public void printBoard() {
 		for (int row = 0; row < getBoardDims()[0]; ++row) {
@@ -761,7 +761,7 @@ public class GameState {
 	}
 	
 	/**
-	 * Converts the GameState into a flat string of numbers representing the game board.
+	 * Converts the GameState into a flat string of numbers representing the games board.
 	 */
 	public String toFlatString(int firstID, int secondID, String delim) {
 		String flat = "";

@@ -1,10 +1,11 @@
 package players;
 
 import java.awt.Point;
+import java.util.InputMismatchException;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
 
-import game.GameState;
+import games.GameState;
 import ui.GamePanel;
 
 /**
@@ -41,7 +42,8 @@ public class HumanPlayer extends Player {
 			try {
 				theMove = getMoveFromCommandPrompt(game);
 			} catch (NoSuchElementException e) {
-				System.out.println("Error occured, NoSuchElementException caught.");
+				System.out.println("Error occured when getting player move, NoSuchElementException caught.");
+				e.printStackTrace();
 				return null;
 			}
 		} else {
@@ -58,15 +60,19 @@ public class HumanPlayer extends Player {
 	private Point getMoveFromCommandPrompt(GameState g) {
 		
 		int[] coord = new int[2];
-		coord[0] = -1; coord[1] = -1;
 		boolean[][] allowedMoves = g.getLegalMoves(this);
 		boolean goodMove = false;
 		
 		while (!goodMove) {
-			System.out.println("Enter the row you wish to place a counter at:");
-			coord[0] = scanner.nextInt();
-			System.out.println("Enter the column you wish to place a counter at:");
-			coord[1] = scanner.nextInt();
+			coord[0] = -1; coord[1] = -1;
+			try {
+				System.out.println("Enter the row you wish to place a counter at:");
+				coord[0] = scanner.nextInt();
+				System.out.println("Enter the column you wish to place a counter at:");
+				coord[1] = scanner.nextInt();
+			} catch (InputMismatchException e) {
+				System.out.print("That's not a number. ");
+			}
 			if (coord[0] >= 0 && coord[0] < g.getBoardDims()[0] && coord[1] >= 0 && coord[1] < g.getBoardDims()[1] && allowedMoves[coord[0]][coord[1]]) {
 				goodMove = true;
 			} else {

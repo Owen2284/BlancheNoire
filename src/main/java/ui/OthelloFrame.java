@@ -7,7 +7,7 @@ import java.awt.HeadlessException;
 
 import javax.swing.JFrame;
 
-import game.GameState;
+import games.GameState;
 import players.Player;
 
 /**
@@ -26,7 +26,7 @@ public class OthelloFrame extends JFrame {
 	private static final long serialVersionUID = -7230594703974179925L;
 
 	/**
-	 * Constructor that takes an initial game state to allow for the interface to be drawn.
+	 * Constructor that takes an initial games state to allow for the interface to be drawn.
 	 */
 	public OthelloFrame(GameState game) throws HeadlessException {
 		
@@ -58,7 +58,7 @@ public class OthelloFrame extends JFrame {
 	}
 	
 	/**
-	 * Method that changes the interface to reflect the game state.
+	 * Method that changes the interface to reflect the games state.
 	 */
 	public void updateUI(GameState game, Player playerToPlay) {
 		this.top.updateUI(game);

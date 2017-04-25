@@ -3,7 +3,7 @@ package deciders;
 import java.awt.Point;
 
 import evaluators.Evaluator;
-import game.GameState;
+import games.GameState;
 import players.Player;
 
 /**
@@ -24,7 +24,7 @@ public abstract class MinimaxDecider extends Decider {
 		// Initialising variables.
 		long startTimestamp = System.currentTimeMillis();
 
-		// Runs the function to analyse the game tree.
+		// Runs the function to analyse the games tree.
 		Point bestMove = getMaxMove(game, depthToSearchTo, startTimestamp, maxSearchTime, e, p);
 		
 		// Returns the move with the best score found by the decider.
@@ -35,7 +35,7 @@ public abstract class MinimaxDecider extends Decider {
 	protected abstract Point getMaxMove(GameState current, int depth, long startTimestamp, int timeLimit, Evaluator e, Player p); 
 	
 	/**
-	 * Returns the maximum score obtainable for a player in the sub-tree of the game
+	 * Returns the maximum score obtainable for a player in the sub-tree of the games
 	 * tree originating at this point. Supports iterative deepening and cuts of processing
 	 * when the time limit is reached.
 	 */
@@ -79,7 +79,7 @@ public abstract class MinimaxDecider extends Decider {
 	}
 	
 	/**
-	 * Returns the minimum score obtainable for a player in the sub-tree of the game
+	 * Returns the minimum score obtainable for a player in the sub-tree of the games
 	 * tree originating at this point.
 	 */
 	protected float getMinScore(GameState current, int depth, long startTimestamp, int timeLimit, Evaluator e, Player playerToEvaluate, Player playerToPlay, float alpha, float beta) {

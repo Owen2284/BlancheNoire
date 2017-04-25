@@ -6,11 +6,11 @@ import java.awt.Graphics;
 
 import javax.swing.JPanel;
 
-import game.GameState;
+import games.GameState;
 import players.Player;
 
 /**
- * A UI panel for displaying additional information about the game.
+ * A UI panel for displaying additional information about the games.
  */
 public class InfoPanel extends JPanel {
 	
@@ -31,17 +31,17 @@ public class InfoPanel extends JPanel {
 	}
 	
 	/**
-	 * Method that caches information about the game for use by the drawing method.
+	 * Method that caches information about the games for use by the drawing method.
 	 */
 	public void updateUI(GameState game, Player playerToPlay) {
 		if (game.isOver()) {
 			int[] scores = {game.getScoreOfID(GameState.COUNTER_DARK), game.getScoreOfID(GameState.COUNTER_LIGHT)};
 			if (scores[0] > scores[1]) {
-				this.info = "The game is over. The winning player is Player 1.";
+				this.info = "The games is over. The winning player is Player 1.";
 			} else if (scores[0] < scores[1]) {
-				this.info = "The game is over. The winning player is Player 2.";
+				this.info = "The games is over. The winning player is Player 2.";
 			} else {
-				this.info = "The game is over. The two players have drawn.";
+				this.info = "The games is over. The two players have drawn.";
 			}
 		} else {
 			if (playerToPlay.getPlayerType().equals("Human")) {

@@ -1,4 +1,4 @@
-package game;
+package games;
 
 import java.awt.Point;
 
@@ -6,7 +6,7 @@ import players.Player;
 import players.ScriptPlayer;
 
 /**
- * A class to store a series of steps to recreate an Othello game. Mainly used during deep learning procedures
+ * A class to store a series of steps to recreate an Othello games. Mainly used during deep learning procedures
  * and GameState testing.
  */
 public class GameScript {
@@ -16,7 +16,7 @@ public class GameScript {
 	private int[] dims;
 
 	/**
-	 * Creates a GameScript when provided the scores at game end, the moves made, and the board dimensions.
+	 * Creates a GameScript when provided the scores at games end, the moves made, and the board dimensions.
 	 */
 	public GameScript(int[] scores, Point[] moves, int[] dims) {
 		this.scores = (int[]) scores.clone();
@@ -111,7 +111,7 @@ public class GameScript {
 	}
 	
 	/**
-	 * Returns the total number of moves played during the game.
+	 * Returns the total number of moves played during the games.
 	 */
 	public int getTotalMoves() {
 		return this.moves.length;

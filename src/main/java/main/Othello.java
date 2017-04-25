@@ -4,15 +4,15 @@ import java.awt.Point;
 import java.io.PrintWriter;
 import java.util.HashMap;
 
-import game.GameState;
+import games.GameState;
 import players.HumanPlayer;
 import players.Player;
 import players.PlayerFactory;
 import ui.OthelloFrame;
 
 /**
- * The main class that runs the Othello game. Can be provided numerous command line arguments to
- * change the operation of the game. (See help.txt for usage of arguments.)
+ * The main class that runs the Othello games. Can be provided numerous command line arguments to
+ * change the operation of the games. (See help.txt for usage of arguments.)
  */
 public class Othello {
 	
@@ -34,7 +34,7 @@ public class Othello {
 			}
 		}
 		
-		// Setting default values for game variables and applies command line arguments if they are found.
+		// Setting default values for games variables and applies command line arguments if they are found.
 		boolean useGUI = true;
 		boolean showOutput = false;
 		boolean archiveGames = true;
@@ -68,7 +68,7 @@ public class Othello {
 			if (argMap.keySet().contains("-boardSize".toUpperCase())) {boardSize = Integer.parseInt(argMap.get("-boardSize".toUpperCase()));}
 		} catch (Exception e) {System.out.println("Error parsing -boardSize argument. (" + e.getMessage() + ")");}
 			
-		// Defines main game variables.
+		// Defines main games variables.
 		GameState game = new GameState(new HumanPlayer(GameState.COUNTER_DARK, useGUI), new HumanPlayer(GameState.COUNTER_LIGHT, useGUI), 8);
 		Player p1 = null;
 		Player p2 = null;
@@ -78,7 +78,7 @@ public class Othello {
 			ui = new OthelloFrame(game);
 		}
 		
-		// Runs the game multiple times if required.
+		// Runs the games multiple times if required.
 		for (int runNumber = 0; runNumber < timesToRun; ++runNumber) {
 		
 			// Creates the player objects.
@@ -126,10 +126,10 @@ public class Othello {
 				p2 = temp;
 			}
 			
-			// Creates initial game state.
+			// Creates initial games state.
 			game = new GameState(p1, p2, boardSize);
 			
-			// Storing initial game state in file string storage.
+			// Storing initial games state in file string storage.
 			String fileString = game.toFileString();
 					
 			// Initialises other variables.
@@ -137,23 +137,23 @@ public class Othello {
 			Player playerToPlay = null;
 			
 			if (timesToRun > 1) {
-				System.out.println("Running game " + (runNumber+1) + "...");
+				System.out.println("Running games " + (runNumber+1) + "...");
 			}
 				
-			// Creates game UI.
+			// Creates games UI.
 			while (!game.isOver()) {
 				
 				// Retrieve the player that is next to play.
 				playerToPlay = game.getPlayerByIndex(nextPlayerNumber);
 				
-				// Display the current game state.
+				// Display the current games state.
 				if (useGUI) {
 					ui.updateUI(game, playerToPlay);
 				} else {
 					System.out.println(game);
 				}
 				
-				// Temporary pause to show game state.
+				// Temporary pause to show games state.
 				try {Thread.sleep(delayBetweenMoves);} catch (Exception e) {}
 				
 				// Determine if the player can make a move or not.
@@ -167,7 +167,7 @@ public class Othello {
 						moveToPlay = playerToPlay.getMove(game, null);
 					}
 					
-					// Plays the move onto the game board, and stores the new GameState.
+					// Plays the move onto the games board, and stores the new GameState.
 					game = game.playMove(playerToPlay, moveToPlay);
 					
 					// Display any info about the player's move if necessary.
@@ -185,12 +185,12 @@ public class Othello {
 					
 				}
 				
-				// Changes the player to play next and loops back to the start of the game loop.
+				// Changes the player to play next and loops back to the start of the games loop.
 				nextPlayerNumber = (nextPlayerNumber + 1) % 2;
 				
 			}
 			
-			// Display the final game state.
+			// Display the final games state.
 			if (useGUI) {
 				ui.updateUI(game, playerToPlay);
 			} else {
@@ -212,7 +212,7 @@ public class Othello {
 				}
 			}
 			
-			// Writes game archive to a file.
+			// Writes games archive to a file.
 			if (archiveGames) {
 				fileString += "END";
 				try {
@@ -226,7 +226,7 @@ public class Othello {
 						System.out.println("Game file written to \"" + fileName + "\"");
 					}
 				} catch(Exception e) {
-					System.out.println("Error while writing game file: " + e.getMessage());
+					System.out.println("Error while writing games file: " + e.getMessage());
 				}
 			}
 			
@@ -234,8 +234,8 @@ public class Othello {
 		
 		if (timesToRun > 1) {
 			System.out.println("FINAL RESULTS");
-			System.out.println("Player 1 won " + wins[0] + " game(s).");
-			System.out.println("Player 2 won " + wins[1] + " game(s).");
+			System.out.println("Player 1 won " + wins[0] + " games(s).");
+			System.out.println("Player 2 won " + wins[1] + " games(s).");
 			System.out.println("The players drew " + (timesToRun - wins[0] - wins[1]) + " time(s).");
 		}
 		

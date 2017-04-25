@@ -9,15 +9,15 @@ import java.awt.event.MouseListener;
 
 import javax.swing.JPanel;
 
-import game.GameState;
+import games.GameState;
 import players.Player;
 
 /**
- * A UI panel for displaying the current game state.
+ * A UI panel for displaying the current games state.
  */
 public class GamePanel extends JPanel implements MouseListener {
 	
-	// Fields for caching game data.
+	// Fields for caching games data.
 	private int[][] board;
 	private boolean[][] legalMoves;
 	private Player[] players;
@@ -31,7 +31,7 @@ public class GamePanel extends JPanel implements MouseListener {
 	public static final int PANEL_WIDTH = OthelloFrame.FRAME_WIDTH;
 	public static final int PANEL_HEIGHT = 480;
 	
-	// Variables for sizing the game board.
+	// Variables for sizing the games board.
 	private final int boardSize = (PANEL_HEIGHT - 80);
 	private final int gridX = (PANEL_WIDTH / 2) - (boardSize / 2);
 	private final int gridY = 20;
@@ -70,7 +70,7 @@ public class GamePanel extends JPanel implements MouseListener {
 	}
 	
 	/**
-	 * Method that caches information about the game for use by drawing methods.
+	 * Method that caches information about the games for use by drawing methods.
 	 */
 	public void updateUI(GameState game, Player playerToPlay) {
 		

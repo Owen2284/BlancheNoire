@@ -1,10 +1,10 @@
 package evaluators;
 
-import game.GameState;
+import games.GameState;
 import players.Player;
 
 /**
- * Evaluates game states based on the difference between the two player's scores.
+ * Evaluates games states based on the difference between the two player's scores.
  */
 public class ScoreEvaluator extends Evaluator {
 

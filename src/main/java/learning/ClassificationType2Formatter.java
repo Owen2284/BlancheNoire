@@ -1,7 +1,7 @@
 package learning;
 
-import game.GameScript;
-import game.GameState;
+import games.GameScript;
+import games.GameState;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -33,7 +33,7 @@ public class ClassificationType2Formatter extends NeuralNetDataFormatter {
             GameScript gs = new GameScript(game);
             int darkResult = Math.max(0, gs.darkResult());
 
-            // Loop through all game states in the script.
+            // Loop through all games states in the script.
             for (int turn = 0; turn < gs.getTotalMoves(); ++turn) {
 
                 // Stores the data about the GameState in the maps.

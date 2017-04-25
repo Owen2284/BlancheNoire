@@ -1,10 +1,10 @@
 package evaluators;
 
-import game.GameState;
+import games.GameState;
 import players.Player;
 
 /**
- * Evaluates game states based on the counters the player owns and the percieved value of those
+ * Evaluates games states based on the counters the player owns and the percieved value of those
  * counters' locations (e.g. edge and corner pieces are worth more than other pieces)
  */
 public class PositionalEvaluator extends Evaluator {
@@ -30,7 +30,7 @@ public class PositionalEvaluator extends Evaluator {
 		int myID = p.getPlayerID();
 		int opponentID = game.getOpposingPlayer(p).getPlayerID();
 		
-		// Checks if the game is won or lost.
+		// Checks if the games is won or lost.
 		if (game.isOver()) {
 			if (game.getScoreOfID(myID) > game.getScoreOfID(opponentID)) {
 				score = (game.getBoardDims()[0] * game.getBoardDims()[1] * (float) EDGE_WEIGHT * (float) CORNER_WEIGHT) + (game.getScoreOfID(myID) - game.getScoreOfID(opponentID));

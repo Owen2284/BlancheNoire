@@ -3,7 +3,7 @@ package deciders;
 import java.awt.Point;
 
 import evaluators.Evaluator;
-import game.GameState;
+import games.GameState;
 import players.Player;
 
 /**
@@ -22,7 +22,7 @@ public class FixedMinimaxDecider extends MinimaxDecider {
 	}
 	
 	/**
-	 * Evaluates all children of the current game state and returns the most promising one.
+	 * Evaluates all children of the current games state and returns the most promising one.
 	 */
 	public Point getMaxMove(GameState current, int depth, long startTimestamp, int timeLimit, Evaluator e, Player p) {
 		
@@ -40,7 +40,7 @@ public class FixedMinimaxDecider extends MinimaxDecider {
 				// Checks if a legal move is available at this space.
 				if (current.getLegalMoves(p)[row][col]) {
 					
-					// Analyses the game tree that sprouts from playing a move at the current space.
+					// Analyses the games tree that sprouts from playing a move at the current space.
 					GameState child = current.playMove(p, new Point(row, col));
 					float childScore = getMinScore(child, depth-1, startTimestamp, timeLimit, e, p, child.getOpposingPlayer(p), Float.NEGATIVE_INFINITY, Float.POSITIVE_INFINITY);
 					

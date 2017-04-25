@@ -3,7 +3,7 @@ package deciders;
 import java.awt.Point;
 
 import evaluators.Evaluator;
-import game.GameState;
+import games.GameState;
 import players.Player;
 
 /**

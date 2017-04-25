@@ -1,7 +1,7 @@
 package learning;
 
-import game.GameScript;
-import game.GameState;
+import games.GameScript;
+import games.GameState;
 
 import java.util.*;
 
@@ -32,7 +32,7 @@ public class ClassificationType3Formatter extends NeuralNetDataFormatter {
             int[] darkResults = {Math.max(0, gs.darkResult()), 1 - Math.max(0, gs.darkResult())};
             int[][] idPairs = {{GameState.COUNTER_DARK, GameState.COUNTER_LIGHT}, {GameState.COUNTER_LIGHT, GameState.COUNTER_DARK}};
 
-            // Loop through all game states in the script.
+            // Loop through all games states in the script.
             for (int turn = 0; turn < gs.getTotalMoves(); ++turn) {
 
                 // Stores the data about the GameState in the maps, for both the provided
