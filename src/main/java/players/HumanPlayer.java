@@ -37,14 +37,14 @@ public class HumanPlayer extends Player {
 	}
 
 	public Point getMove(GameState game, GamePanel panel) {
-		Point theMove;
+		Point theMove = null;
 		if (!usingGUI) {
-			try {
-				theMove = getMoveFromCommandPrompt(game);
-			} catch (NoSuchElementException e) {
-				System.out.println("Error occured when getting player move, NoSuchElementException caught.");
-				e.printStackTrace();
-				return null;
+			while (theMove == null) {
+				try {
+					theMove = getMoveFromCommandPrompt(game);
+				} catch (NoSuchElementException e) {
+					System.out.println("Error occurred when getting HumanPlayer move, NoSuchElementException caught.");
+				}
 			}
 		} else {
 			theMove = panel.getPlayerMoveViaUI(game, this);

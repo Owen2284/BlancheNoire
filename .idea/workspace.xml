@@ -2,37 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d9e3a080-fdad-4557-94b5-288e3bbeab2e" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ann/othello_net_first_df3_1.0.zip" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ann/othello_net_first_df3_1.0_stats.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ann/othello_net_second_df3_1.0.zip" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ann/othello_net_second_df3_1.0_stats.txt" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/help.txt" afterPath="$PROJECT_DIR$/help.txt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/deciders/Decider.java" afterPath="$PROJECT_DIR$/src/main/java/deciders/Decider.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/deciders/FixedMinimaxDecider.java" afterPath="$PROJECT_DIR$/src/main/java/deciders/FixedMinimaxDecider.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/deciders/IterativeMinimaxDecider.java" afterPath="$PROJECT_DIR$/src/main/java/deciders/IterativeMinimaxDecider.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/deciders/MinimaxDecider.java" afterPath="$PROJECT_DIR$/src/main/java/deciders/MinimaxDecider.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/deciders/MonteCarloTreeSearchDecider.java" afterPath="$PROJECT_DIR$/src/main/java/deciders/MonteCarloTreeSearchDecider.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/deciders/RandomDecider.java" afterPath="$PROJECT_DIR$/src/main/java/deciders/RandomDecider.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/evaluators/DeepLearningEvaluator.java" afterPath="$PROJECT_DIR$/src/main/java/evaluators/DeepLearningEvaluator.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/evaluators/Evaluator.java" afterPath="$PROJECT_DIR$/src/main/java/evaluators/Evaluator.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/evaluators/PositionalEvaluator.java" afterPath="$PROJECT_DIR$/src/main/java/evaluators/PositionalEvaluator.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/evaluators/ScoreEvaluator.java" afterPath="$PROJECT_DIR$/src/main/java/evaluators/ScoreEvaluator.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/learning/ClassificationType2Formatter.java" afterPath="$PROJECT_DIR$/src/main/java/learning/ClassificationType2Formatter.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/learning/ClassificationType3Formatter.java" afterPath="$PROJECT_DIR$/src/main/java/learning/ClassificationType3Formatter.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/learning/NeuralNetDataHandler.java" afterPath="$PROJECT_DIR$/src/main/java/learning/NeuralNetDataHandler.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/learning/WinDataStore.java" afterPath="$PROJECT_DIR$/src/main/java/learning/WinDataStore.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/main/Othello.java" afterPath="$PROJECT_DIR$/src/main/java/main/Othello.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/players/AIPlayer.java" afterPath="$PROJECT_DIR$/src/main/java/players/AIPlayer.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/players/HumanPlayer.java" afterPath="$PROJECT_DIR$/src/main/java/players/HumanPlayer.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/players/Player.java" afterPath="$PROJECT_DIR$/src/main/java/players/Player.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/players/ScriptPlayer.java" afterPath="$PROJECT_DIR$/src/main/java/players/ScriptPlayer.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ui/GamePanel.java" afterPath="$PROJECT_DIR$/src/main/java/ui/GamePanel.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ui/InfoPanel.java" afterPath="$PROJECT_DIR$/src/main/java/ui/InfoPanel.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ui/OthelloFrame.java" afterPath="$PROJECT_DIR$/src/main/java/ui/OthelloFrame.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ui/ScorePanel.java" afterPath="$PROJECT_DIR$/src/main/java/ui/ScorePanel.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/game/GameScript.java" afterPath="$PROJECT_DIR$/src/main/java/games/GameScript.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/game/GameState.java" afterPath="$PROJECT_DIR$/src/main/java/games/GameState.java" />
     </list>
     <ignored path="$PROJECT_DIR$/dl4j/examples/dl4j-spark-examples/dl4j-spark/target/" />
     <ignored path="$PROJECT_DIR$/dl4j/main/deeplearning4j-ui-parent/deeplearning4j-ui-model/target/" />
@@ -111,21 +81,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Othello.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="Othello.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/main/Othello.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="34">
               <caret line="146" column="53" lean-forward="true" selection-start-line="146" selection-start-column="53" selection-end-line="146" selection-end-column="53" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="HumanPlayer.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/main/java/players/HumanPlayer.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="501">
-              <caret line="73" column="55" lean-forward="false" selection-start-line="73" selection-start-column="55" selection-end-line="73" selection-end-column="55" />
               <folding />
             </state>
           </provider>
@@ -1072,6 +1032,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -1083,7 +1044,7 @@
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32980973" sideWeight="0.50208336" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.5116279" sideWeight="0.49583334" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.30021143" sideWeight="0.49583334" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Properties" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -1449,14 +1410,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/main/Othello.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="34">
-          <caret line="146" column="53" lean-forward="true" selection-start-line="146" selection-start-column="53" selection-end-line="146" selection-end-column="53" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/games/GameState.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="136">
@@ -1480,8 +1433,16 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/players/HumanPlayer.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="501">
-          <caret line="73" column="55" lean-forward="false" selection-start-line="73" selection-start-column="55" selection-end-line="73" selection-end-column="55" />
+        <state relative-caret-position="229">
+          <caret line="48" column="16" lean-forward="true" selection-start-line="48" selection-start-column="16" selection-end-line="48" selection-end-column="16" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/main/Othello.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="34">
+          <caret line="146" column="53" lean-forward="true" selection-start-line="146" selection-start-column="53" selection-end-line="146" selection-end-column="53" />
           <folding />
         </state>
       </provider>
