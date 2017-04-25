@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d9e3a080-fdad-4557-94b5-288e3bbeab2e" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/players/HumanPlayer.java" afterPath="$PROJECT_DIR$/src/main/java/players/HumanPlayer.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/games/GameState.java" afterPath="$PROJECT_DIR$/src/main/java/games/GameState.java" />
     </list>
     <ignored path="$PROJECT_DIR$/dl4j/examples/dl4j-spark-examples/dl4j-spark/target/" />
     <ignored path="$PROJECT_DIR$/dl4j/main/deeplearning4j-ui-parent/deeplearning4j-ui-model/target/" />
@@ -69,23 +69,34 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="GameState.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="GameState.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/games/GameState.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="136">
-              <caret line="444" column="0" lean-forward="false" selection-start-line="444" selection-start-column="0" selection-end-line="444" selection-end-column="0" />
+            <state relative-caret-position="833">
+              <caret line="320" column="95" lean-forward="false" selection-start-line="320" selection-start-column="95" selection-end-line="320" selection-end-column="95" />
               <folding>
+                <element signature="e#12798#12799#0" expanded="true" />
                 <element signature="e#12843#12844#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Othello.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="Othello.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/main/Othello.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="34">
-              <caret line="146" column="53" lean-forward="true" selection-start-line="146" selection-start-column="53" selection-end-line="146" selection-end-column="53" />
+            <state relative-caret-position="204">
+              <caret line="156" column="77" lean-forward="true" selection-start-line="156" selection-start-column="77" selection-end-line="156" selection-end-column="77" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="NeuralNetDataFormatter.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/learning/NeuralNetDataFormatter.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="238">
+              <caret line="14" column="63" lean-forward="false" selection-start-line="14" selection-start-column="63" selection-end-line="14" selection-end-column="63" />
               <folding />
             </state>
           </provider>
@@ -148,6 +159,7 @@
         <option value="$PROJECT_DIR$/src/main/java/ui/OthelloFrame.java" />
         <option value="$PROJECT_DIR$/src/main/java/deciders/MonteCarloTreeSearchDecider.java" />
         <option value="$PROJECT_DIR$/src/main/java/players/HumanPlayer.java" />
+        <option value="$PROJECT_DIR$/src/main/java/games/GameState.java" />
       </list>
     </option>
   </component>
@@ -1310,14 +1322,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/learning/NeuralNetDataFormatter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="238">
-          <caret line="14" column="63" lean-forward="false" selection-start-line="14" selection-start-column="63" selection-end-line="14" selection-end-column="63" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/players/AIPlayer.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="476">
@@ -1410,16 +1414,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/games/GameState.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="136">
-          <caret line="444" column="0" lean-forward="false" selection-start-line="444" selection-start-column="0" selection-end-line="444" selection-end-column="0" />
-          <folding>
-            <element signature="e#12843#12844#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/deciders/MonteCarloTreeSearchDecider.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="194">
@@ -1441,9 +1435,28 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/main/Othello.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="34">
-          <caret line="146" column="53" lean-forward="true" selection-start-line="146" selection-start-column="53" selection-end-line="146" selection-end-column="53" />
+        <state relative-caret-position="204">
+          <caret line="156" column="77" lean-forward="true" selection-start-line="156" selection-start-column="77" selection-end-line="156" selection-end-column="77" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/learning/NeuralNetDataFormatter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="238">
+          <caret line="14" column="63" lean-forward="false" selection-start-line="14" selection-start-column="63" selection-end-line="14" selection-end-column="63" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/games/GameState.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="833">
+          <caret line="320" column="95" lean-forward="false" selection-start-line="320" selection-start-column="95" selection-end-line="320" selection-end-column="95" />
+          <folding>
+            <element signature="e#12798#12799#0" expanded="true" />
+            <element signature="e#12843#12844#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

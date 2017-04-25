@@ -318,7 +318,7 @@ public class GameState {
 		if (id == COUNTER_DARK || id == COUNTER_LIGHT) {
 			return this.hasLegalMovesCache[id-1];
 		} else {
-			throw new IllegalArgumentException("Invalid player ID, no counter type that macthes the ID " + id + ".");
+			throw new IllegalArgumentException("Invalid player ID, no counter type that matches the ID " + id + ".");
 		}
 	}
 	
