@@ -72,8 +72,8 @@
       <file leaf-file-name="GameState.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/games/GameState.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="833">
-              <caret line="320" column="95" lean-forward="false" selection-start-line="320" selection-start-column="95" selection-end-line="320" selection-end-column="95" />
+            <state relative-caret-position="323">
+              <caret line="290" column="92" lean-forward="false" selection-start-line="290" selection-start-column="92" selection-end-line="290" selection-end-column="92" />
               <folding>
                 <element signature="e#12798#12799#0" expanded="true" />
                 <element signature="e#12843#12844#0" expanded="true" />
@@ -1451,8 +1451,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/games/GameState.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="833">
-          <caret line="320" column="95" lean-forward="false" selection-start-line="320" selection-start-column="95" selection-end-line="320" selection-end-column="95" />
+        <state relative-caret-position="323">
+          <caret line="290" column="92" lean-forward="false" selection-start-line="290" selection-start-column="92" selection-end-line="290" selection-end-column="92" />
           <folding>
             <element signature="e#12798#12799#0" expanded="true" />
             <element signature="e#12843#12844#0" expanded="true" />
