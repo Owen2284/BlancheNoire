@@ -247,7 +247,7 @@ public class GameState {
 				this.scoreCache[0] = (boardSize * boardSize) / 2;
 				this.scoreCache[1] = (boardSize * boardSize) / 2;
 			}
-		}		
+		}
 	}
 
 	/**
