@@ -144,7 +144,7 @@ public class NeuralNetFactory {
 		} else if (configToUse == 2) {
 			conf = configClassification2(inputCount, labelCount, SEED);
 		} else if (configToUse == 3) {
-			conf = configRegression1(inputCount, SEED);
+			conf = configClassification3(inputCount, labelCount, SEED);
 		} else {
 			throw new IllegalArgumentException("Invalid NN config number.");
 		}
@@ -309,11 +309,11 @@ public class NeuralNetFactory {
 	}
 
 	/*
-	 * Creates a NN wthat regresses the data to a single float output.
+	 * Creates a NN wthat regresses the data to a single float output. (Doesn't do that at the moment though)
 	 */
-	private static MultiLayerConfiguration configRegression1(int inputCount, int seed) {
+	private static MultiLayerConfiguration configClassification3(int inputCount, int outputCount, int seed) {
 		double learningRate = 0.01;
-		int hiddenNodeCount = 128;
+		int hiddenNodeCount = 256;
 
 		MultiLayerConfiguration conf = new NeuralNetConfiguration.Builder()
 				.seed(seed)
@@ -343,11 +343,11 @@ public class NeuralNetFactory {
 						.activation(Activation.RELU)
 						.build()
 				)
-				.layer(3, new OutputLayer.Builder(LossFunctions.LossFunction.NEGATIVELOGLIKELIHOOD)
+				.layer(3, new OutputLayer.Builder(LossFunctions.LossFunction.MSE)
 						.weightInit(WeightInit.XAVIER)
 						.activation(Activation.IDENTITY)
 						.nIn(hiddenNodeCount)
-						.nOut(1)
+						.nOut(outputCount)
 						.build()
 				)
 				.pretrain(false).backprop(true).build();

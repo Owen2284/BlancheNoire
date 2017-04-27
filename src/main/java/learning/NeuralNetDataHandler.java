@@ -65,7 +65,7 @@ public class NeuralNetDataHandler {
 	public static void prepare() {
 		// Convert and split the data. (Uses same random seed so results can be reproduced.)
 		String startDir = "dat/dataset/";
-		String convertedDir = "dat/scripts/full";
+		String convertedDir = "dat/scripts/full/";
 		String trainDir = "dat/scripts/train/";
 		String testDir = "dat/scripts/test/";
 		convertDatasetToScripts(startDir, convertedDir);
@@ -274,7 +274,6 @@ public class NeuralNetDataHandler {
 					++failedGames;
 					++otherFailGames;
 				}
-				
 			}
 			
 			// Write games to a file if >= 100 games in a ArrayList.
