@@ -5,7 +5,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.HeadlessException;
 
-import javax.swing.JFrame;
+import javax.swing.*;
 
 import games.GameState;
 import players.Player;
@@ -37,6 +37,7 @@ public class OthelloFrame extends JFrame {
 		this.setPreferredSize(new Dimension(FRAME_WIDTH, FRAME_HEIGHT));
 		this.setResizable(false);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		this.setIconImage(new ImageIcon("img/icon.png").getImage());
 		
 		// Adding panels.
         this.top = new ScorePanel();
