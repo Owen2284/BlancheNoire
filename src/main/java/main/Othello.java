@@ -72,7 +72,8 @@ public class Othello {
 		GameState game = new GameState(new HumanPlayer(GameState.COUNTER_DARK, useGUI), new HumanPlayer(GameState.COUNTER_LIGHT, useGUI), 8);
 		Player p1 = null;
 		Player p2 = null;
-		int[] wins = {0,0};
+		int[] playerWins = {0,0};
+		int[] slotWins = {0,0};
 		OthelloFrame ui = null;
 		if (useGUI) {
 			ui = new OthelloFrame(game);
@@ -137,7 +138,7 @@ public class Othello {
 			Player playerToPlay = null;
 			
 			if (timesToRun > 1) {
-				System.out.println("Running games " + (runNumber+1) + "...");
+				System.out.println("Running game " + (runNumber+1) + "...");
 			}
 				
 			// Creates games UI.
@@ -196,19 +197,37 @@ public class Othello {
 			} else {
 				System.out.println(game);
 			}
+
+			// Print the game's results.
+			if (timesToRun > 1) {
+				System.out.print(" ");
+			}
+			if (game.isWinning(p1)) {
+				System.out.print("The dark player wins. ");
+			} else {
+				System.out.print("The light player wins. ");
+			}
+			System.out.println("Final score: " + game.getScoreOfPlayer(p1) + "-" + game.getScoreOfPlayer(p2));
+
+			// Temporary pause to show the final game state.
+			try {Thread.sleep(delayBetweenMoves*4);} catch (Exception e) {}
 			
-			// Update wins array based on outcome.
+			// Update wins arrays based on outcome.
 			if (alternate && (runNumber % 2 == 1)) {
 				if (game.isWinning(p1)) {
-					wins[1] += 1;
+					playerWins[1] += 1;
+					slotWins[0] += 1;
 				} else if (game.isWinning(p2)) {
-					wins[0] += 1;
+					playerWins[0] += 1;
+					slotWins[1] += 1;
 				}
 			} else {
 				if (game.isWinning(p1)) {
-					wins[0] += 1;
+					playerWins[0] += 1;
+					slotWins[0] += 1;
 				} else if (game.isWinning(p2)) {
-					wins[1] += 1;
+					playerWins[1] += 1;
+					slotWins[1] += 1;
 				}
 			}
 			
@@ -234,9 +253,14 @@ public class Othello {
 		
 		if (timesToRun > 1) {
 			System.out.println("FINAL RESULTS");
-			System.out.println("Player 1 won " + wins[0] + " games(s).");
-			System.out.println("Player 2 won " + wins[1] + " games(s).");
-			System.out.println("The players drew " + (timesToRun - wins[0] - wins[1]) + " time(s).");
+			System.out.println("-------------");
+			System.out.println("Player 1 won " + playerWins[0] + " games(s).");
+			System.out.println("Player 2 won " + playerWins[1] + " games(s).");
+			System.out.println("-------------");
+			System.out.println("The Dark player won " + slotWins[0] + " game(s).");
+			System.out.println("The Light player won " + slotWins[1] + " game(s).");
+			System.out.println("-------------");
+			System.out.println("The players drew " + (timesToRun - playerWins[0] - playerWins[1]) + " time(s).");
 		}
 		
 	}
