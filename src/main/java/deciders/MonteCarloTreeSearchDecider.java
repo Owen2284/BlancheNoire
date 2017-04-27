@@ -58,7 +58,10 @@ public class MonteCarloTreeSearchDecider extends FixedMinimaxDecider {
 				}
 			}
 		}
-		if (onlyOneMove) {return foundMove;}
+		if (onlyOneMove) {
+			p.setOutput("Move chosen: (" + foundMove.x + "," + foundMove.y + "), only move available.");
+			return foundMove;
+		}
 		
 		simulationsRun = 0;
 		Player playerIAm = p;
