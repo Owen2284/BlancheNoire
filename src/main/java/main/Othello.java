@@ -1,7 +1,9 @@
 package main;
 
 import java.awt.Point;
+import java.io.File;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import games.GameState;
@@ -9,6 +11,7 @@ import players.HumanPlayer;
 import players.Player;
 import players.PlayerFactory;
 import ui.OthelloFrame;
+import util.FileTools;
 
 /**
  * The main class that runs the Othello games. Can be provided numerous command line arguments to
@@ -39,6 +42,7 @@ public class Othello {
 		boolean showOutput = false;
 		boolean archiveGames = true;
 		boolean alternate = true;
+		boolean writeStats = false;
 		int delayBetweenMoves = 100;
 		int maxSearchTime = 5000;
 		int timesToRun = 1;
@@ -55,6 +59,9 @@ public class Othello {
 		try {
 			if (argMap.keySet().contains("-alternate".toUpperCase())) {alternate = Boolean.parseBoolean(argMap.get("-alternate".toUpperCase()));}
 		} catch (Exception e) {System.out.println("Error parsing -alternate argument. (" + e.getMessage() + ")");}
+		try {
+			if (argMap.keySet().contains("-writeStats".toUpperCase())) {writeStats = Boolean.parseBoolean(argMap.get("-writeStats".toUpperCase()));}
+		} catch (Exception e) {System.out.println("Error parsing -writeStats argument. (" + e.getMessage() + ")");}
 		try {
 			if (argMap.keySet().contains("-moveDelay".toUpperCase())) {delayBetweenMoves = Integer.parseInt(argMap.get("-moveDelay".toUpperCase()));}
 		} catch (Exception e) {System.out.println("Error parsing -moveDelay argument. (" + e.getMessage() + ")");}
@@ -74,6 +81,7 @@ public class Othello {
 		Player p2 = null;
 		int[] playerWins = {0,0};
 		int[] slotWins = {0,0};
+		int[][] winStats = new int[2][timesToRun];
 		OthelloFrame ui = null;
 		if (useGUI) {
 			ui = new OthelloFrame(game);
@@ -230,6 +238,15 @@ public class Othello {
 					slotWins[1] += 1;
 				}
 			}
+
+			// Stores statistical data.
+			if (alternate && (runNumber % 2 == 1)) {
+				winStats[0][runNumber] = game.getScoreOfPlayer(p2);
+				winStats[1][runNumber] = game.getScoreOfPlayer(p1);
+			} else {
+				winStats[0][runNumber] = game.getScoreOfPlayer(p1);
+				winStats[1][runNumber] = game.getScoreOfPlayer(p2);
+			}
 			
 			// Writes games archive to a file.
 			if (archiveGames) {
@@ -250,19 +267,64 @@ public class Othello {
 			}
 			
 		}
-		
+
+		// Outputs information about all games that were run.
 		if (timesToRun > 1) {
 			System.out.println("FINAL RESULTS");
 			System.out.println("-------------");
-			System.out.println("Player 1 won " + playerWins[0] + " games(s).");
-			System.out.println("Player 2 won " + playerWins[1] + " games(s).");
+			System.out.println("Player 1 (" + argMap.get("-player1".toUpperCase()) + ") won " + playerWins[0] + " games(s).");
+			System.out.println("Player 2 (" + argMap.get("-player2".toUpperCase()) + ") won " + playerWins[1] + " games(s).");
 			System.out.println("-------------");
 			System.out.println("The Dark player won " + slotWins[0] + " game(s).");
 			System.out.println("The Light player won " + slotWins[1] + " game(s).");
 			System.out.println("-------------");
 			System.out.println("The players drew " + (timesToRun - playerWins[0] - playerWins[1]) + " time(s).");
 		}
-		
+
+		// Writes statistical data about the game(s), if enabled.
+		// Some values determined with aid from http://stackoverflow.com/questions/7988486/how-do-you
+		// -calculate-the-variance-median-and-standard-deviation-in-c-or-java
+		if (writeStats) {
+			String outputPath = "dat/stats/";
+			File outputDir = new File(outputPath);
+			if (!outputDir.exists()) {
+				outputDir.mkdirs();
+			}
+			String fileName = outputPath + argMap.get("-player1".toUpperCase()) + "_vs_" + argMap.get("-player2".toUpperCase()) + "_" + (System.currentTimeMillis() / (1000*60) ) + ".txt";
+			ArrayList<String> statData = new ArrayList<String>();
+			statData.add("-------------");
+			statData.add("Player 1 (" + argMap.get("-player1".toUpperCase()) + ") won " + playerWins[0] + " games(s).");
+			statData.add("Player 2 (" + argMap.get("-player2".toUpperCase()) + ") won " + playerWins[1] + " games(s).");
+			statData.add("-------------");
+			statData.add("The Dark player won " + slotWins[0] + " game(s).");
+			statData.add("The Light player won " + slotWins[1] + " game(s).");
+			statData.add("-------------");
+			statData.add("The players drew " + (timesToRun - playerWins[0] - playerWins[1]) + " time(s).");
+			statData.add("-------------");
+			for (int playerNum = 0; playerNum < 2; ++playerNum) {
+				String statLine = "";
+				int statSum = 0;
+				for (int gameNum = 0; gameNum < timesToRun; ++gameNum) {
+					statLine += winStats[playerNum][gameNum] + ",";
+					statSum += winStats[playerNum][gameNum];
+				}
+				double playerMean = ((double)statSum)/timesToRun;
+				double playerVar = 0.0;
+				for (int gameNum = 0; gameNum < timesToRun; ++gameNum) {
+					double oneVar = (((double)winStats[playerNum][gameNum]) - playerMean);
+					playerVar += (oneVar * oneVar);
+				}
+				playerVar = playerVar / ((double)(timesToRun-1));
+				statData.add("Player " + (playerNum+1) + " Values = [" + statLine.substring(0, statLine.length() - 1) + "]");
+				statData.add("Player " + (playerNum+1) + " Mean = " + playerMean);
+				statData.add("Player " + (playerNum+1) + " Variance = " + playerVar);
+				statData.add("Player " + (playerNum+1) + " Standard Deviation = " + Math.sqrt(playerVar));
+				statData.add("-------------");
+			}
+			FileTools.writeFile(fileName, statData);
+			System.out.println("-------------");
+			System.out.println("The statistics for the " + timesToRun + " games have been written to " + fileName);
+		}
 	}
 
 }
