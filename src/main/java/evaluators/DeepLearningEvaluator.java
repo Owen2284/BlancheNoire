@@ -33,14 +33,17 @@ public class DeepLearningEvaluator extends Evaluator {
 	public float evaluate(GameState game, Player p) {
 		// Get output from the NN.
 		INDArray result = net.output(game.toINDArray(p.getPlayerID(), game.getOpposingPlayer(p).getPlayerID()), false);
-		// Determine the most likely score from the returned INDArray.
-		int mostLikelyScore = -1;
-		for (int i = 0; i < result.shape()[1]; ++i) {
-			if (mostLikelyScore == -1 || result.getFloat(0, i) > result.getFloat(0, mostLikelyScore)) {
-				mostLikelyScore = i;
+		int numLabels = result.shape()[1];
+		if (numLabels > 1) {
+			// Creates a composite score by multiplying the label by the probability that it is that label.
+			float weightedScore = 0;
+			for (int i = 1; i < numLabels; ++i) {
+				weightedScore += (result.getFloat(0, i) * i);
 			}
+			return weightedScore;
+		} else {
+			return result.getFloat(0, 0);
 		}
-		return (float)mostLikelyScore;
 	}
 
 }
