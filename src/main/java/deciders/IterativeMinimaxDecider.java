@@ -74,7 +74,7 @@ public class IterativeMinimaxDecider extends MinimaxDecider {
 		}
 
 		// Setting output message.
-		p.setOutput("Move chosen: (" + highScoringMove.x + "," + highScoringMove.y + "). Score: " + moveScores.get(highScoringMove) + ". Depth reached: " + (currentDepth - 1) + ". (N/ms:- " + (this.debugNodesChecked / (System.currentTimeMillis() - startTimestamp + 1)) + ")");
+		p.setOutput("Move chosen: (" + highScoringMove.x + "," + highScoringMove.y + "). Score: " + moveScores.get(highScoringMove) + ". Depth reached: " + (currentDepth - 1) + ". (N/ms:- " + (this.debugNodesChecked / (System.currentTimeMillis() - startTimestamp + 1)) + "). Time remaining: " + (System.currentTimeMillis() - startTimestamp) + "ms.");
 
 		return highScoringMove;
 		

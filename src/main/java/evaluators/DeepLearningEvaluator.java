@@ -40,9 +40,9 @@ public class DeepLearningEvaluator extends Evaluator {
 			for (int i = 1; i < numLabels; ++i) {
 				weightedScore += (result.getFloat(0, i) * i);
 			}
-			return weightedScore;
+			return (weightedScore * (100/(numLabels-1)));
 		} else {
-			return result.getFloat(0, 0);
+			return (result.getFloat(0, 0) * (100/(numLabels-1)));
 		}
 	}
 
