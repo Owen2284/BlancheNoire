@@ -281,6 +281,7 @@ public class Othello {
 		statData.add("-------------");
 		statData.add("The players drew " + (timesToRun - playerWins[0] - playerWins[1]) + " time(s).");
 		statData.add("-------------");
+		double[] means = new double[2];
 		for (int playerNum = 0; playerNum < 2; ++playerNum) {
 			String statLine = "";
 			int statSum = 0;
@@ -289,6 +290,7 @@ public class Othello {
 				statSum += winStats[playerNum][gameNum];
 			}
 			double playerMean = ((double)statSum)/timesToRun;
+			means[playerNum] = playerMean;
 			double playerVar = 0.0;
 			for (int gameNum = 0; gameNum < timesToRun; ++gameNum) {
 				double oneVar = (((double)winStats[playerNum][gameNum]) - playerMean);
@@ -301,6 +303,8 @@ public class Othello {
 			statData.add("Player " + (playerNum+1) + " Standard Deviation = " + Math.sqrt(playerVar));
 			statData.add("-------------");
 		}
+		statData.add("Difference between players' average scores: " + Math.abs(means[0] - means[1]));
+		statData.add("-------------");
 
 		// Outputs information about all games that were run.
 		if (timesToRun > 1) {
