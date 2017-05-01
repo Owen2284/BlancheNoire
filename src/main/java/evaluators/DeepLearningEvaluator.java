@@ -42,7 +42,7 @@ public class DeepLearningEvaluator extends Evaluator {
 			}
 			return (weightedScore * (100/(numLabels-1)));
 		} else {
-			return (result.getFloat(0, 0) * (100/(numLabels-1)));
+			return (result.getFloat(0, 0) * 100);
 		}
 	}
 

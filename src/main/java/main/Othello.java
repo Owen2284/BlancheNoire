@@ -47,32 +47,23 @@ public class Othello {
 		int maxSearchTime = 5000;
 		int timesToRun = 1;
 		int boardSize = 8;
-		try {
-			if (argMap.keySet().contains("-useGUI".toUpperCase())) {useGUI = Boolean.parseBoolean(argMap.get("-useGUI".toUpperCase()));}
+		try {if (argMap.keySet().contains("-useGUI".toUpperCase())) {useGUI = Boolean.parseBoolean(argMap.get("-useGUI".toUpperCase()));}
 		} catch (Exception e) {System.out.println("Error parsing -useGUI argument. (" + e.getMessage() + ")");}
-		try {
-			if (argMap.keySet().contains("-showOutput".toUpperCase())) {showOutput = Boolean.parseBoolean(argMap.get("-showOutput".toUpperCase()));}
+		try {if (argMap.keySet().contains("-showOutput".toUpperCase())) {showOutput = Boolean.parseBoolean(argMap.get("-showOutput".toUpperCase()));}
 		} catch (Exception e) {System.out.println("Error parsing -showOutput argument. (" + e.getMessage() + ")");}	
-		try {
-			if (argMap.keySet().contains("-archiveGame".toUpperCase())) {archiveGames = Boolean.parseBoolean(argMap.get("-archiveGame".toUpperCase()));}
+		try {if (argMap.keySet().contains("-archiveGame".toUpperCase())) {archiveGames = Boolean.parseBoolean(argMap.get("-archiveGame".toUpperCase()));}
 		} catch (Exception e) {System.out.println("Error parsing -archiveGame argument. (" + e.getMessage() + ")");}
-		try {
-			if (argMap.keySet().contains("-alternate".toUpperCase())) {alternate = Boolean.parseBoolean(argMap.get("-alternate".toUpperCase()));}
+		try {if (argMap.keySet().contains("-alternate".toUpperCase())) {alternate = Boolean.parseBoolean(argMap.get("-alternate".toUpperCase()));}
 		} catch (Exception e) {System.out.println("Error parsing -alternate argument. (" + e.getMessage() + ")");}
-		try {
-			if (argMap.keySet().contains("-writeStats".toUpperCase())) {writeStats = Boolean.parseBoolean(argMap.get("-writeStats".toUpperCase()));}
+		try {if (argMap.keySet().contains("-writeStats".toUpperCase())) {writeStats = Boolean.parseBoolean(argMap.get("-writeStats".toUpperCase()));}
 		} catch (Exception e) {System.out.println("Error parsing -writeStats argument. (" + e.getMessage() + ")");}
-		try {
-			if (argMap.keySet().contains("-moveDelay".toUpperCase())) {delayBetweenMoves = Integer.parseInt(argMap.get("-moveDelay".toUpperCase()));}
+		try {if (argMap.keySet().contains("-moveDelay".toUpperCase())) {delayBetweenMoves = Integer.parseInt(argMap.get("-moveDelay".toUpperCase()));}
 		} catch (Exception e) {System.out.println("Error parsing -moveDelay argument. (" + e.getMessage() + ")");}
-		try {
-			if (argMap.keySet().contains("-AIRunTime".toUpperCase())) {maxSearchTime = Integer.parseInt(argMap.get("-AIRunTime".toUpperCase()));}
+		try {if (argMap.keySet().contains("-AIRunTime".toUpperCase())) {maxSearchTime = Integer.parseInt(argMap.get("-AIRunTime".toUpperCase()));}
 		} catch (Exception e) {System.out.println("Error parsing -AIRunTime argument. (" + e.getMessage() + ")");}
-		try {	
-			if (argMap.keySet().contains("-runCount".toUpperCase())) {timesToRun = Integer.parseInt(argMap.get("-runCount".toUpperCase()));}
+		try {if (argMap.keySet().contains("-runCount".toUpperCase())) {timesToRun = Integer.parseInt(argMap.get("-runCount".toUpperCase()));}
 		} catch (Exception e) {System.out.println("Error parsing -runCount argument. (" + e.getMessage() + ")");}
-		try {
-			if (argMap.keySet().contains("-boardSize".toUpperCase())) {boardSize = Integer.parseInt(argMap.get("-boardSize".toUpperCase()));}
+		try {if (argMap.keySet().contains("-boardSize".toUpperCase())) {boardSize = Integer.parseInt(argMap.get("-boardSize".toUpperCase()));}
 		} catch (Exception e) {System.out.println("Error parsing -boardSize argument. (" + e.getMessage() + ")");}
 			
 		// Defines main games variables.
@@ -299,7 +290,7 @@ public class Othello {
 				playerVar += (oneVar * oneVar);
 			}
 			playerVar = playerVar / ((double)(timesToRun-1));
-			statData.add("Player " + (playerNum+1) + " Values = [" + statLine.substring(0, statLine.length() - 1) + "]");
+			statData.add("Player " + (playerNum+1) + " Scores = [" + statLine.substring(0, statLine.length() - 1) + "]");
 			statData.add("Player " + (playerNum+1) + " Mean = " + means[playerNum]);
 			statData.add("Player " + (playerNum+1) + " Variance = " + playerVar);
 			statData.add("Player " + (playerNum+1) + " Standard Deviation = " + Math.sqrt(playerVar));
@@ -310,8 +301,10 @@ public class Othello {
 		long runTimeSeconds = (System.currentTimeMillis() - gameStartTime) / 1000;
 		if (runTimeSeconds / (60 * 60) >= 1) {
 			statData.add("Total run time: " + (runTimeSeconds / (60 * 60)) + " hours and " + ((runTimeSeconds % (60 * 60)) / 60) + " minutes.");
-		} else {
+		} else if (runTimeSeconds / 60 >= 1) {
 			statData.add("Total run time: " + (runTimeSeconds / 60) + " minutes and " + (runTimeSeconds % 60) + " seconds.");
+		} else {
+			statData.add("Total run time: " + (runTimeSeconds) + " seconds.");
 		}
 		long averageGameSeconds = runTimeSeconds / timesToRun;
 		if (averageGameSeconds / 60 >= 1) {
@@ -319,7 +312,6 @@ public class Othello {
 		} else {
 			statData.add("Average game run time: " + (averageGameSeconds) + " seconds.");
 		}
-
 		statData.add("-------------");
 
 		// Outputs information about all games that were run.
