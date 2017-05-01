@@ -5,11 +5,17 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d9e3a080-fdad-4557-94b5-288e3bbeab2e" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gitignore" afterPath="$PROJECT_DIR$/.gitignore" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ann/othello_net_evaluation_class_nn1_df2_1.0_10epochs.zip" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ann/othello_net_evaluation_class_nn1_df3_1.0_10epochs.zip" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ann/othello_net_evaluation_class_nn2_df2_1.0_10epochs.zip" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ann/othello_net_evaluation_class_nn2_df3_1.0_10epochs.zip" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ann/othello_net_evaluation_class_nn1_df2_1.0_10epochs_stats.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ann/othello_net_evaluation_class_nn1_df3_1.0_10epochs_stats.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ann/othello_net_evaluation_class_nn2_df2_1.0_10epochs_stats.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ann/othello_net_evaluation_class_nn2_df3_1.0_10epochs_stats.txt" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/deciders/FixedMinimaxDecider.java" afterPath="$PROJECT_DIR$/src/main/java/deciders/FixedMinimaxDecider.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/deciders/IterativeMinimaxDecider.java" afterPath="$PROJECT_DIR$/src/main/java/deciders/IterativeMinimaxDecider.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/evaluators/DeepLearningEvaluator.java" afterPath="$PROJECT_DIR$/src/main/java/evaluators/DeepLearningEvaluator.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/main/Othello.java" afterPath="$PROJECT_DIR$/src/main/java/main/Othello.java" />
     </list>
     <ignored path="$PROJECT_DIR$/dl4j/examples/dl4j-spark-examples/dl4j-spark/target/" />
     <ignored path="$PROJECT_DIR$/dl4j/main/deeplearning4j-ui-parent/deeplearning4j-ui-model/target/" />
@@ -66,21 +72,18 @@
       <file leaf-file-name="Othello.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/main/Othello.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="433">
-              <caret line="309" column="17" lean-forward="false" selection-start-line="309" selection-start-column="17" selection-end-line="309" selection-end-column="17" />
-              <folding>
-                <element signature="e#707#722#0" expanded="true" />
-                <element signature="e#11458#11466#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="467">
+              <caret line="306" column="47" lean-forward="false" selection-start-line="306" selection-start-column="47" selection-end-line="306" selection-end-column="47" />
+              <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="MonteCarloTreeSearchDecider.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/deciders/MonteCarloTreeSearchDecider.java">
+      <file leaf-file-name="DeepLearningEvaluator.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/evaluators/DeepLearningEvaluator.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="593">
-              <caret line="105" column="0" lean-forward="true" selection-start-line="105" selection-start-column="0" selection-end-line="105" selection-end-column="0" />
+            <state relative-caret-position="493">
+              <caret line="36" column="28" lean-forward="false" selection-start-line="36" selection-start-column="28" selection-end-line="36" selection-end-column="28" />
               <folding />
             </state>
           </provider>
@@ -146,10 +149,10 @@
         <option value="$PROJECT_DIR$/src/main/java/ui/OthelloFrame.java" />
         <option value="$PROJECT_DIR$/src/main/java/learning/NeuralNetDataHandler.java" />
         <option value="$PROJECT_DIR$/help.txt" />
-        <option value="$PROJECT_DIR$/src/main/java/main/Othello.java" />
-        <option value="$PROJECT_DIR$/src/main/java/evaluators/DeepLearningEvaluator.java" />
         <option value="$PROJECT_DIR$/src/main/java/deciders/FixedMinimaxDecider.java" />
         <option value="$PROJECT_DIR$/src/main/java/deciders/IterativeMinimaxDecider.java" />
+        <option value="$PROJECT_DIR$/src/main/java/evaluators/DeepLearningEvaluator.java" />
+        <option value="$PROJECT_DIR$/src/main/java/main/Othello.java" />
       </list>
     </option>
   </component>
@@ -205,8 +208,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scratches" />
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -448,6 +449,8 @@
         </subPane>
       </pane>
       <pane id="PackagesPane" />
+      <pane id="Scratches" />
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -479,7 +482,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Application.Experiment 8A: ANN Comparisons 1">
+  <component name="RunManager" selected="Application.NeuralNetFactory - Sample 5 (Layout 3, Data Format 3)">
     <configuration default="false" name="NeuralNetFactory - General" type="Application" factoryName="Application" temporary="true">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
         <pattern>
@@ -784,46 +787,6 @@
       <envs />
       <method />
     </configuration>
-    <configuration default="false" name="NeuralNetFactory - Sample 3 (Layout 1, Data Format 3)" type="Application" factoryName="Application">
-      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
-        <pattern>
-          <option name="PATTERN" value="learning.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="MAIN_CLASS_NAME" value="learning.NeuralNetFactory" />
-      <option name="VM_PARAMETERS" value="" />
-      <option name="PROGRAM_PARAMETERS" value="dat/csv/train/df3/1.0/ dat/csv/test/df3/ 3 evaluation_class_nn1_df3_1.0 false 20 1" />
-      <option name="WORKING_DIRECTORY" value="file://$PROJECT_DIR$" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="ENABLE_SWING_INSPECTOR" value="false" />
-      <option name="ENV_VARIABLES" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <module name="BlancheNoire" />
-      <envs />
-      <method />
-    </configuration>
-    <configuration default="false" name="NeuralNetFactory - Sample 4 (Layout 2, Data Format 3)" type="Application" factoryName="Application">
-      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
-        <pattern>
-          <option name="PATTERN" value="learning.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="MAIN_CLASS_NAME" value="learning.NeuralNetFactory" />
-      <option name="VM_PARAMETERS" value="" />
-      <option name="PROGRAM_PARAMETERS" value="dat/csv/train/df3/1.0/ dat/csv/test/df3/ 3 evaluation_class_nn2_df3_1.0 false 20 2" />
-      <option name="WORKING_DIRECTORY" value="file://$PROJECT_DIR$" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="ENABLE_SWING_INSPECTOR" value="false" />
-      <option name="ENV_VARIABLES" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <module name="BlancheNoire" />
-      <envs />
-      <method />
-    </configuration>
     <configuration default="false" name="BlancheNoire - Human Game" type="Application" factoryName="Application">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
         <pattern>
@@ -834,26 +797,6 @@
       <option name="MAIN_CLASS_NAME" value="main.Othello" />
       <option name="VM_PARAMETERS" value="" />
       <option name="PROGRAM_PARAMETERS" value="-player1 Human -player2 Human -useGUI true -showOutput false -archiveGame false -moveDelay 0 -runCount 1" />
-      <option name="WORKING_DIRECTORY" value="file://$PROJECT_DIR$" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="ENABLE_SWING_INSPECTOR" value="false" />
-      <option name="ENV_VARIABLES" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <module name="BlancheNoire" />
-      <envs />
-      <method />
-    </configuration>
-    <configuration default="false" name="NeuralNetFactory - Sample 5 (Layout 3, Data Format 3)" type="Application" factoryName="Application">
-      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
-        <pattern>
-          <option name="PATTERN" value="learning.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="MAIN_CLASS_NAME" value="learning.NeuralNetFactory" />
-      <option name="VM_PARAMETERS" value="" />
-      <option name="PROGRAM_PARAMETERS" value="dat/csv/train/df3/1.0/ dat/csv/test/df3/ 3 evaluation_class_nn3_df3_1.0 false 20 3" />
       <option name="WORKING_DIRECTORY" value="file://$PROJECT_DIR$" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
       <option name="ALTERNATIVE_JRE_PATH" />
@@ -1104,46 +1047,6 @@
       <envs />
       <method />
     </configuration>
-    <configuration default="false" name="Experiment 9: Positional vs DeepLearning (Minimax)" type="Application" factoryName="Application">
-      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
-        <pattern>
-          <option name="PATTERN" value="main.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="MAIN_CLASS_NAME" value="main.Othello" />
-      <option name="VM_PARAMETERS" value="" />
-      <option name="PROGRAM_PARAMETERS" value="-player1 AI(FixedMinimax-D8,Positional) -player2 AI(FixedMinimax-D8,DeepLearning-F(ann/othello_net_evaluation_class_nn1_df2_1.0.zip)) -useGUI true -showOutput true -archiveGame false -moveDelay 0 -runCount 20 -alternate true -writeStats true" />
-      <option name="WORKING_DIRECTORY" value="file://$PROJECT_DIR$" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="ENABLE_SWING_INSPECTOR" value="false" />
-      <option name="ENV_VARIABLES" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <module name="BlancheNoire" />
-      <envs />
-      <method />
-    </configuration>
-    <configuration default="false" name="Experiment 10: Positional vs DeepLearning (MCTS)" type="Application" factoryName="Application">
-      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
-        <pattern>
-          <option name="PATTERN" value="main.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="MAIN_CLASS_NAME" value="main.Othello" />
-      <option name="VM_PARAMETERS" value="" />
-      <option name="PROGRAM_PARAMETERS" value="-player1 AI(MCTS-M3-S10000-T5-P0.01,Positional) -player2 AI(MCTS-M3-S10000-T5-P0.01,DeepLearning-F(ann/othello_net_evaluation_class_nn1_df2_1.0.zip)) -useGUI true -showOutput true -archiveGame false -moveDelay 0 -runCount 20 -alternate true -writeStats true" />
-      <option name="WORKING_DIRECTORY" value="file://$PROJECT_DIR$" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="ENABLE_SWING_INSPECTOR" value="false" />
-      <option name="ENV_VARIABLES" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <module name="BlancheNoire" />
-      <envs />
-      <method />
-    </configuration>
     <configuration default="false" name="Experiment 5: MCTS Comparisons (Probability)" type="Application" factoryName="Application">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
         <pattern>
@@ -1273,7 +1176,7 @@
       </extension>
       <option name="MAIN_CLASS_NAME" value="main.Othello" />
       <option name="VM_PARAMETERS" value="" />
-      <option name="PROGRAM_PARAMETERS" value="-player1 AI(FixedMinimax-D5,DeepLearning-F(ann/othello_net_evaluation_class_nn1_df2_1.0.zip)) -player2 AI(FixedMinimax-D5,DeepLearning-F(ann/othello_net_evaluation_class_nn2_df2_1.0.zip)) -useGUI true -showOutput true -archiveGame false -moveDelay 0 -runCount 20 -alternate true -writeStats true" />
+      <option name="PROGRAM_PARAMETERS" value="-player1 AI(FixedMinimax-D5,DeepLearning-F(ann/othello_net_evaluation_class_nn1_df3_1.0.zip)) -player2 AI(FixedMinimax-D5,DeepLearning-F(ann/othello_net_evaluation_class_nn3_df3_1.0.zip)) -useGUI true -showOutput true -archiveGame false -moveDelay 0 -runCount 20 -alternate true -writeStats true" />
       <option name="WORKING_DIRECTORY" value="file://$PROJECT_DIR$" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
       <option name="ALTERNATIVE_JRE_PATH" />
@@ -1293,7 +1196,107 @@
       </extension>
       <option name="MAIN_CLASS_NAME" value="main.Othello" />
       <option name="VM_PARAMETERS" value="" />
-      <option name="PROGRAM_PARAMETERS" value="-player1 AI(FixedMinimax-D5,DeepLearning-F(ann/othello_net_evaluation_class_nn1_df2_1.0.zip)) -player2 AI(FixedMinimax-D5,DeepLearning-F(ann/othello_net_evaluation_class_nn2_df3_1.0.zip)) -useGUI true -showOutput true -archiveGame false -moveDelay 0 -runCount 20 -alternate true -writeStats true" />
+      <option name="PROGRAM_PARAMETERS" value="-player1 AI(FixedMinimax-D5,DeepLearning-F(ann/othello_net_evaluation_class_nn2_df3_1.0.zip)) -player2 AI(FixedMinimax-D5,DeepLearning-F(ann/othello_net_evaluation_class_nn3_df3_1.0.zip)) -useGUI true -showOutput true -archiveGame false -moveDelay 0 -runCount 20 -alternate true -writeStats true" />
+      <option name="WORKING_DIRECTORY" value="file://$PROJECT_DIR$" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="ENABLE_SWING_INSPECTOR" value="false" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <module name="BlancheNoire" />
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="false" name="NeuralNetFactory - Sample 3 (Layout 1, Data Format 3)" type="Application" factoryName="Application">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
+        <pattern>
+          <option name="PATTERN" value="learning.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="MAIN_CLASS_NAME" value="learning.NeuralNetFactory" />
+      <option name="VM_PARAMETERS" value="" />
+      <option name="PROGRAM_PARAMETERS" value="dat/csv/train/df3/1.0/ dat/csv/test/df3/ 3 evaluation_class_nn1_df3_1.0_10epochs false 10 1" />
+      <option name="WORKING_DIRECTORY" value="file://$PROJECT_DIR$" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="ENABLE_SWING_INSPECTOR" value="false" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <module name="BlancheNoire" />
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="false" name="NeuralNetFactory - Sample 4 (Layout 2, Data Format 3)" type="Application" factoryName="Application">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
+        <pattern>
+          <option name="PATTERN" value="learning.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="MAIN_CLASS_NAME" value="learning.NeuralNetFactory" />
+      <option name="VM_PARAMETERS" value="" />
+      <option name="PROGRAM_PARAMETERS" value="dat/csv/train/df3/1.0/ dat/csv/test/df3/ 3 evaluation_class_nn2_df3_1.0_10epochs false 10 2" />
+      <option name="WORKING_DIRECTORY" value="file://$PROJECT_DIR$" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="ENABLE_SWING_INSPECTOR" value="false" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <module name="BlancheNoire" />
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="false" name="NeuralNetFactory - Sample 5 (Layout 3, Data Format 3)" type="Application" factoryName="Application">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
+        <pattern>
+          <option name="PATTERN" value="learning.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="MAIN_CLASS_NAME" value="learning.NeuralNetFactory" />
+      <option name="VM_PARAMETERS" value="" />
+      <option name="PROGRAM_PARAMETERS" value="dat/csv/train/df3/1.0/ dat/csv/test/df3/ 3 evaluation_class_nn3_df3_1.0_10epochs false 10 3" />
+      <option name="WORKING_DIRECTORY" value="file://$PROJECT_DIR$" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="ENABLE_SWING_INSPECTOR" value="false" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <module name="BlancheNoire" />
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="false" name="Experiment 9A: Positional vs Deep Learning (Minimax)" type="Application" factoryName="Application">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
+        <pattern>
+          <option name="PATTERN" value="main.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="MAIN_CLASS_NAME" value="main.Othello" />
+      <option name="VM_PARAMETERS" value="" />
+      <option name="PROGRAM_PARAMETERS" value="-player1 AI(FixedMinimax-D5,Positional) -player2 AI(FixedMinimax-D5,DeepLearning-F(ann/othello_net_evaluation_class_nn3_df3_1.0.zip)) -useGUI true -showOutput true -archiveGame false -moveDelay 0 -runCount 20 -alternate true -writeStats true" />
+      <option name="WORKING_DIRECTORY" value="file://$PROJECT_DIR$" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="ENABLE_SWING_INSPECTOR" value="false" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <module name="BlancheNoire" />
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="false" name="Experiment 9B: Positional vs Deep Learning (MCTS)" type="Application" factoryName="Application">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
+        <pattern>
+          <option name="PATTERN" value="main.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="MAIN_CLASS_NAME" value="main.Othello" />
+      <option name="VM_PARAMETERS" value="" />
+      <option name="PROGRAM_PARAMETERS" value="-player1 AI(MCTS-M2-S500-T5-P0.01,Positional) -player2 AI(MCTS-M2-S500-T5-P0.01,DeepLearning-F(ann/othello_net_evaluation_class_nn2_df3_1.0.zip)) -useGUI true -showOutput true -archiveGame false -moveDelay 0 -runCount 20 -alternate true -writeStats true" />
       <option name="WORKING_DIRECTORY" value="file://$PROJECT_DIR$" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
       <option name="ALTERNATIVE_JRE_PATH" />
@@ -1308,32 +1311,32 @@
       <item index="0" class="java.lang.String" itemvalue="Application.BlancheNoire - 16x16 Board" />
       <item index="1" class="java.lang.String" itemvalue="Application.BlancheNoire - Minimax vs MCTS" />
       <item index="2" class="java.lang.String" itemvalue="Application.BlancheNoire - Minimax vs MCTS x20" />
-      <item index="3" class="java.lang.String" itemvalue="Application.NeuralNetFactory - Sample 3 (Layout 1, Data Format 3)" />
-      <item index="4" class="java.lang.String" itemvalue="Application.NeuralNetFactory - Sample 4 (Layout 2, Data Format 3)" />
-      <item index="5" class="java.lang.String" itemvalue="Application.BlancheNoire - Human Game" />
-      <item index="6" class="java.lang.String" itemvalue="Application.NeuralNetFactory - Sample 5 (Layout 3, Data Format 3)" />
-      <item index="7" class="java.lang.String" itemvalue="Application.BlancheNoire" />
-      <item index="8" class="java.lang.String" itemvalue="Application.Experiment 1: Random vs Minimax" />
-      <item index="9" class="java.lang.String" itemvalue="Application.Experiment 2A: FixedMinimax vs IterativeMinimax (Low Depth)" />
-      <item index="10" class="java.lang.String" itemvalue="Application.Experiment 2B: FixedMinimax vs IterativeMinimax (High Depth)" />
-      <item index="11" class="java.lang.String" itemvalue="Application.Experiment 3B: MCTS-R vs FixedMinimax" />
-      <item index="12" class="java.lang.String" itemvalue="Application.Experiment 3A: Minimax vs MCTS-M" />
-      <item index="13" class="java.lang.String" itemvalue="Application.BlancheNoire - Random Game x20" />
-      <item index="14" class="java.lang.String" itemvalue="Application.BlancheNoire - Random Game x10000" />
-      <item index="15" class="java.lang.String" itemvalue="Application.Experiment 2C: FixedMinimax vs IterativeMinimax (Test Depth)" />
-      <item index="16" class="java.lang.String" itemvalue="Application.Experiment 7: Human vs MCTS" />
-      <item index="17" class="java.lang.String" itemvalue="Application.Experiment 6: Human vs Minimax" />
-      <item index="18" class="java.lang.String" itemvalue="Application.Experiment 4: MCTS Comparisons (Playout Type)" />
-      <item index="19" class="java.lang.String" itemvalue="Application.Experiment 9: Positional vs DeepLearning (Minimax)" />
-      <item index="20" class="java.lang.String" itemvalue="Application.Experiment 10: Positional vs DeepLearning (MCTS)" />
-      <item index="21" class="java.lang.String" itemvalue="Application.Experiment 5: MCTS Comparisons (Probability)" />
-      <item index="22" class="java.lang.String" itemvalue="Application.Experiment A: MCTS Hard Sim Depth and Time" />
-      <item index="23" class="java.lang.String" itemvalue="Application.NeuralNetFactory - Sample 1 (Layout 1, Data Format 2)" />
-      <item index="24" class="java.lang.String" itemvalue="Application.NeuralNetFactory - Sample 2 (Layout 2, Data Format 2)" />
-      <item index="25" class="java.lang.String" itemvalue="Application.BlancheNoire - DeepLearning Test" />
-      <item index="26" class="java.lang.String" itemvalue="Application.BlancheNoire - DeepLearning Test (MCTS)" />
-      <item index="27" class="java.lang.String" itemvalue="Application.Experiment 8A: ANN Comparisons 1" />
-      <item index="28" class="java.lang.String" itemvalue="Application.Experiment 8B: ANN Comparisons 2" />
+      <item index="3" class="java.lang.String" itemvalue="Application.BlancheNoire - Human Game" />
+      <item index="4" class="java.lang.String" itemvalue="Application.BlancheNoire" />
+      <item index="5" class="java.lang.String" itemvalue="Application.Experiment 1: Random vs Minimax" />
+      <item index="6" class="java.lang.String" itemvalue="Application.Experiment 2A: FixedMinimax vs IterativeMinimax (Low Depth)" />
+      <item index="7" class="java.lang.String" itemvalue="Application.Experiment 2B: FixedMinimax vs IterativeMinimax (High Depth)" />
+      <item index="8" class="java.lang.String" itemvalue="Application.Experiment 3B: MCTS-R vs FixedMinimax" />
+      <item index="9" class="java.lang.String" itemvalue="Application.Experiment 3A: Minimax vs MCTS-M" />
+      <item index="10" class="java.lang.String" itemvalue="Application.BlancheNoire - Random Game x20" />
+      <item index="11" class="java.lang.String" itemvalue="Application.BlancheNoire - Random Game x10000" />
+      <item index="12" class="java.lang.String" itemvalue="Application.Experiment 2C: FixedMinimax vs IterativeMinimax (Test Depth)" />
+      <item index="13" class="java.lang.String" itemvalue="Application.Experiment 7: Human vs MCTS" />
+      <item index="14" class="java.lang.String" itemvalue="Application.Experiment 6: Human vs Minimax" />
+      <item index="15" class="java.lang.String" itemvalue="Application.Experiment 4: MCTS Comparisons (Playout Type)" />
+      <item index="16" class="java.lang.String" itemvalue="Application.Experiment 5: MCTS Comparisons (Probability)" />
+      <item index="17" class="java.lang.String" itemvalue="Application.Experiment A: MCTS Hard Sim Depth and Time" />
+      <item index="18" class="java.lang.String" itemvalue="Application.NeuralNetFactory - Sample 1 (Layout 1, Data Format 2)" />
+      <item index="19" class="java.lang.String" itemvalue="Application.NeuralNetFactory - Sample 2 (Layout 2, Data Format 2)" />
+      <item index="20" class="java.lang.String" itemvalue="Application.BlancheNoire - DeepLearning Test" />
+      <item index="21" class="java.lang.String" itemvalue="Application.BlancheNoire - DeepLearning Test (MCTS)" />
+      <item index="22" class="java.lang.String" itemvalue="Application.Experiment 8A: ANN Comparisons 1" />
+      <item index="23" class="java.lang.String" itemvalue="Application.Experiment 8B: ANN Comparisons 2" />
+      <item index="24" class="java.lang.String" itemvalue="Application.NeuralNetFactory - Sample 3 (Layout 1, Data Format 3)" />
+      <item index="25" class="java.lang.String" itemvalue="Application.NeuralNetFactory - Sample 4 (Layout 2, Data Format 3)" />
+      <item index="26" class="java.lang.String" itemvalue="Application.NeuralNetFactory - Sample 5 (Layout 3, Data Format 3)" />
+      <item index="27" class="java.lang.String" itemvalue="Application.Experiment 9A: Positional vs Deep Learning (Minimax)" />
+      <item index="28" class="java.lang.String" itemvalue="Application.Experiment 9B: Positional vs Deep Learning (MCTS)" />
       <item index="29" class="java.lang.String" itemvalue="Application.NeuralNetFactory - General" />
       <item index="30" class="java.lang.String" itemvalue="Application.NeuralNetDataHandler" />
     </list>
@@ -1383,7 +1386,7 @@
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32980973" sideWeight="0.50208336" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.30021143" sideWeight="0.49583334" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.30021143" sideWeight="0.49583334" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Properties" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -1558,14 +1561,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/evaluators/ScoreEvaluator.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="238">
-          <caret line="19" column="4" lean-forward="false" selection-start-line="19" selection-start-column="4" selection-end-line="19" selection-end-column="4" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/games/GameScript.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-462">
@@ -1724,7 +1719,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="663">
           <caret line="48" column="19" lean-forward="false" selection-start-line="48" selection-start-column="19" selection-end-line="48" selection-end-column="19" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1732,7 +1726,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="370">
           <caret line="61" column="100" lean-forward="false" selection-start-line="61" selection-start-column="100" selection-end-line="61" selection-end-column="174" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1740,26 +1733,29 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="657">
           <caret line="76" column="274" lean-forward="false" selection-start-line="76" selection-start-column="274" selection-end-line="76" selection-end-column="274" />
-          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/evaluators/ScoreEvaluator.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="238">
+          <caret line="19" column="0" lean-forward="true" selection-start-line="19" selection-start-column="0" selection-end-line="19" selection-end-column="0" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/evaluators/DeepLearningEvaluator.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="510">
-          <caret line="43" column="16" lean-forward="true" selection-start-line="43" selection-start-column="16" selection-end-line="43" selection-end-column="16" />
+        <state relative-caret-position="493">
+          <caret line="36" column="28" lean-forward="false" selection-start-line="36" selection-start-column="28" selection-end-line="36" selection-end-column="28" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/main/Othello.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="433">
-          <caret line="309" column="17" lean-forward="false" selection-start-line="309" selection-start-column="17" selection-end-line="309" selection-end-column="17" />
-          <folding>
-            <element signature="e#707#722#0" expanded="true" />
-            <element signature="e#11458#11466#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="467">
+          <caret line="306" column="47" lean-forward="false" selection-start-line="306" selection-start-column="47" selection-end-line="306" selection-end-column="47" />
+          <folding />
         </state>
       </provider>
     </entry>

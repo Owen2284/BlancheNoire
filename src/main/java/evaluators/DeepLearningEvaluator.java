@@ -31,7 +31,7 @@ public class DeepLearningEvaluator extends Evaluator {
 	public String toFileString() {return "DeepLearning("+this.netPath+")";}
 
 	public float evaluate(GameState game, Player p) {
-		// Get output from the NN.
+		// Get output from the ANN.
 		INDArray result = net.output(game.toINDArray(p.getPlayerID(), game.getOpposingPlayer(p).getPlayerID()), false);
 		int numLabels = result.shape()[1];
 		if (numLabels > 1) {
