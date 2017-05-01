@@ -62,11 +62,11 @@
       <file leaf-file-name="Othello.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/main/Othello.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="535">
-              <caret line="310" column="47" lean-forward="false" selection-start-line="310" selection-start-column="47" selection-end-line="310" selection-end-column="47" />
+            <state relative-caret-position="404">
+              <caret line="315" column="62" lean-forward="false" selection-start-line="315" selection-start-column="62" selection-end-line="315" selection-end-column="62" />
               <folding>
                 <element signature="e#703#718#0" expanded="true" />
-                <element signature="e#10369#10377#0" expanded="true" />
+                <element signature="e#10502#10510#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -824,26 +824,6 @@
       <envs />
       <method />
     </configuration>
-    <configuration default="false" name="Experiment 1: Random vs Minimax" type="Application" factoryName="Application">
-      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
-        <pattern>
-          <option name="PATTERN" value="main.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="MAIN_CLASS_NAME" value="main.Othello" />
-      <option name="VM_PARAMETERS" value="" />
-      <option name="PROGRAM_PARAMETERS" value="-player1 AI(Random,Positional) -player2 AI(FixedMinimax,Positional) -useGUI true -showOutput true -archiveGame false -moveDelay 0 -runCount 50 -alternate true -writeStats true" />
-      <option name="WORKING_DIRECTORY" value="file://$PROJECT_DIR$" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="ENABLE_SWING_INSPECTOR" value="false" />
-      <option name="ENV_VARIABLES" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <module name="BlancheNoire" />
-      <envs />
-      <method />
-    </configuration>
     <configuration default="false" name="Experiment 2A: FixedMinimax vs IterativeMinimax (Low Depth)" type="Application" factoryName="Application">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
         <pattern>
@@ -1264,7 +1244,7 @@
       <envs />
       <method />
     </configuration>
-    <configuration default="false" name="Experiment 8B: ANN Comparisons 2" type="Application" factoryName="Application">
+    <configuration default="false" name="Experiment 1: Random vs Minimax" type="Application" factoryName="Application">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
         <pattern>
           <option name="PATTERN" value="main.*" />
@@ -1273,7 +1253,7 @@
       </extension>
       <option name="MAIN_CLASS_NAME" value="main.Othello" />
       <option name="VM_PARAMETERS" value="" />
-      <option name="PROGRAM_PARAMETERS" value="-player1 AI(FixedMinimax-D5,DeepLearning-F(ann/othello_net_evaluation_class_nn1_df2_1.0_10epochs.zip)) -player2 AI(FixedMinimax-D5,DeepLearning-F(ann/othello_net_evaluation_class_nn3_df3_1.0_10epochs.zip)) -useGUI true -showOutput true -archiveGame false -moveDelay 0 -runCount 20 -alternate true -writeStats true" />
+      <option name="PROGRAM_PARAMETERS" value="-player1 AI(Random,Positional) -player2 AI(FixedMinimax,Positional) -useGUI true -showOutput true -archiveGame false -moveDelay 0 -runCount 10 -alternate true -writeStats true" />
       <option name="WORKING_DIRECTORY" value="file://$PROJECT_DIR$" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
       <option name="ALTERNATIVE_JRE_PATH" />
@@ -1293,7 +1273,27 @@
       </extension>
       <option name="MAIN_CLASS_NAME" value="main.Othello" />
       <option name="VM_PARAMETERS" value="" />
-      <option name="PROGRAM_PARAMETERS" value="-player1 AI(FixedMinimax-D5,DeepLearning-F(ann/othello_net_evaluation_class_nn2_df2_1.0_10epochs.zip)) -player2 AI(FixedMinimax-D5,DeepLearning-F(ann/othello_net_evaluation_class_nn3_df3_1.0_10epochs.zip)) -useGUI true -showOutput true -archiveGame false -moveDelay 0 -runCount 20 -alternate true -writeStats true" />
+      <option name="PROGRAM_PARAMETERS" value="-player1 AI(FixedMinimax-D5,DeepLearning-F(ann/othello_net_evaluation_class_nn2_df2_1.0_10epochs.zip)) -player2 AI(FixedMinimax-D5,DeepLearning-F(ann/othello_net_evaluation_class_nn2_df3_1.0_10epochs.zip)) -useGUI true -showOutput true -archiveGame false -moveDelay 0 -runCount 20 -alternate true -writeStats true" />
+      <option name="WORKING_DIRECTORY" value="file://$PROJECT_DIR$" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="ENABLE_SWING_INSPECTOR" value="false" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <module name="BlancheNoire" />
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="false" name="Experiment 8B: ANN Comparisons 2" type="Application" factoryName="Application">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
+        <pattern>
+          <option name="PATTERN" value="main.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="MAIN_CLASS_NAME" value="main.Othello" />
+      <option name="VM_PARAMETERS" value="" />
+      <option name="PROGRAM_PARAMETERS" value="-player1 AI(FixedMinimax-D5,DeepLearning-F(ann/othello_net_evaluation_class_nn2_df2_1.0_10epochs.zip)) -player2 AI(FixedMinimax-D5,DeepLearning-F(ann/othello_net_evaluation_class_nn1_df3_1.0_10epochs.zip)) -useGUI true -showOutput true -archiveGame false -moveDelay 0 -runCount 20 -alternate true -writeStats true" />
       <option name="WORKING_DIRECTORY" value="file://$PROJECT_DIR$" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
       <option name="ALTERNATIVE_JRE_PATH" />
@@ -1310,30 +1310,30 @@
       <item index="2" class="java.lang.String" itemvalue="Application.BlancheNoire - Minimax vs MCTS x20" />
       <item index="3" class="java.lang.String" itemvalue="Application.BlancheNoire - Human Game" />
       <item index="4" class="java.lang.String" itemvalue="Application.BlancheNoire" />
-      <item index="5" class="java.lang.String" itemvalue="Application.Experiment 1: Random vs Minimax" />
-      <item index="6" class="java.lang.String" itemvalue="Application.Experiment 2A: FixedMinimax vs IterativeMinimax (Low Depth)" />
-      <item index="7" class="java.lang.String" itemvalue="Application.Experiment 2B: FixedMinimax vs IterativeMinimax (High Depth)" />
-      <item index="8" class="java.lang.String" itemvalue="Application.Experiment 3B: MCTS-R vs FixedMinimax" />
-      <item index="9" class="java.lang.String" itemvalue="Application.Experiment 3A: Minimax vs MCTS-M" />
-      <item index="10" class="java.lang.String" itemvalue="Application.BlancheNoire - Random Game x20" />
-      <item index="11" class="java.lang.String" itemvalue="Application.BlancheNoire - Random Game x10000" />
-      <item index="12" class="java.lang.String" itemvalue="Application.Experiment 2C: FixedMinimax vs IterativeMinimax (Test Depth)" />
-      <item index="13" class="java.lang.String" itemvalue="Application.Experiment 7: Human vs MCTS" />
-      <item index="14" class="java.lang.String" itemvalue="Application.Experiment 6: Human vs Minimax" />
-      <item index="15" class="java.lang.String" itemvalue="Application.Experiment 4: MCTS Comparisons (Playout Type)" />
-      <item index="16" class="java.lang.String" itemvalue="Application.Experiment 5: MCTS Comparisons (Probability)" />
-      <item index="17" class="java.lang.String" itemvalue="Application.Experiment A: MCTS Hard Sim Depth and Time" />
-      <item index="18" class="java.lang.String" itemvalue="Application.NeuralNetFactory - Sample 1 (Layout 1, Data Format 2)" />
-      <item index="19" class="java.lang.String" itemvalue="Application.NeuralNetFactory - Sample 2 (Layout 2, Data Format 2)" />
-      <item index="20" class="java.lang.String" itemvalue="Application.BlancheNoire - DeepLearning Test" />
-      <item index="21" class="java.lang.String" itemvalue="Application.BlancheNoire - DeepLearning Test (MCTS)" />
-      <item index="22" class="java.lang.String" itemvalue="Application.NeuralNetFactory - Sample 3 (Layout 1, Data Format 3)" />
-      <item index="23" class="java.lang.String" itemvalue="Application.NeuralNetFactory - Sample 4 (Layout 2, Data Format 3)" />
-      <item index="24" class="java.lang.String" itemvalue="Application.NeuralNetFactory - Sample 5 (Layout 3, Data Format 3)" />
-      <item index="25" class="java.lang.String" itemvalue="Application.Experiment 9A: Positional vs Deep Learning (Minimax)" />
-      <item index="26" class="java.lang.String" itemvalue="Application.Experiment 9B: Positional vs Deep Learning (MCTS)" />
-      <item index="27" class="java.lang.String" itemvalue="Application.Experiment 8B: ANN Comparisons 2" />
-      <item index="28" class="java.lang.String" itemvalue="Application.Experiment 8A: ANN Comparisons 1" />
+      <item index="5" class="java.lang.String" itemvalue="Application.Experiment 2A: FixedMinimax vs IterativeMinimax (Low Depth)" />
+      <item index="6" class="java.lang.String" itemvalue="Application.Experiment 2B: FixedMinimax vs IterativeMinimax (High Depth)" />
+      <item index="7" class="java.lang.String" itemvalue="Application.Experiment 3B: MCTS-R vs FixedMinimax" />
+      <item index="8" class="java.lang.String" itemvalue="Application.Experiment 3A: Minimax vs MCTS-M" />
+      <item index="9" class="java.lang.String" itemvalue="Application.BlancheNoire - Random Game x20" />
+      <item index="10" class="java.lang.String" itemvalue="Application.BlancheNoire - Random Game x10000" />
+      <item index="11" class="java.lang.String" itemvalue="Application.Experiment 2C: FixedMinimax vs IterativeMinimax (Test Depth)" />
+      <item index="12" class="java.lang.String" itemvalue="Application.Experiment 7: Human vs MCTS" />
+      <item index="13" class="java.lang.String" itemvalue="Application.Experiment 6: Human vs Minimax" />
+      <item index="14" class="java.lang.String" itemvalue="Application.Experiment 4: MCTS Comparisons (Playout Type)" />
+      <item index="15" class="java.lang.String" itemvalue="Application.Experiment 5: MCTS Comparisons (Probability)" />
+      <item index="16" class="java.lang.String" itemvalue="Application.Experiment A: MCTS Hard Sim Depth and Time" />
+      <item index="17" class="java.lang.String" itemvalue="Application.NeuralNetFactory - Sample 1 (Layout 1, Data Format 2)" />
+      <item index="18" class="java.lang.String" itemvalue="Application.NeuralNetFactory - Sample 2 (Layout 2, Data Format 2)" />
+      <item index="19" class="java.lang.String" itemvalue="Application.BlancheNoire - DeepLearning Test" />
+      <item index="20" class="java.lang.String" itemvalue="Application.BlancheNoire - DeepLearning Test (MCTS)" />
+      <item index="21" class="java.lang.String" itemvalue="Application.NeuralNetFactory - Sample 3 (Layout 1, Data Format 3)" />
+      <item index="22" class="java.lang.String" itemvalue="Application.NeuralNetFactory - Sample 4 (Layout 2, Data Format 3)" />
+      <item index="23" class="java.lang.String" itemvalue="Application.NeuralNetFactory - Sample 5 (Layout 3, Data Format 3)" />
+      <item index="24" class="java.lang.String" itemvalue="Application.Experiment 9A: Positional vs Deep Learning (Minimax)" />
+      <item index="25" class="java.lang.String" itemvalue="Application.Experiment 9B: Positional vs Deep Learning (MCTS)" />
+      <item index="26" class="java.lang.String" itemvalue="Application.Experiment 1: Random vs Minimax" />
+      <item index="27" class="java.lang.String" itemvalue="Application.Experiment 8A: ANN Comparisons 1" />
+      <item index="28" class="java.lang.String" itemvalue="Application.Experiment 8B: ANN Comparisons 2" />
       <item index="29" class="java.lang.String" itemvalue="Application.NeuralNetFactory - General" />
       <item index="30" class="java.lang.String" itemvalue="Application.NeuralNetDataHandler" />
     </list>
@@ -1383,7 +1383,7 @@
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32980973" sideWeight="0.50208336" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.30021143" sideWeight="0.49583334" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.30021143" sideWeight="0.49583334" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Properties" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -1754,11 +1754,11 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/main/Othello.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="535">
-          <caret line="310" column="47" lean-forward="false" selection-start-line="310" selection-start-column="47" selection-end-line="310" selection-end-column="47" />
+        <state relative-caret-position="404">
+          <caret line="315" column="62" lean-forward="false" selection-start-line="315" selection-start-column="62" selection-end-line="315" selection-end-column="62" />
           <folding>
             <element signature="e#703#718#0" expanded="true" />
-            <element signature="e#10369#10377#0" expanded="true" />
+            <element signature="e#10502#10510#0" expanded="true" />
           </folding>
         </state>
       </provider>

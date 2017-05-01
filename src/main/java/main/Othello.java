@@ -86,6 +86,7 @@ public class Othello {
 		if (useGUI) {
 			ui = new OthelloFrame(game);
 		}
+		long gameStartTime = System.currentTimeMillis();
 		
 		// Runs the games multiple times if required.
 		for (int runNumber = 0; runNumber < timesToRun; ++runNumber) {
@@ -212,8 +213,10 @@ public class Othello {
 			}
 			if (game.isWinning(p1)) {
 				System.out.print("The dark player wins. ");
-			} else {
+			} else if (game.isWinning(p2)) {
 				System.out.print("The light player wins. ");
+			} else {
+				System.out.print("The game is a draw. ");
 			}
 			System.out.println("Final score: " + game.getScoreOfPlayer(p1) + "-" + game.getScoreOfPlayer(p2));
 
@@ -289,21 +292,34 @@ public class Othello {
 				statLine += winStats[playerNum][gameNum] + ",";
 				statSum += winStats[playerNum][gameNum];
 			}
-			double playerMean = ((double)statSum)/timesToRun;
-			means[playerNum] = playerMean;
+			means[playerNum] = ((double)statSum)/timesToRun;
 			double playerVar = 0.0;
 			for (int gameNum = 0; gameNum < timesToRun; ++gameNum) {
-				double oneVar = (((double)winStats[playerNum][gameNum]) - playerMean);
+				double oneVar = (((double)winStats[playerNum][gameNum]) - means[playerNum]);
 				playerVar += (oneVar * oneVar);
 			}
 			playerVar = playerVar / ((double)(timesToRun-1));
 			statData.add("Player " + (playerNum+1) + " Values = [" + statLine.substring(0, statLine.length() - 1) + "]");
-			statData.add("Player " + (playerNum+1) + " Mean = " + playerMean);
+			statData.add("Player " + (playerNum+1) + " Mean = " + means[playerNum]);
 			statData.add("Player " + (playerNum+1) + " Variance = " + playerVar);
 			statData.add("Player " + (playerNum+1) + " Standard Deviation = " + Math.sqrt(playerVar));
 			statData.add("-------------");
 		}
 		statData.add("Difference between players' average scores: " + Math.abs(means[0] - means[1]));
+		statData.add("-------------");
+		long runTimeSeconds = (System.currentTimeMillis() - gameStartTime) / 1000;
+		if (runTimeSeconds / (60 * 60) >= 1) {
+			statData.add("Total run time: " + (runTimeSeconds / (60 * 60)) + " hours and " + ((runTimeSeconds % (60 * 60)) / 60) + " minutes.");
+		} else {
+			statData.add("Total run time: " + (runTimeSeconds / 60) + " minutes and " + (runTimeSeconds % 60) + " seconds.");
+		}
+		long averageGameSeconds = runTimeSeconds / timesToRun;
+		if (averageGameSeconds / 60 >= 1) {
+			statData.add("Average game run time: " + (averageGameSeconds / 60) + " minutes and " + (averageGameSeconds % 60) + " seconds.");
+		} else {
+			statData.add("Average game run time: " + (averageGameSeconds) + " seconds.");
+		}
+
 		statData.add("-------------");
 
 		// Outputs information about all games that were run.
