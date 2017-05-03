@@ -246,7 +246,12 @@ public class Othello {
 			if (archiveGames) {
 				fileString += "END";
 				try {
-					String fileName = "dat/archive/Game" + System.currentTimeMillis() + ".txt";
+					String archivePath = "dat/archive/";
+					File archiveDir = new File(archivePath);
+					if (!archiveDir.exists()) {
+						archiveDir.mkdirs();
+					}
+					String fileName = archivePath + "Game" + System.currentTimeMillis() + ".txt";
 					PrintWriter writer = new PrintWriter(fileName, "UTF-8");
 					for (String s : fileString.split("\n")) {
 						writer.println(s);
