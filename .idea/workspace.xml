@@ -5,48 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d9e3a080-fdad-4557-94b5-288e3bbeab2e" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ann/othello_net_evaluation_class_nn1_df2_1.0.zip" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ann/othello_net_evaluation_class_nn1_df2_1.0_10epochs.zip" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ann/othello_net_evaluation_class_nn1_df2_1.0_10epochs_stats.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ann/othello_net_evaluation_class_nn1_df2_1.0_stats.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ann/othello_net_evaluation_class_nn1_df3_1.0.zip" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ann/othello_net_evaluation_class_nn1_df3_1.0_10epochs.zip" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ann/othello_net_evaluation_class_nn1_df3_1.0_10epochs_stats.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ann/othello_net_evaluation_class_nn1_df3_1.0_stats.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ann/othello_net_evaluation_class_nn2_df2_1.0.zip" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ann/othello_net_evaluation_class_nn2_df2_1.0_10epochs.zip" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ann/othello_net_evaluation_class_nn2_df2_1.0_10epochs_stats.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ann/othello_net_evaluation_class_nn2_df2_1.0_stats.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ann/othello_net_evaluation_class_nn2_df3_1.0.zip" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ann/othello_net_evaluation_class_nn2_df3_1.0_10epochs.zip" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ann/othello_net_evaluation_class_nn2_df3_1.0_10epochs_stats.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ann/othello_net_evaluation_class_nn2_df3_1.0_stats.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ann/othello_net_evaluation_class_nn3_df3_1.0.zip" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ann/othello_net_evaluation_class_nn3_df3_1.0_10epochs.zip" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ann/othello_net_evaluation_class_nn3_df3_1.0_10epochs_stats.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ann/othello_net_evaluation_class_nn3_df3_1.0_stats.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ann/othello_net_first_df2.zip" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ann/othello_net_first_df3_0.1.zip" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ann/othello_net_first_df3_0.1_stats.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ann/othello_net_first_df3_0.2.zip" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ann/othello_net_first_df3_0.2_stats.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ann/othello_net_first_df3_0.5.zip" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ann/othello_net_first_df3_0.5_stats.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ann/othello_net_first_df3_0.6.zip" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ann/othello_net_first_df3_0.6_stats.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ann/othello_net_first_df3_0.8.zip" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ann/othello_net_first_df3_0.8_stats.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ann/othello_net_second_df2.zip" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ann/othello_net_second_df3_0.2.zip" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ann/othello_net_second_df3_0.2_stats.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ann/othello_net_second_df3_0.4.zip" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ann/othello_net_second_df3_0.4_stats.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ann/othello_net_second_df3_0.6.zip" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ann/othello_net_second_df3_0.6_stats.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ann/othello_net_second_df3_0.8.zip" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ann/othello_net_second_df3_0.8_stats.txt" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/main/Othello.java" afterPath="$PROJECT_DIR$/src/main/java/main/Othello.java" />
     </list>
     <ignored path="$PROJECT_DIR$/dl4j/examples/dl4j-spark-examples/dl4j-spark/target/" />
     <ignored path="$PROJECT_DIR$/dl4j/main/deeplearning4j-ui-parent/deeplearning4j-ui-model/target/" />
@@ -103,7 +62,7 @@
       <file leaf-file-name="Othello.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/main/Othello.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="251">
+            <state relative-caret-position="608">
               <caret line="250" column="32" lean-forward="false" selection-start-line="250" selection-start-column="32" selection-end-line="250" selection-end-column="32" />
               <folding />
             </state>
@@ -1843,7 +1802,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/main/Othello.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="251">
+        <state relative-caret-position="608">
           <caret line="250" column="32" lean-forward="false" selection-start-line="250" selection-start-column="32" selection-end-line="250" selection-end-column="32" />
           <folding />
         </state>
