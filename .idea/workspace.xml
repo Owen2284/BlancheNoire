@@ -4,7 +4,11 @@
     <bookmark url="file://$PROJECT_DIR$/src/main/java/deciders/MonteCarloTreeSearchDecider.java" line="70" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d9e3a080-fdad-4557-94b5-288e3bbeab2e" name="Default" comment="" />
+    <list default="true" id="d9e3a080-fdad-4557-94b5-288e3bbeab2e" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/modules.xml" afterPath="$PROJECT_DIR$/.idea/modules.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/BlancheNoire.iml" afterPath="$PROJECT_DIR$/BlancheNoire.iml" />
+    </list>
     <ignored path="$PROJECT_DIR$/dl4j/examples/dl4j-spark-examples/dl4j-spark/target/" />
     <ignored path="$PROJECT_DIR$/dl4j/main/deeplearning4j-ui-parent/deeplearning4j-ui-model/target/" />
     <ignored path="$PROJECT_DIR$/dl4j/main/deeplearning4j-keras/target/" />
@@ -56,7 +60,7 @@
     <favorites_list name="BlancheNoire" />
   </component>
   <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300" />
+    <leaf />
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -134,8 +138,8 @@
   <component name="ProjectFrameBounds">
     <option name="x" value="-8" />
     <option name="y" value="-8" />
-    <option name="width" value="1382" />
-    <option name="height" value="744" />
+    <option name="width" value="1936" />
+    <option name="height" value="1056" />
   </component>
   <component name="ProjectInspectionProfilesVisibleTreeState">
     <entry key="Project Default">
@@ -175,9 +179,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="PackagesPane" />
-      <pane id="Scratches" />
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -450,6 +451,9 @@
           </PATH>
         </subPane>
       </pane>
+      <pane id="PackagesPane" />
+      <pane id="Scope" />
+      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -481,7 +485,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Application.Viva - AI Example 3X (MonteCarloTreeSearch(Light) vs IterativeMinimax)">
+  <component name="RunManager" selected="Application.Viva - DL Example 2 (MCTS with and without DL)">
     <configuration default="false" name="NeuralNetDataHandler" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
         <pattern>
@@ -1366,106 +1370,6 @@
       <envs />
       <method />
     </configuration>
-    <configuration default="false" name="Viva - AI Example 2 (FixedMinimax vs IterativeMinimax)" type="Application" factoryName="Application">
-      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
-        <pattern>
-          <option name="PATTERN" value="main.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="MAIN_CLASS_NAME" value="main.Othello" />
-      <option name="VM_PARAMETERS" value="" />
-      <option name="PROGRAM_PARAMETERS" value="-player1 AI(FixedMinimax-D8,Positional) -player2 AI(IterativeMinimax-D8,Positional) -useGUI true -showOutput true -moveDelay 500 -boardSize 8" />
-      <option name="WORKING_DIRECTORY" value="file://$PROJECT_DIR$" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="ENABLE_SWING_INSPECTOR" value="false" />
-      <option name="ENV_VARIABLES" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <module name="BlancheNoire" />
-      <envs />
-      <method />
-    </configuration>
-    <configuration default="false" name="Viva - Engine Example 1 (Board Resizing)" type="Application" factoryName="Application">
-      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
-        <pattern>
-          <option name="PATTERN" value="main.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="MAIN_CLASS_NAME" value="main.Othello" />
-      <option name="VM_PARAMETERS" value="" />
-      <option name="PROGRAM_PARAMETERS" value="-player1 AI(Random,Score) -player2 AI(Random,Score) -useGUI true -showOutput true -moveDelay 500 -boardSize 16" />
-      <option name="WORKING_DIRECTORY" value="file://$PROJECT_DIR$" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="ENABLE_SWING_INSPECTOR" value="false" />
-      <option name="ENV_VARIABLES" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <module name="BlancheNoire" />
-      <envs />
-      <method />
-    </configuration>
-    <configuration default="false" name="Viva - Engine Example 2 (Text UI)" type="Application" factoryName="Application">
-      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
-        <pattern>
-          <option name="PATTERN" value="main.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="MAIN_CLASS_NAME" value="main.Othello" />
-      <option name="VM_PARAMETERS" value="" />
-      <option name="PROGRAM_PARAMETERS" value="-player1 AI(Random,Score) -player2 AI(Random,Score) -useGUI false -showOutput true -moveDelay 500" />
-      <option name="WORKING_DIRECTORY" value="file://$PROJECT_DIR$" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="ENABLE_SWING_INSPECTOR" value="false" />
-      <option name="ENV_VARIABLES" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <module name="BlancheNoire" />
-      <envs />
-      <method />
-    </configuration>
-    <configuration default="false" name="Viva - Engine Example 3 (Run Count and Swapping)" type="Application" factoryName="Application">
-      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
-        <pattern>
-          <option name="PATTERN" value="main.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="MAIN_CLASS_NAME" value="main.Othello" />
-      <option name="VM_PARAMETERS" value="" />
-      <option name="PROGRAM_PARAMETERS" value="-player1 AI(Random,Score) -player2 AI(FixedMinimax,Score) -useGUI true -showOutput true -moveDelay 500 -runCount 10 -alternate true" />
-      <option name="WORKING_DIRECTORY" value="file://$PROJECT_DIR$" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="ENABLE_SWING_INSPECTOR" value="false" />
-      <option name="ENV_VARIABLES" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <module name="BlancheNoire" />
-      <envs />
-      <method />
-    </configuration>
-    <configuration default="false" name="Viva - DL Example 2 (MCTS with and without DL)" type="Application" factoryName="Application">
-      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
-        <pattern>
-          <option name="PATTERN" value="main.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="MAIN_CLASS_NAME" value="main.Othello" />
-      <option name="VM_PARAMETERS" value="" />
-      <option name="PROGRAM_PARAMETERS" value="-player1 AI(MCTS-M2-S500-T5-P0.01,Positional) -player2 AI(MCTS-M2-S500-T5-P0.01,DeepLearning-F(ann/DF2_1_10.zip)) -useGUI true -showOutput true -moveDelay 500 -boardSize 8" />
-      <option name="WORKING_DIRECTORY" value="file://$PROJECT_DIR$" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="ENABLE_SWING_INSPECTOR" value="false" />
-      <option name="ENV_VARIABLES" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <module name="BlancheNoire" />
-      <envs />
-      <method />
-    </configuration>
     <configuration default="false" name="Viva - DL Example 1 (Constructing an ANN)" type="Application" factoryName="Application">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
         <pattern>
@@ -1526,6 +1430,106 @@
       <envs />
       <method />
     </configuration>
+    <configuration default="false" name="Viva - DL Example 2 (MCTS with and without DL)" type="Application" factoryName="Application">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
+        <pattern>
+          <option name="PATTERN" value="main.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="MAIN_CLASS_NAME" value="main.Othello" />
+      <option name="VM_PARAMETERS" value="" />
+      <option name="PROGRAM_PARAMETERS" value="-player1 AI(MCTS-M2-S500-T5-P0.01,Positional) -player2 AI(MCTS-M2-S500-T5-P0.01,DeepLearning-F(ann/DF2_1_10.zip)) -useGUI true -showOutput true -moveDelay 10 -boardSize 8" />
+      <option name="WORKING_DIRECTORY" value="file://$PROJECT_DIR$" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="ENABLE_SWING_INSPECTOR" value="false" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <module name="BlancheNoire" />
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="false" name="Viva - Engine Example 2 (Text UI)" type="Application" factoryName="Application">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
+        <pattern>
+          <option name="PATTERN" value="main.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="MAIN_CLASS_NAME" value="main.Othello" />
+      <option name="VM_PARAMETERS" value="" />
+      <option name="PROGRAM_PARAMETERS" value="-player1 AI(Random,Score) -player2 AI(Random,Score) -useGUI false -showOutput false -moveDelay 500" />
+      <option name="WORKING_DIRECTORY" value="file://$PROJECT_DIR$" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="ENABLE_SWING_INSPECTOR" value="false" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <module name="BlancheNoire" />
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="false" name="Viva - Engine Example 1 (Board Resizing)" type="Application" factoryName="Application">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
+        <pattern>
+          <option name="PATTERN" value="main.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="MAIN_CLASS_NAME" value="main.Othello" />
+      <option name="VM_PARAMETERS" value="" />
+      <option name="PROGRAM_PARAMETERS" value="-player1 AI(Random,Score) -player2 AI(Random,Score) -useGUI true -showOutput true -moveDelay 50 -boardSize 16" />
+      <option name="WORKING_DIRECTORY" value="file://$PROJECT_DIR$" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="ENABLE_SWING_INSPECTOR" value="false" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <module name="BlancheNoire" />
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="false" name="Viva - AI Example 2 (FixedMinimax vs IterativeMinimax)" type="Application" factoryName="Application">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
+        <pattern>
+          <option name="PATTERN" value="main.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="MAIN_CLASS_NAME" value="main.Othello" />
+      <option name="VM_PARAMETERS" value="" />
+      <option name="PROGRAM_PARAMETERS" value="-player1 AI(FixedMinimax-D8,Positional) -player2 AI(IterativeMinimax-D8,Positional) -useGUI true -showOutput true -moveDelay 10 -boardSize 8" />
+      <option name="WORKING_DIRECTORY" value="file://$PROJECT_DIR$" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="ENABLE_SWING_INSPECTOR" value="false" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <module name="BlancheNoire" />
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="false" name="Viva - Engine Example 3 (Run Count and Swapping)" type="Application" factoryName="Application">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
+        <pattern>
+          <option name="PATTERN" value="main.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="MAIN_CLASS_NAME" value="main.Othello" />
+      <option name="VM_PARAMETERS" value="" />
+      <option name="PROGRAM_PARAMETERS" value="-player1 AI(Random,Score) -player2 AI(FixedMinimax-D6,Score) -useGUI true -showOutput true -moveDelay 10 -runCount 4 -alternate true" />
+      <option name="WORKING_DIRECTORY" value="file://$PROJECT_DIR$" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="ENABLE_SWING_INSPECTOR" value="false" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <module name="BlancheNoire" />
+      <envs />
+      <method />
+    </configuration>
     <list size="42">
       <item index="0" class="java.lang.String" itemvalue="Application.BlancheNoire - 16x16 Board" />
       <item index="1" class="java.lang.String" itemvalue="Application.BlancheNoire - Minimax vs MCTS" />
@@ -1560,14 +1564,14 @@
       <item index="30" class="java.lang.String" itemvalue="Application.Experiment 11D: AAN-10 vs ANN-20 Tests" />
       <item index="31" class="java.lang.String" itemvalue="Application.Experiment 12: Human vs Max Difficulty" />
       <item index="32" class="java.lang.String" itemvalue="Application.Viva - AI Example 1 (Random vs Random)" />
-      <item index="33" class="java.lang.String" itemvalue="Application.Viva - AI Example 2 (FixedMinimax vs IterativeMinimax)" />
-      <item index="34" class="java.lang.String" itemvalue="Application.Viva - Engine Example 1 (Board Resizing)" />
-      <item index="35" class="java.lang.String" itemvalue="Application.Viva - Engine Example 2 (Text UI)" />
-      <item index="36" class="java.lang.String" itemvalue="Application.Viva - Engine Example 3 (Run Count and Swapping)" />
-      <item index="37" class="java.lang.String" itemvalue="Application.Viva - DL Example 2 (MCTS with and without DL)" />
-      <item index="38" class="java.lang.String" itemvalue="Application.Viva - DL Example 1 (Constructing an ANN)" />
-      <item index="39" class="java.lang.String" itemvalue="Application.Viva - AI Example 3 (MonteCarloTreeSearch(Heavy) vs IterativeMinimax)" />
-      <item index="40" class="java.lang.String" itemvalue="Application.Viva - AI Example 3X (MonteCarloTreeSearch(Light) vs IterativeMinimax)" />
+      <item index="33" class="java.lang.String" itemvalue="Application.Viva - DL Example 1 (Constructing an ANN)" />
+      <item index="34" class="java.lang.String" itemvalue="Application.Viva - AI Example 3 (MonteCarloTreeSearch(Heavy) vs IterativeMinimax)" />
+      <item index="35" class="java.lang.String" itemvalue="Application.Viva - AI Example 3X (MonteCarloTreeSearch(Light) vs IterativeMinimax)" />
+      <item index="36" class="java.lang.String" itemvalue="Application.Viva - DL Example 2 (MCTS with and without DL)" />
+      <item index="37" class="java.lang.String" itemvalue="Application.Viva - Engine Example 2 (Text UI)" />
+      <item index="38" class="java.lang.String" itemvalue="Application.Viva - Engine Example 1 (Board Resizing)" />
+      <item index="39" class="java.lang.String" itemvalue="Application.Viva - AI Example 2 (FixedMinimax vs IterativeMinimax)" />
+      <item index="40" class="java.lang.String" itemvalue="Application.Viva - Engine Example 3 (Run Count and Swapping)" />
       <item index="41" class="java.lang.String" itemvalue="Application.NeuralNetDataHandler" />
     </list>
     <recent_temporary>
@@ -1602,24 +1606,24 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
+    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Nl-Palette" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32649842" sideWeight="0.49791667" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3255814" sideWeight="0.49791667" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32980973" sideWeight="0.50208336" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.29968455" sideWeight="0.49583334" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.29915434" sideWeight="0.49583334" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Properties" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.33235726" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.33229166" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
@@ -1868,7 +1872,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="748">
           <caret line="52" column="20" lean-forward="false" selection-start-line="52" selection-start-column="20" selection-end-line="52" selection-end-column="20" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1894,7 +1897,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-102">
           <caret line="287" column="56" lean-forward="true" selection-start-line="287" selection-start-column="56" selection-end-line="287" selection-end-column="56" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1930,9 +1932,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="537">
           <caret line="342" column="0" lean-forward="false" selection-start-line="342" selection-start-column="0" selection-end-line="342" selection-end-column="0" />
-          <folding>
-            <marker date="1495974243989" expanded="true" signature="13982:13985" ph="{...}" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1948,9 +1947,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="119">
           <caret line="12" column="13" lean-forward="false" selection-start-line="12" selection-start-column="13" selection-end-line="12" selection-end-column="13" />
-          <folding>
-            <marker date="1495974243941" expanded="true" signature="1401:1404" ph="{...}" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1958,7 +1954,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="107">
           <caret line="10" column="36" lean-forward="true" selection-start-line="10" selection-start-column="36" selection-end-line="10" selection-end-column="36" />
-          <folding />
         </state>
       </provider>
     </entry>
